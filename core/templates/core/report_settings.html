@@ -1,0 +1,7 @@
+{% extends 'core/base.html' %}
+{% block title %}Hisobot sozlamalari{% endblock %}
+{% block content %}
+<div class="page-header"><div><h1>Filiallar va reklama kampaniyalari</h1><p>Guruhning kursi va filiali guruhni tahrirlashda belgilanadi. Noma'lum eski manbalar taxmin bilan to'ldirilmaydi.</p></div></div>
+<div class="card"><div class="card-body"><h2>Filial qo'shish</h2><form method="post">{% csrf_token %}<input type="hidden" name="kind" value="branch">{{ branch_form.as_p }}<button class="btn btn-primary">Saqlash</button></form><ul>{% for branch in branches %}<li>{{ branch.name }}</li>{% endfor %}</ul></div></div>
+<div class="card"><div class="card-body"><h2>Reklama kampaniyasi</h2><p>Bot havolasidagi start parametri shu yozuvga mos bo'lsa reklama manbasi olinadi.</p><form method="post">{% csrf_token %}<input type="hidden" name="kind" value="campaign">{{ campaign_form.as_p }}<button class="btn btn-primary">Saqlash</button></form><ul>{% for campaign in campaigns %}<li>{{ campaign.name }}: <code>?start={{ campaign.start_parameter }}</code> — {{ campaign.advertising_source }}</li>{% endfor %}</ul></div></div>
+{% endblock %}

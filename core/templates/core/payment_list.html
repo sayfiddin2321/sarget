@@ -1,0 +1,118 @@
+{% extends 'core/base.html' %}
+{% block title %}To'lovlar{% endblock %}
+{% block content %}
+{% if capabilities.reports_export %}<p><a href="{% url 'report_center' %}?{{ report_query }}" class="btn btn-secondary">To'lovlar: Excel / Word hisobot</a></p>{% endif %}
+<div class="page-header">
+  <div><h1><i class="fas fa-money-bill-wave"></i> To'lovlar</h1><p>Barcha to'lovlar ro'yxati</p></div>
+  <div class="page-header-actions">
+    {% if capabilities.salary_teacher_view %}
+    <a href="{% url 'period_payroll' %}" class="btn btn-secondary">
+      <i class="fas fa-calendar-days text-primary"></i> 10-sanadan 10-sanagacha hisob
+    </a>
+    {% endif %}
+    {% if is_admin_role %}
+    <a href="{% url 'payment_import' %}" class="btn btn-secondary"><i class="fas fa-file-import"></i> Import</a>
+    {% endif %}
+    {% if capabilities.reports_export %}
+    <a href="{% url 'payment_export' %}?{{ request.GET.urlencode }}" class="btn btn-secondary"><i class="fas fa-file-export"></i> CSV eksport</a>
+    {% endif %}
+    {% if capabilities.payments_accept %}<a href="{% url 'payment_create' %}" class="btn btn-primary"><i class="fas fa-plus"></i> To'lov qabul</a>{% endif %}
+  </div>
+</div>
+<div class="filter-bar">
+  <form method="get" style="display:contents">
+    <div class="form-group search-group">
+      <label>O'quvchi / telefon / guruh</label>
+      <i class="fas fa-search"></i>
+      <input type="text" name="q" value="{{ q }}" class="form-control" placeholder="Qidirish...">
+    </div>
+    <div class="form-group">
+      <label>Dars oyi</label>
+      <input type="month" name="month" value="{{ selected_month }}" class="form-control">
+    </div>
+    <div class="form-group"><label>Pul tushgan sana: dan</label><input type="date" name="paid_from" value="{{ selected_paid_from }}" class="form-control"></div>
+    <div class="form-group"><label>Pul tushgan sana: gacha</label><input type="date" name="paid_to" value="{{ selected_paid_to }}" class="form-control"></div>
+    <div class="form-group">
+      <label>Guruh</label>
+      <select name="group" class="form-select">
+        <option value="">Barchasi</option>
+        {% for g in groups %}<option value="{{ g.pk }}" {% if selected_group == g.pk|stringformat:"s" %}selected{% endif %}>{{ g.name }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label>O'qituvchi</label>
+      <select name="teacher" class="form-select">
+        <option value="">Barchasi</option>
+        {% for t in teachers %}<option value="{{ t.pk }}" {% if selected_teacher == t.pk|stringformat:"s" %}selected{% endif %}>{{ t.name }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Tur</label>
+      <select name="type" class="form-select">
+        <option value="">Barchasi</option>
+        {% for val,label in payment_types %}<option value="{{ val }}" {% if selected_type == val %}selected{% endif %}>{{ label }}</option>{% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary" style="align-self:flex-end"><i class="fas fa-filter"></i> Filter</button>
+    <a href="{% url 'payment_list' %}" class="btn btn-secondary" style="align-self:flex-end"><i class="fas fa-xmark"></i></a>
+  </form>
+</div>
+<p>{{ student_count }} ta o'quvchi · {{ payment_count }} ta to'lov. Dars oyi — to'lov qaysi oy uchun qilingan; sana oralig'i — pul qachon tushgan (ikkala kun ham kiradi).</p>
+{% if total %}
+<div style="background:var(--green-dim);border:1px solid rgba(34,197,94,0.2);border-radius:var(--radius-sm);padding:12px 20px;margin-bottom:16px;display:flex;align-items:center;gap:12px">
+  <i class="fas fa-sack-dollar" style="color:var(--green);font-size:1.2rem"></i>
+  <span style="font-size:0.875rem;color:var(--text-secondary)">Jami tushgan to'lovlar (filtr bo'yicha):</span>
+  <span style="font-weight:700;color:var(--green);font-family:var(--font-mono)">{{ total|floatformat:0 }} so'm</span>
+</div>
+<p class="form-text">Bu jami summadan qaytarimlar, o'qituvchi ulushi va boshqa xarajatlar hali ayrilmagan. Sana yoki dars oyi tanlanmasa, barcha davrlardagi mos to'lovlar kiradi.</p>
+{% endif %}
+<div class="card">
+  <div class="table-wrapper">
+    <table>
+      <thead><tr><th># / Chek</th><th>O'quvchi</th><th>Guruh</th><th>Summa</th><th>Dars davri</th><th>Oylikka kiradigan oy</th><th>Tur</th><th>Pul tushgan vaqt</th><th>Retsepshen</th><th>Amallar</th></tr></thead>
+      <tbody>
+        {% for p in payments %}
+        <tr>
+          <td>
+            <div style="color:var(--text-muted);font-size:0.8rem">{{ payments.start_index|add:forloop.counter0 }}</div>
+            <a href="{% url 'payment_receipt' p.pk %}" class="payment-receipt-link">{{ p.receipt_number }}</a>
+          </td>
+          <td>
+            <div class="entity-cell">
+              <div class="entity-avatar">{% include 'core/includes/student_avatar.html' with student=p.student %}</div>
+              <div>
+                <div class="entity-name">{{ p.student.name }}</div>
+                {% if p.student.teacher %}<div class="entity-sub">{{ p.student.teacher.name }}</div>{% endif %}
+              </div>
+            </div>
+          </td>
+          <td>{% if p.student.group %}<span style="font-size:0.82rem;color:var(--text-secondary)">{{ p.student.group.name }}</span>{% else %}—{% endif %}</td>
+          <td><span class="amount amount-green" style="font-weight:700">{{ p.amount|floatformat:0 }}</span></td>
+          <td style="font-size:0.85rem">{{ p.month|date:"d.m.Y" }} – {{ p.service_period_end|date:"d.m.Y" }}</td>
+          <td style="font-size:0.85rem">O'qituvchi: {{ p.teacher_salary_month|date:"Y-m" }}<br>Retsepshen: {{ p.receptionist_salary_month|date:"Y-m" }}</td>
+          <td><span class="badge badge-{{ p.payment_type }}">{{ p.get_payment_type_display }}</span></td>
+          <td style="color:var(--text-muted);font-size:0.8rem">{{ p.paid_date|date:"d.m.Y H:i" }}</td>
+          <td>
+            {% if p.student.receptionist %}
+            <span style="font-size:0.78rem;color:var(--cyan)">
+              <i class="fas fa-headset"></i> {{ p.student.receptionist.name }}
+            </span>
+            {% else %}<span style="color:var(--text-muted)">—</span>{% endif %}
+          </td>
+          <td>
+            <div style="display:flex;gap:6px">
+              <a href="{% url 'payment_receipt' p.pk %}" class="btn btn-info btn-xs" title="Chekni ko'rish"><i class="fas fa-receipt"></i></a>
+              {% if capabilities.payments_edit %}<a href="{% url 'payment_edit' p.pk %}" class="btn btn-secondary btn-xs"><i class="fas fa-pen"></i></a>{% endif %}
+              {% if capabilities.payments_void %}<a href="{% url 'payment_delete' p.pk %}" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>{% endif %}
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="10"><div class="empty-state"><i class="fas fa-receipt"></i><p>To'lovlar topilmadi</p></div></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% include 'core/includes/pagination.html' with page_obj=payments %}
+{% endblock %}

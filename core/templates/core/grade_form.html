@@ -1,0 +1,244 @@
+{% extends 'core/base.html' %}
+{% load custom_filters %}
+{% block title %}Baho qo'yish — {{ group.name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+.grade-header-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.grade-meta-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.grade-meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+.grade-meta-pill i { color: var(--accent); }
+
+.grade-row-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition);
+}
+.grade-row-card:last-child { border-bottom: none; }
+.grade-row-card:hover { background: var(--bg-elevated); }
+
+.student-info-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 200px;
+}
+.student-name-text {
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.grade-inputs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  max-width: 480px;
+  justify-content: flex-end;
+}
+.score-input {
+  width: 90px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+.note-input {
+  flex: 1;
+  min-width: 150px;
+}
+
+.quick-btn-group {
+  display: flex;
+  gap: 4px;
+}
+.quick-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  font-weight: 800;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all var(--transition);
+}
+.quick-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .grade-row-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .grade-inputs {
+    width: 100%;
+    max-width: 100%;
+    justify-content: flex-start;
+  }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-star"></i> Baholash jurnali</h1>
+    <p>{{ group.name }} guruhi o'quvchilariga baho qo'yish</p>
+  </div>
+  <div class="header-actions">
+    <a href="{% url 'grade_list' %}" class="btn btn-secondary">
+      <i class="fas fa-arrow-left"></i> Baholar ro'yxatiga
+    </a>
+  </div>
+</div>
+
+<form method="post">
+  {% csrf_token %}
+
+  <div class="grade-header-box">
+    <div>
+      <h3 style="margin-bottom:4px"><i class="fas fa-layer-group" style="color:var(--accent)"></i> {{ group.name }}</h3>
+      <div class="grade-meta-row">
+        {% if group.teacher %}
+        <span class="grade-meta-pill"><i class="fas fa-chalkboard-user"></i> {{ group.teacher.name }}</span>
+        {% endif %}
+        <span class="grade-meta-pill"><i class="fas fa-clock"></i> {{ group.start_time|time:"H:i" }} - {{ group.end_time|time:"H:i" }}</span>
+        <span class="grade-meta-pill"><i class="fas fa-calendar-days"></i> {{ group.get_days_display_human }}</span>
+        <span class="grade-meta-pill"><i class="fas fa-users"></i> {{ students|length }} ta o'quvchi</span>
+      </div>
+    </div>
+
+    <!-- Date and Type Selection -->
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+      <div>
+        <label style="font-size:0.75rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px">
+          <i class="fas fa-calendar-day"></i> Sana
+        </label>
+        <input type="date" name="date" class="form-control" value="{{ grade_date|date:'Y-m-d' }}" style="padding:6px 10px">
+      </div>
+      <div>
+        <label style="font-size:0.75rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px">
+          <i class="fas fa-tag"></i> Baho turi
+        </label>
+        <select name="grade_type" class="form-select" style="padding:6px 10px">
+          {% for code, label in grade_types %}
+          <option value="{{ code }}" {% if grade_type == code %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" style="display:flex;justify-content:space-between;align-items:center">
+      <h3><i class="fas fa-user-graduate"></i> O'quvchilar ro'yxati</h3>
+      <span style="font-size:0.8rem;color:var(--text-muted)">Ball kiritilmagan o'quvchilar o'tkazib yuboriladi</span>
+    </div>
+
+    <div class="card-body" style="padding:0">
+      {% if students %}
+      {% for student in students %}
+      {% with existing_grade=existing|get_item:student.id %}
+      <div class="grade-row-card">
+        <div class="student-info-cell">
+          <span class="avatar-cell">{% include 'core/includes/student_avatar.html' with student=student %}</span>
+          <div>
+            <div class="student-name-text">{{ student.name }}</div>
+            <small style="color:var(--text-muted)">{{ student.phone }}</small>
+          </div>
+        </div>
+
+        <div class="grade-inputs">
+          <div class="quick-btn-group">
+            <button type="button" class="quick-btn" onclick="setScore('{{ student.id }}', 5)">5</button>
+            <button type="button" class="quick-btn" onclick="setScore('{{ student.id }}', 4)">4</button>
+            <button type="button" class="quick-btn" onclick="setScore('{{ student.id }}', 3)">3</button>
+          </div>
+          <div>
+            <input type="number"
+                   id="score_{{ student.id }}"
+                   name="score_{{ student.id }}"
+                   class="form-control score-input"
+                   min="1" max="100"
+                   placeholder="Ball"
+                   value="{% if existing_grade %}{{ existing_grade.score }}{% endif %}">
+          </div>
+          <div>
+            <input type="text"
+                   name="note_{{ student.id }}"
+                   class="form-control note-input"
+                   placeholder="Izoh (ixtiyoriy)"
+                   value="{% if existing_grade %}{{ existing_grade.note }}{% endif %}">
+          </div>
+        </div>
+      </div>
+      {% endwith %}
+      {% endfor %}
+      {% else %}
+      <div class="empty-state" style="padding:36px 20px">
+        <i class="fas fa-users-slash" style="font-size:2rem;color:var(--text-muted)"></i>
+        <p>Guruhda faol o'quvchilar yo'q</p>
+      </div>
+      {% endif %}
+    </div>
+
+    {% if students %}
+    <div class="card-footer" style="padding:16px 20px;display:flex;justify-content:flex-end;gap:10px;background:var(--bg-elevated)">
+      <a href="{% url 'grade_list' %}" class="btn btn-secondary">
+        <i class="fas fa-xmark"></i> Bekor qilish
+      </a>
+      <button type="submit" class="btn btn-primary" style="padding:10px 24px;font-size:0.95rem">
+        <i class="fas fa-check"></i> Baholarni saqlash
+      </button>
+    </div>
+    {% endif %}
+  </div>
+</form>
+
+<script>
+function setScore(studentId, val) {
+  const input = document.getElementById('score_' + studentId);
+  if (input) {
+    input.value = val;
+    input.style.borderColor = 'var(--accent)';
+  }
+}
+</script>
+{% endblock %}

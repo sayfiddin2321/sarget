@@ -1,0 +1,81 @@
+{
+  "backend": "django.db.backends.postgresql",
+  "isolated_database": "test_sarget_qa_5294956a8d65",
+  "application_database_accessed": false,
+  "labels": [
+    "core.test_project_qa"
+  ],
+  "seconds": 7.438,
+  "failure_count": 1,
+  "passed": 10,
+  "failed": 1,
+  "skipped": 0,
+  "tests": [
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.1895
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_attendance_overlong_note_is_rejected_without_partial_save",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.0651
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_full_financial_user_journey_preserves_data_after_relogin",
+      "status": "FAIL",
+      "detail": "Traceback (most recent call last):\n  File \"C:\\Users\\User\\Desktop\\sargetcrm_CRM\\core\\test_project_qa.py\", line 140, in test_full_financial_user_journey_preserves_data_after_relogin\n    self.assertEqual(self.student.get_debt_amount(), 100000)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Decimal('0') != 100000\n",
+      "seconds": 0.2546
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.0359
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_payment_submission_key_cannot_be_reused_for_different_amount",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.1113
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.0279
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_protected_course_delete_returns_message_instead_of_500",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.0311
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.0504
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_replayed_payment_submission_creates_one_payment",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.0955
+    },
+    {
+      "test": "core.test_project_qa.ConcurrentFinancialQATests.test_concurrent_cancellations_create_only_one_void_event",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 1.3172
+    },
+    {
+      "test": "core.test_project_qa.ConcurrentFinancialQATests.test_concurrent_refunds_cannot_exceed_payment",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.3693
+    }
+  ]
+}

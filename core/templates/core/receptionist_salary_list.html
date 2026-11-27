@@ -1,0 +1,65 @@
+{% extends 'core/base.html' %}
+{% block title %}Oyliklar{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div><h1><i class="fas fa-wallet"></i> {% if own_salary %}Mening oyligim{% else %}Oyliklar{% endif %}</h1><p>Retsepshen xodimlarining asosiy maoshi va komissiya hisob-kitoblari</p></div>
+  {% if can_manage_salaries %}
+  <div class="page-header-actions">
+    <a href="{% url 'calculate_receptionist_salaries' %}" class="btn btn-primary"><i class="fas fa-calculator"></i> Hisoblash</a>
+  </div>
+  {% endif %}
+</div>
+
+<div class="filter-bar">
+  <form method="get" style="display:contents">
+    <div class="form-group">
+      <label>Oy</label>
+      <input type="month" name="month" value="{{ selected_month }}" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary" style="align-self:flex-end"><i class="fas fa-filter"></i> Filter</button>
+  </form>
+</div>
+
+<div class="card">
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>{% if not own_salary %}<th>Retsepshen</th>{% endif %}<th>Oy</th><th>Asosiy maosh</th><th>Komissiya</th><th>Jami maosh</th><th>Holat</th>{% if can_manage_salaries %}<th>Amal</th>{% endif %}</tr>
+      </thead>
+      <tbody>
+        {% for s in salaries %}
+        <tr>
+          {% if not own_salary %}<td>
+            <div class="entity-cell">
+              <div class="entity-avatar receptionist">{{ s.receptionist.name|first }}</div>
+              <div>
+                <div class="entity-name">{{ s.receptionist.name }}</div>
+                <div class="entity-sub">{{ s.receptionist.commission_percent }}% komissiya</div>
+              </div>
+            </div>
+          </td>{% endif %}
+          <td style="color:var(--text-secondary)">{{ s.month|date:"Y - F" }}</td>
+          <td><span class="amount">{{ s.base_salary|floatformat:0 }} so'm</span></td>
+          <td><span class="amount amount-accent">{{ s.total_commission|floatformat:0 }} so'm</span></td>
+          <td><span class="amount amount-green" style="font-size:1rem;font-weight:700">{{ s.total_salary|floatformat:0 }} so'm</span></td>
+          <td>
+            {% if s.is_paid %}<span class="badge badge-paid"><i class="fas fa-check"></i> To'landi</span>
+            {% else %}<span class="badge badge-unpaid"><i class="fas fa-clock"></i> Kutilmoqda</span>{% endif %}
+          </td>
+          {% if can_manage_salaries %}<td>
+            <form action="{% url 'receptionist_salary_toggle' s.pk %}" method="post" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-{% if s.is_paid %}secondary{% else %}success{% endif %} btn-sm">
+                {% if s.is_paid %}<i class="fas fa-rotate-left"></i> Bekor{% else %}<i class="fas fa-check"></i> To'landi{% endif %}
+              </button>
+            </form>
+          </td>{% endif %}
+        </tr>
+        {% empty %}
+        <tr><td colspan="{% if can_manage_salaries %}7{% elif own_salary %}5{% else %}6{% endif %}"><div class="empty-state"><i class="fas fa-wallet"></i><p>Oyliklar hisoblangani yo'q</p></div></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

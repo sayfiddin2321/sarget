@@ -1,0 +1,27 @@
+{
+  "backend": "django.db.backends.sqlite3",
+  "isolated_database": ":memory:",
+  "application_database_accessed": false,
+  "labels": [
+    "core.test_mobile_rosters"
+  ],
+  "seconds": 8.563,
+  "failure_count": 2,
+  "passed": 0,
+  "failed": 2,
+  "skipped": 0,
+  "tests": [
+    {
+      "test": "core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (width=1360, theme='light')",
+      "status": "FAIL",
+      "detail": "Traceback (most recent call last):\n  File \"C:\\Users\\User\\Desktop\\sargetcrm_CRM\\core\\test_mobile_rosters.py\", line 85, in test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking\n    self.assertLessEqual(page.evaluate('document.documentElement.scrollWidth'), width,\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        page.evaluate(\"\"\"() => [...document.querySelectorAll('body *')]\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<2 lines>...\n            .filter(el => el.right > innerWidth + 1 && el.width > 100)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            .slice(0, 12)\"\"\"))\n            ^^^^^^^^^^^^^^^^^^\nAssertionError: 2118 not less than or equal to 1360 : [{'tag': 'SECTION', 'cls': 'lead-column lead-column-arrived', 'right': 1378, 'width': 260}, {'tag': 'HEADER', 'cls': 'lead-column-header', 'right': 1377, 'width': 258}, {'tag': 'DIV', 'cls': 'lead-column-body', 'right': 1377, 'width': 258}, {'tag': 'P', 'cls': 'lead-column-empty', 'right': 1367, 'width': 238}, {'tag': 'SECTION', 'cls': 'lead-column lead-column-enrolled', 'right': 1650, 'width': 260}, {'tag': 'HEADER', 'cls': 'lead-column-header', 'right': 1649, 'width': 258}, {'tag': 'H3', 'cls': '', 'right': 1513.8125, 'width': 112.8125}, {'tag': 'DIV', 'cls': 'lead-column-body', 'right': 1649, 'width': 258}, {'tag': 'P', 'cls': 'lead-column-empty', 'right': 1639, 'width': 238}, {'tag': 'I', 'cls': 'fas fa-inbox', 'right': 1629, 'width': 218}, {'tag': 'SECTION', 'cls': 'lead-column lead-column-not_interested', 'right': 1922, 'width': 260}, {'tag': 'HEADER', 'cls': 'lead-column-header', 'right': 1921, 'width': 258}]\n",
+      "seconds": 5.5748
+    },
+    {
+      "test": "core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (width=1360, theme='dark')",
+      "status": "FAIL",
+      "detail": "Traceback (most recent call last):\n  File \"C:\\Users\\User\\Desktop\\sargetcrm_CRM\\core\\test_mobile_rosters.py\", line 85, in test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking\n    self.assertLessEqual(page.evaluate('document.documentElement.scrollWidth'), width,\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        page.evaluate(\"\"\"() => [...document.querySelectorAll('body *')]\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<2 lines>...\n            .filter(el => el.right > innerWidth + 1 && el.width > 100)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            .slice(0, 12)\"\"\"))\n            ^^^^^^^^^^^^^^^^^^\nAssertionError: 2118 not less than or equal to 1360 : [{'tag': 'SECTION', 'cls': 'lead-column lead-column-arrived', 'right': 1378, 'width': 260}, {'tag': 'HEADER', 'cls': 'lead-column-header', 'right': 1377, 'width': 258}, {'tag': 'DIV', 'cls': 'lead-column-body', 'right': 1377, 'width': 258}, {'tag': 'P', 'cls': 'lead-column-empty', 'right': 1367, 'width': 238}, {'tag': 'SECTION', 'cls': 'lead-column lead-column-enrolled', 'right': 1650, 'width': 260}, {'tag': 'HEADER', 'cls': 'lead-column-header', 'right': 1649, 'width': 258}, {'tag': 'H3', 'cls': '', 'right': 1513.8125, 'width': 112.8125}, {'tag': 'DIV', 'cls': 'lead-column-body', 'right': 1649, 'width': 258}, {'tag': 'P', 'cls': 'lead-column-empty', 'right': 1639, 'width': 238}, {'tag': 'I', 'cls': 'fas fa-inbox', 'right': 1629, 'width': 218}, {'tag': 'SECTION', 'cls': 'lead-column lead-column-not_interested', 'right': 1922, 'width': 260}, {'tag': 'HEADER', 'cls': 'lead-column-header', 'right': 1921, 'width': 258}]\n",
+      "seconds": 5.9443
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{% extends 'core/base.html' %}
+{% load custom_filters %}
+{% block title %}Dashboard{% endblock %}
+{% block extra_css %}
+<style>
+.recent-student-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+}
+.recent-student-item:last-child { border-bottom: none; }
+.recent-student-name { font-size: 0.9rem; font-weight: 700; }
+.recent-student-meta { margin-top: 2px; font-size: 0.76rem; color: var(--text-muted); }
+.reception-hero {
+  display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+  padding: 26px;
+  background: linear-gradient(135deg, var(--accent-dim), color-mix(in srgb, var(--gold-1) 14%, transparent));
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+  border-radius: var(--radius-lg);
+  margin-bottom: 20px;
+}
+.reception-hero-icon {
+  width: 60px; height: 60px; border-radius: 16px; flex-shrink: 0;
+  display: grid; place-items: center; font-size: 1.6rem;
+  background: linear-gradient(135deg, var(--gold-1), var(--gold-3)); color: #1c1810;
+  box-shadow: var(--accent-glow);
+}
+.reception-hero-text h2 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 800; }
+.reception-hero-text p { margin-top: 4px; color: var(--text-secondary); font-size: 0.88rem; }
+</style>
+{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-headset"></i> Xush kelibsiz, {{ receptionist.name|default:user.username }}</h1>
+    <p>Retsepshen paneli — yangi o'quvchilarni qabul qilish</p>
+  </div>
+  <div class="page-header-actions">
+    {% if capabilities.students_create %}<a href="{% url 'student_create' %}" class="btn btn-primary"><i class="fas fa-user-plus"></i> Yangi o'quvchi qabul qilish</a>{% endif %}
+  </div>
+</div>
+
+<div class="reception-hero">
+  <div class="reception-hero-icon"><i class="fas fa-circle-info"></i></div>
+  <div class="reception-hero-text">
+    <h2>Qabul jarayoni</h2>
+    <p>Yangi o'quvchini qabul qilganingizdan so'ng, Boshliq uni tegishli guruh va o'qituvchiga biriktiradi.</p>
+  </div>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-icon accent"><i class="fas fa-calendar-day"></i></div>
+    <div class="stat-info">
+      <div class="stat-label">Bugun qabul qilingan</div>
+      <div class="stat-value">{{ today_count }}</div>
+      <div class="stat-sub">o'quvchi</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon blue"><i class="fas fa-calendar"></i></div>
+    <div class="stat-info">
+      <div class="stat-label">Bu oy qabul qilingan</div>
+      <div class="stat-value">{{ month_count }}</div>
+      <div class="stat-sub">o'quvchi</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon green"><i class="fas fa-users"></i></div>
+    <div class="stat-info">
+      <div class="stat-label">Jami qabul qilingan</div>
+      <div class="stat-value">{{ total_count }}</div>
+      <div class="stat-sub">barcha vaqt</div>
+    </div>
+  </div>
+</div>
+
+{% include 'core/includes/work_queue.html' %}
+
+<div class="card">
+  <div class="card-header">
+    <h3><i class="fas fa-clock"></i> So'nggi qabul qilingan o'quvchilar</h3>
+    <a href="{% url 'student_list' %}" class="btn btn-secondary btn-sm">Barchasi</a>
+  </div>
+  <div class="card-body">
+    {% if recent_students %}
+      {% for s in recent_students %}
+      <div class="recent-student-item">
+        <div style="width:38px;height:38px;border-radius:50%;overflow:hidden;flex-shrink:0">{% include 'core/includes/student_avatar.html' with student=s %}</div>
+        <div style="flex:1;min-width:0">
+          <div class="recent-student-name">{{ s.name }}</div>
+          <div class="recent-student-meta">{{ s.phone }} &bull; {{ s.registration_date|date:"d.m.Y" }} &bull; {{ s.get_status_display }}</div>
+        </div>
+        <span class="badge badge-{{ s.status }}">{{ s.get_status_display }}</span>
+      </div>
+      {% endfor %}
+    {% else %}
+      <div class="empty-state"><i class="fas fa-inbox"></i><p>Hali hech kim qabul qilinmagan</p></div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,262 @@
+{% extends 'core/base.html' %}
+{% load custom_filters %}
+{% block title %}Dars jadvali{% endblock %}
+
+{% block extra_css %}
+<style>
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.schedule-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.schedule-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.schedule-card.has-conflict {
+  border-color: var(--red);
+  background: color-mix(in srgb, var(--red) 4%, var(--bg-surface));
+}
+
+.schedule-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.group-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.time-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+
+.room-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  background: var(--purple-dim);
+  color: var(--purple);
+}
+
+.days-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+}
+
+.teacher-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.conflict-alert-box {
+  background: var(--red-dim);
+  color: var(--red);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.schedule-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-calendar-days"></i> Dars jadvali</h1>
+    <p>O'quv guruhlari, xonalar va dars vaqtlari taqsimoti</p>
+  </div>
+  <div class="header-actions">
+    {% if is_admin_role %}
+    <a href="{% url 'group_create' %}" class="btn btn-primary">
+      <i class="fas fa-plus"></i> Yangi guruh qo'shish
+    </a>
+    {% endif %}
+    <a href="{% url 'schedule' %}" class="btn btn-secondary">
+      <i class="fas fa-rotate"></i> Yangilash
+    </a>
+  </div>
+</div>
+
+{% if total_conflicts > 0 and is_admin_role %}
+<div class="alert alert-error" style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+  <i class="fas fa-triangle-exclamation" style="font-size:1.4rem"></i>
+  <div>
+    <strong>Diqqat! Dars jadvalida to'qnashuvlar aniqlandi:</strong>
+    <div>Xonalar yoki o'qituvchilar vaqti bir-biriga to'g'ri kelib qolgan guruhlar qizil hoshiya bilan belgilandi.</div>
+  </div>
+</div>
+{% endif %}
+
+<!-- Filters -->
+<div class="card" style="margin-bottom:20px">
+  <div class="card-body">
+    <form method="get" class="filter-row" style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
+      <div class="filter-group" style="flex:1;min-width:180px">
+        <label style="font-size:0.76rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:6px">
+          <i class="fas fa-calendar-week"></i> Dars kunlari
+        </label>
+        <select name="day" class="form-select select2">
+          <option value="">Barcha kunlar</option>
+          {% for day_val, day_name in days_choices %}
+          <option value="{{ day_val }}" {% if selected_day == day_val %}selected{% endif %}>{{ day_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      {% if rooms %}
+      <div class="filter-group" style="flex:1;min-width:160px">
+        <label style="font-size:0.76rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:6px">
+          <i class="fas fa-door-open"></i> Xona
+        </label>
+        <select name="room" class="form-select select2">
+          <option value="">Barcha xonalar</option>
+          {% for r in rooms %}
+          <option value="{{ r }}" {% if selected_room == r %}selected{% endif %}>{{ r }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      {% endif %}
+
+      {% if not is_teacher_role %}
+      <div class="filter-group" style="flex:1;min-width:180px">
+        <label style="font-size:0.76rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:6px">
+          <i class="fas fa-chalkboard-user"></i> O'qituvchi
+        </label>
+        <select name="teacher" class="form-select select2">
+          <option value="">Barcha o'qituvchilar</option>
+          {% for t in teachers %}
+          <option value="{{ t.id }}" {% if selected_teacher == t.id|stringformat:"s" %}selected{% endif %}>{{ t.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      {% endif %}
+
+      <div style="display:flex;gap:8px">
+        <button type="submit" class="btn btn-primary"><i class="fas fa-filter"></i> Filtrlash</button>
+        {% if selected_day or selected_room or selected_teacher %}
+        <a href="{% url 'schedule' %}" class="btn btn-secondary"><i class="fas fa-xmark"></i> Tozalash</a>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Schedule Grid -->
+<div class="schedule-grid">
+  {% for g in groups %}
+  <div class="schedule-card {% if g.conflict_list %}has-conflict{% endif %}">
+    <div class="schedule-top">
+      <div>
+        <div class="group-title">{{ g.name }}</div>
+        <div class="days-tag"><i class="fas fa-calendar-day"></i> {{ g.get_days_display_human }}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+        <span class="time-pill"><i class="fas fa-clock"></i> {{ g.start_time|time:"H:i" }} - {{ g.end_time|time:"H:i" }}</span>
+        {% if g.room %}
+        <span class="room-pill"><i class="fas fa-door-open"></i> {{ g.room }}</span>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="teacher-row">
+      <div style="width:32px;height:32px;border-radius:50%;background:var(--accent-dim);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.85rem">
+        {{ g.teacher.name|first|default:"—" }}
+      </div>
+      <div>
+        <div style="font-size:0.86rem;font-weight:700">{{ g.teacher.name|default:"O'qituvchi biriktirilmagan" }}</div>
+        <div style="font-size:0.75rem;color:var(--text-muted)">{{ g.teacher.subject|default:"Fan" }}</div>
+      </div>
+      <div style="margin-left:auto;text-align:right">
+        <span style="font-size:0.82rem;font-weight:700;color:var(--text-primary)">
+          {{ g.active_student_count|default:g.get_student_count }}
+        </span>
+        <span style="font-size:0.72rem;color:var(--text-muted)">/ {{ g.max_students }} o'quvchi</span>
+      </div>
+    </div>
+
+    {% if g.conflict_list %}
+    <div class="conflict-alert-box">
+      {% for conflict in g.conflict_list %}
+      <div><i class="fas fa-circle-exclamation"></i> {{ conflict }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="schedule-actions">
+      <a href="{% url 'take_attendance' g.id %}" class="btn btn-sm btn-primary" style="flex:1;text-align:center">
+        <i class="fas fa-check"></i> Davomat
+      </a>
+      <a href="{% url 'take_grades' g.id %}" class="btn btn-sm btn-secondary" style="flex:1;text-align:center">
+        <i class="fas fa-star"></i> Baholash
+      </a>
+      {% if is_admin_role %}
+      <a href="{% url 'group_edit' g.id %}" class="btn btn-sm btn-secondary" title="Guruhni tahrirlash">
+        <i class="fas fa-pen"></i>
+      </a>
+      {% endif %}
+    </div>
+  </div>
+  {% empty %}
+  <div class="card" style="grid-column: 1 / -1">
+    <div class="card-body">
+      <div class="empty-state" style="padding:48px 20px">
+        <i class="fas fa-calendar-xmark" style="font-size:2.5rem;color:var(--text-muted);opacity:0.4;margin-bottom:12px"></i>
+        <p>Mos guruhlar topilmadi</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+

@@ -1,0 +1,672 @@
+{% extends 'core/base.html' %}
+{% load custom_filters %}
+{% block title %}{{ student.name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+.detail-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 1100px) { .detail-layout { grid-template-columns: 1fr; } }
+
+.student-profile-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: sticky;
+  top: 20px;
+}
+.student-profile-top {
+  padding: 28px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, var(--accent-dim), var(--cyan-dim));
+  border-bottom: 1px solid var(--border);
+}
+.student-avatar-xl {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--cyan));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0 auto 14px;
+  box-shadow: var(--accent-glow);
+}
+.student-profile-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.student-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 16px 16px 8px;
+}
+.student-stat-box {
+  text-align: center;
+  padding: 12px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.student-stat-box.green { background: var(--green-dim); border-color: color-mix(in srgb, var(--green) 22%, transparent); }
+.student-stat-box.red   { background: var(--red-dim); border-color: color-mix(in srgb, var(--red) 22%, transparent); }
+.student-stat-val { font-size: 1rem; font-weight: 800; margin-bottom: 2px; }
+.green .student-stat-val { color: var(--green); }
+.red .student-stat-val   { color: var(--red); }
+.student-stat-lbl { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; }
+
+.info-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.info-row:last-child { border-bottom: none; }
+.info-icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  background: var(--bg-elevated);
+  color: var(--accent);
+}
+.info-label { font-size: 0.7rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+.info-val { font-size: 0.86rem; font-weight: 600; color: var(--text-primary); margin-top: 1px; }
+
+.ptype-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+.ptype-cash     { color: var(--green);  background: var(--green-dim); }
+.ptype-card     { color: var(--blue);   background: var(--blue-dim); }
+.ptype-bank     { color: var(--purple); background: var(--purple-dim); }
+.ptype-transfer { color: var(--orange); background: var(--orange-dim); }
+
+.att-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+.att-pill.present { color: var(--green);  background: var(--green-dim); }
+.att-pill.late    { color: var(--orange); background: var(--orange-dim); }
+.att-pill.absent  { color: var(--red);    background: var(--red-dim); }
+.att-pill.excused { color: var(--blue);   background: var(--blue-dim); }
+
+.section-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 18px;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0;
+}
+.tab-btn {
+  padding: 8px 16px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  transition: color var(--transition), border-color var(--transition);
+}
+.tab-btn.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+
+.attendance-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+@media (max-width: 900px) {
+  .attendance-summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.attendance-summary-box {
+  padding: 12px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  text-align: center;
+}
+.attendance-summary-box .num {
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.attendance-summary-box .lbl {
+  margin-top: 4px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.attendance-summary-box.total .num { color: var(--text-primary); }
+.attendance-summary-box.present .num { color: var(--green); }
+.attendance-summary-box.late .num { color: var(--orange); }
+.attendance-summary-box.absent .num { color: var(--red); }
+.attendance-summary-box.excused .num { color: var(--blue); }
+</style>
+{% endblock %}
+
+{% block content %}
+<details class="card" style="padding:16px;margin-bottom:16px"><summary>Kursga yozilishlar</summary>
+<div class="table-wrapper"><table><thead><tr><th>Guruh</th><th>Kurs</th><th>Boshlanish</th><th>Holat</th><th>Amal</th></tr></thead><tbody>{% for enrollment in visible_enrollments %}<tr><td>{{ enrollment.group.name }}</td><td>{{ enrollment.group.course|default:'—' }}</td><td>{{ enrollment.starts_on|date:'d.m.Y' }}</td><td>{{ enrollment.get_status_display }}</td><td>{% if capabilities.students_assign %}<a href="{% url 'enrollment_edit' student.pk enrollment.pk %}">Ko'rish / tahrirlash</a>{% endif %}</td></tr>{% endfor %}</tbody></table></div>
+</details>
+{% if can_view_finance %}
+<details class="card" style="padding:16px;margin-bottom:16px"><summary>Tarif tarixi va hisoblash qoidasi</summary>
+  <p>Narx, chegirma, guruh va o'qish holati o'zgarishi keyingi oydan hisoblanadi. Birinchi guruhga kirish joriy oydan boshlanadi. Oy ichidagi kunlar bo'yicha bo'lib hisoblash qo'llanmaydi.</p>
+  <div class="table-wrapper"><table><thead><tr><th>Amal qilish oyi</th><th>Guruh</th><th>Oylik summa</th><th>Hisoblash</th><th>Manba</th></tr></thead><tbody>
+  {% for tariff in student.tariffs.all %}<tr><td>{{ tariff.effective_month|date:'Y-m' }}</td><td>{{ tariff.group_name|default:'—' }}</td><td>{{ tariff.fee|floatformat:0 }} so'm</td><td>{% if tariff.billing_enabled %}Faol{% else %}To'xtatilgan{% endif %}</td><td>{% if tariff.is_estimated %}Eski yozuv: boshlang'ich taxmin{% else %}Saqlangan tarif{% endif %}</td></tr>{% endfor %}
+  </tbody></table></div>
+</details>
+{% endif %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-user-graduate"></i> {{ student.name }}</h1>
+    <p>O'quvchi batafsil ma'lumoti</p>
+  </div>
+  <div class="page-header-actions">
+    {% if capabilities.reports_view %}<a href="{% url 'student_report' student.pk %}" class="btn btn-primary">Oylik hisobot / Excel / Word / Telegram</a>{% endif %}
+    {% if capabilities.students_assign %}<a href="{% url 'enrollment_create' student.pk %}" class="btn btn-secondary">Boshqa kursga yozish</a>{% endif %}
+    {% if capabilities.students_archive and student.status == 'inactive' %}<form method="post" action="{% url 'student_restore' student.pk %}">{% csrf_token %}<button class="btn btn-secondary">Arxivdan tiklash</button></form>{% endif %}
+
+    <a href="{% url 'student_card_print' student.pk %}" target="_blank" class="btn btn-secondary" title="O'quvchi kartasini chop etish">
+      <i class="fas fa-id-card"></i> ID Karta
+    </a>
+    {% if capabilities.certificates_create %}<a href="{% url 'certificate_create' %}?student={{ student.pk }}" class="btn btn-primary" title="O'quvchiga sertifikat berish">
+      <i class="fas fa-award"></i> Sertifikat berish
+    </a>{% endif %}
+    {% if capabilities.payments_accept %}<a href="{% url 'payment_create' %}?student={{ student.pk }}" class="btn btn-primary">
+      <i class="fas fa-plus"></i> To'lov qabul
+    </a>{% endif %}
+    {% if capabilities.students_edit %}<a href="{% url 'student_edit' student.pk %}" class="btn btn-secondary">
+      <i class="fas fa-pen"></i> Tahrirlash
+    </a>{% endif %}
+    <a href="{% url 'student_list' %}" class="btn btn-secondary">
+      <i class="fas fa-arrow-left"></i> Orqaga
+    </a>
+  </div>
+</div>
+
+<div class="detail-layout">
+  <!-- ── Sidebar Profile ─────────────────────────────── -->
+  <div class="student-profile-card">
+    <div class="student-profile-top">
+      <div class="student-avatar-xl">{% include 'core/includes/student_avatar.html' with student=student %}</div>
+      <div class="student-profile-name">{{ student.name }}</div>
+      <span class="badge badge-{{ student.status }}">{{ student.get_status_display }}</span>
+    </div>
+
+    <div class="student-stat-grid">
+      <div class="student-stat-box green">
+        <div class="student-stat-val">{{ total_paid|floatformat:0 }}</div>
+        <div class="student-stat-lbl">Jami to'lov (so'm)</div>
+      </div>
+      <div class="student-stat-box {% if debt_amount and debt_amount > 0 %}red{% else %}green{% endif %}">
+        <div class="student-stat-val">{% if debt_amount and debt_amount > 0 %}{{ debt_amount|floatformat:0 }}{% else %}0{% endif %}</div>
+        <div class="student-stat-lbl">Qarz ({% if debt_months %}{{ debt_months }} oy{% else %}0 oy{% endif %})</div>
+      </div>
+    </div>
+
+    {% if debt_amount and debt_amount > 0 %}
+    <div style="padding:10px 16px;background:var(--red-dim);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px">
+      <small style="color:var(--red);font-weight:700"><i class="fas fa-triangle-exclamation"></i> {{ debt_amount|floatformat:0 }} so'm qarz</small>
+      <button type="button" class="btn btn-sm btn-secondary" style="font-size:0.75rem;padding:3px 8px" onclick="copyReminder('{{ student.name|escapejs }}', '{{ student.group.name|default:''|escapejs }}', '{{ debt_amount|floatformat:0|escapejs }}')">
+        <i class="fas fa-copy"></i> Eslatma matni
+      </button>
+    </div>
+    {% endif %}
+
+    <div class="info-row">
+      <div class="info-icon"><i class="fas fa-phone"></i></div>
+      <div>
+        <div class="info-label">Telefon</div>
+        <div class="info-val"><a href="tel:{{ student.phone }}" style="color:inherit">{{ student.phone }}</a></div>
+      </div>
+    </div>
+    {% if student.parent_phone %}
+    <div class="info-row">
+      <div class="info-icon" style="color:var(--purple)"><i class="fas fa-phone-volume"></i></div>
+      <div>
+        <div class="info-label">Ota-ona telefoni</div>
+        <div class="info-val"><a href="tel:{{ student.parent_phone }}" style="color:inherit">{{ student.parent_phone }}</a></div>
+      </div>
+    </div>
+    {% endif %}
+    {% if student.birth_date %}
+    <div class="info-row">
+      <div class="info-icon" style="color:var(--cyan)"><i class="fas fa-cake-candles"></i></div>
+      <div>
+        <div class="info-label">Tug'ilgan sana</div>
+        <div class="info-val">{{ student.birth_date|date:"d.m.Y" }}</div>
+      </div>
+    </div>
+    {% endif %}
+    {% if student.teacher %}
+    <div class="info-row">
+      <div class="info-icon" style="color:var(--blue)"><i class="fas fa-chalkboard-user"></i></div>
+      <div>
+        <div class="info-label">O'qituvchi</div>
+        <div class="info-val">{{ student.teacher.name }}</div>
+      </div>
+    </div>
+    {% endif %}
+    {% if student.group %}
+    <div class="info-row">
+      <div class="info-icon" style="color:var(--purple)"><i class="fas fa-layer-group"></i></div>
+      <div>
+        <div class="info-label">Guruh</div>
+        <div class="info-val">{{ student.group.name }}</div>
+      </div>
+    </div>
+    {% endif %}
+    {% if student.receptionist %}
+    <div class="info-row">
+      <div class="info-icon" style="color:var(--cyan)"><i class="fas fa-headset"></i></div>
+      <div>
+        <div class="info-label">Qabul qilgan</div>
+        <div class="info-val">{{ student.receptionist.name }}</div>
+      </div>
+    </div>
+    {% endif %}
+    {% if student.discount_percent %}
+    <div class="info-row">
+      <div class="info-icon" style="color:var(--orange)"><i class="fas fa-percent"></i></div>
+      <div>
+        <div class="info-label">Chegirma</div>
+        <div class="info-val">{{ student.discount_percent }}%</div>
+      </div>
+    </div>
+    {% endif %}
+    <div class="info-row">
+      <div class="info-icon" style="color:var(--text-muted)"><i class="fas fa-calendar-plus"></i></div>
+      <div>
+        <div class="info-label">Ro'yxat sanasi</div>
+        <div class="info-val">{{ student.registration_date|date:"d.m.Y" }}</div>
+      </div>
+    </div>
+    {% if student.notes %}
+    <div class="info-row">
+      <div class="info-icon" style="color:var(--text-muted)"><i class="fas fa-note-sticky"></i></div>
+      <div>
+        <div class="info-label">Izoh</div>
+        <div class="info-val" style="white-space:pre-wrap">{{ student.notes }}</div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- ── Right panel ─────────────────────────────────── -->
+  <div>
+    <div class="card" style="margin-bottom:18px">
+      <div class="card-header">
+        <h3><i class="fas fa-calendar-check"></i> Davomat statistikasi</h3>
+      </div>
+      <div class="card-body">
+        <div class="attendance-summary-grid">
+          <div class="attendance-summary-box total">
+            <div class="num">{{ attendance_total }}</div>
+            <div class="lbl">Jami yozuv</div>
+          </div>
+          <div class="attendance-summary-box present">
+            <div class="num">{{ attendance_present }}</div>
+            <div class="lbl">Keldi</div>
+          </div>
+          <div class="attendance-summary-box late">
+            <div class="num">{{ attendance_late }}</div>
+            <div class="lbl">Kechikdi</div>
+          </div>
+          <div class="attendance-summary-box absent">
+            <div class="num">{{ attendance_absent }}</div>
+            <div class="lbl">Kelmadi</div>
+          </div>
+          <div class="attendance-summary-box excused">
+            <div class="num">{{ attendance_excused }}</div>
+            <div class="lbl">Sababli</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="section-tabs">
+      <button class="tab-btn active" onclick="switchTab('payments', this)">
+        <i class="fas fa-money-bill-wave"></i> To'lovlar ({{ payments|length }})
+      </button>
+      <button class="tab-btn" onclick="switchTab('attendance', this)">
+        <i class="fas fa-calendar-check"></i> Davomat ({{ attendances|length }})
+      </button>
+      <button class="tab-btn" onclick="switchTab('grades', this)">
+        <i class="fas fa-star"></i> Baholar ({{ grades|length }})
+      </button>
+      <button class="tab-btn" onclick="switchTab('certificates', this)">
+        <i class="fas fa-award"></i> Sertifikatlar ({{ student.certificates.count }})
+      </button>
+      <button class="tab-btn" onclick="switchTab('history', this)">
+        <i class="fas fa-clock-rotate-left"></i> Tarix
+      </button>
+    </div>
+
+    <!-- Payments tab -->
+    <div class="tab-pane active" id="tab-payments">
+      <div class="card">
+        <div class="card-header">
+          <h3><i class="fas fa-money-bill-wave"></i> To'lovlar tarixi</h3>
+          {% if capabilities.payments_accept %}<a href="{% url 'payment_create' %}?student={{ student.pk }}" class="btn btn-primary btn-sm">
+            <i class="fas fa-plus"></i> To'lov
+          </a>{% endif %}
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Oy</th>
+                <th>Summa</th>
+                <th>Tur</th>
+                <th>To'lov sanasi</th>
+                <th>Chek</th>
+                <th>Izoh</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for p in payments %}
+              <tr>
+                <td style="font-weight:600">{{ p.month|date:"F Y" }}</td>
+                <td><span class="amount amount-green">{{ p.amount|floatformat:0 }} so'm</span></td>
+                <td>
+                  <span class="ptype-pill ptype-{{ p.payment_type }}">
+                    <i class="fas {% if p.payment_type == 'cash' %}fa-money-bill{% elif p.payment_type == 'card' %}fa-credit-card{% elif p.payment_type == 'bank' %}fa-building-columns{% else %}fa-right-left{% endif %}"></i>
+                    {{ p.get_payment_type_display }}
+                  </span>
+                </td>
+                <td style="color:var(--text-muted);font-size:0.82rem">{{ p.paid_date|date:"d.m.Y H:i" }}</td>
+                <td><a href="{% url 'payment_receipt' p.pk %}" class="payment-receipt-link">{{ p.receipt_number }}</a></td>
+                <td style="color:var(--text-muted);font-size:0.82rem">{{ p.comment|default:"—" }}</td>
+              </tr>
+              {% empty %}
+              <tr><td colspan="6"><div class="empty-state"><i class="fas fa-inbox"></i><p>To'lovlar yo'q</p></div></td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Attendance tab -->
+    <div class="tab-pane" id="tab-attendance">
+      <div class="card">
+        <div class="card-header">
+          <h3><i class="fas fa-calendar-check"></i> Davomat (so'nggi 30 kun)</h3>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Sana</th>
+                <th>Guruh</th>
+                <th>Holat</th>
+                <th>Izoh</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for a in attendances %}
+              <tr>
+                <td style="font-size:0.86rem;font-weight:600">{{ a.date|date:"d.m.Y" }}</td>
+                <td style="font-size:0.84rem;color:var(--text-secondary)">{{ a.group.name }}</td>
+                <td>
+                  <span class="att-pill {{ a.status }}">
+                    <i class="fas {% if a.status == 'present' %}fa-circle-check{% elif a.status == 'late' %}fa-clock{% elif a.status == 'excused' %}fa-file-shield{% else %}fa-circle-xmark{% endif %}"></i>
+                    {{ a.get_status_display }}
+                  </span>
+                </td>
+                <td style="color:var(--text-muted);font-size:0.8rem">{{ a.note|default:"—" }}</td>
+              </tr>
+              {% empty %}
+              <tr><td colspan="4"><div class="empty-state"><i class="fas fa-calendar-xmark"></i><p>Davomat ma'lumoti yo'q</p></div></td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grades tab -->
+    <div class="tab-pane" id="tab-grades">
+      <div class="card">
+        <div class="card-header" style="display:flex;justify-content:space-between;align-items:center">
+          <h3><i class="fas fa-star"></i> Baholar va o'zlashtirish</h3>
+          {% if avg_score %}
+          <span class="badge" style="background:var(--accent-dim);color:var(--accent);font-size:0.85rem">
+            O'rtacha ball: <strong>{{ avg_score }}</strong>
+          </span>
+          {% endif %}
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Sana</th>
+                <th>Baho turi</th>
+                <th style="text-align:center">Ball</th>
+                <th>Guruh</th>
+                <th>Izoh</th>
+                <th>Baholagan</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for g in grades %}
+              <tr>
+                <td style="font-weight:600">{{ g.date|date:"d.m.Y" }}</td>
+                <td>
+                  <span class="type-pill" style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;font-size:0.72rem;font-weight:700;{% if g.grade_type == 'homework' %}background:var(--blue-dim);color:var(--blue);{% elif g.grade_type == 'exam' %}background:var(--purple-dim);color:var(--purple);{% elif g.grade_type == 'monthly' %}background:var(--orange-dim);color:var(--orange);{% else %}background:var(--green-dim);color:var(--green);{% endif %}">
+                    {{ g.get_grade_type_display }}
+                  </span>
+                </td>
+                <td style="text-align:center">
+                  <span style="font-weight:800;font-size:0.95rem;padding:3px 10px;border-radius:999px;{% if g.score >= 80 or g.score == 5 %}background:var(--green-dim);color:var(--green);{% elif g.score >= 60 or g.score == 4 or g.score == 3 %}background:var(--orange-dim);color:var(--orange);{% else %}background:var(--red-dim);color:var(--red);{% endif %}">
+                    {{ g.score }}
+                  </span>
+                </td>
+                <td style="font-size:0.84rem">{{ g.group.name }}</td>
+                <td style="font-size:0.82rem;color:var(--text-muted)">{{ g.note|default:"—" }}</td>
+                <td style="font-size:0.82rem;color:var(--text-muted)">{{ g.graded_by.get_full_name|default:g.graded_by.username|default:"—" }}</td>
+              </tr>
+              {% empty %}
+              <tr><td colspan="6"><div class="empty-state"><i class="fas fa-star"></i><p>Baholar mavjud emas</p></div></td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certificates tab -->
+    <div class="tab-pane" id="tab-certificates">
+      <div class="card">
+        <div class="card-header">
+          <h3><i class="fas fa-award"></i> Berilgan sertifikatlar</h3>
+          {% if capabilities.certificates_create %}<a href="{% url 'certificate_create' %}?student={{ student.pk }}" class="btn btn-primary btn-sm">
+            <i class="fas fa-plus"></i> Yangi sertifikat
+          </a>{% endif %}
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Sertifikat №</th>
+                <th>Kurs nomi</th>
+                <th>Natija</th>
+                <th>Sana</th>
+                <th>Holat</th>
+                <th>QR tekshirish</th>
+                <th>Amallar</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for c in certificates %}
+              <tr>
+                <td>
+                  <a href="{% url 'certificate_detail' c.pk %}" style="font-family:monospace;font-weight:700;color:var(--accent)">
+                    <i class="fas fa-certificate"></i> {{ c.certificate_number }}
+                  </a>
+                </td>
+                <td style="font-weight:600">{{ c.course_name }}</td>
+                <td><span class="badge" style="background:var(--bg-elevated);border:1px solid var(--border)">{{ c.grade_text|default:"Muvaffaqiyatli" }}</span></td>
+                <td>{{ c.issue_date|date:"d.m.Y" }}</td>
+                <td>
+                  {% if c.status == 'active' %}
+                  <span class="badge" style="background:var(--green-dim);color:var(--green)">Faol</span>
+                  {% else %}
+                  <span class="badge" style="background:var(--red-dim);color:var(--red)">Bekor qilingan</span>
+                  {% endif %}
+                </td>
+                <td>
+                  <a href="{% url 'certificate_verify' c.certificate_number %}" target="_blank" class="btn btn-secondary btn-xs">
+                    <i class="fas fa-qrcode"></i> Skaner sahifasi
+                  </a>
+                </td>
+                <td>
+                  <a href="{% url 'certificate_detail' c.pk %}" class="btn btn-primary btn-xs" title="Ko'rish / Chop etish">
+                    <i class="fas fa-eye"></i>
+                  </a>
+                </td>
+              </tr>
+              {% empty %}
+              <tr><td colspan="7"><div class="empty-state"><i class="fas fa-award"></i><p>Ushbu o'quvchiga hali sertifikat berilmagan</p></div></td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- History tab -->
+    <div class="tab-pane" id="tab-history">
+      <div class="card">
+        <div class="card-header">
+          <h3><i class="fas fa-clock-rotate-left"></i> Guruh/o'qituvchi tarixi</h3>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Sana</th>
+                <th>O'qituvchi</th>
+                <th>Guruh</th>
+                <th>Kim o'zgartirdi</th>
+                <th>Sabab</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for h in history %}
+              <tr>
+                <td style="font-size:0.84rem">{{ h.assigned_date|date:"d.m.Y" }}</td>
+                <td style="font-size:0.84rem">{{ h.teacher.name|default:"—" }}</td>
+                <td style="font-size:0.84rem">{{ h.group.name|default:"—" }}</td>
+                <td style="font-size:0.82rem;color:var(--text-muted)">{{ h.changed_by.get_full_name|default:h.changed_by.username|default:"—" }}</td>
+                <td style="font-size:0.82rem;color:var(--text-muted)">{{ h.note|default:"—" }}</td>
+              </tr>
+              {% empty %}
+              <tr><td colspan="5"><div class="empty-state"><i class="fas fa-clock-rotate-left"></i><p>Tarix yo'q</p></div></td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if capabilities.messages_send %}
+<div class="card" style="margin-top:20px">
+  <div class="card-header"><h3><i class="fab fa-telegram"></i> Telegram orqali xabar yuborish</h3></div>
+  <div class="card-body">
+    {% if telegram_recipients %}
+    <form method="post" action="{% url 'student_telegram_message' student.pk %}">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="telegramRecipient">Qabul qiluvchi</label>
+        <select id="telegramRecipient" name="recipient" class="form-select" required>
+          {% for recipient in telegram_recipients %}<option value="{{ recipient.key }}">{{ recipient.label }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="telegramText">Xabar matni</label>
+        <textarea id="telegramText" name="text" class="form-control" rows="4" maxlength="4000" required>Assalomu alaykum! {{ student.name }} uchun to'lov eslatmasi.{% if debt_amount %} Joriy qarzdorlik: {{ debt_amount|floatformat:0 }} so'm.{% endif %} Iltimos, to'lovni amalga oshirishingizni so'raymiz.</textarea>
+      </div>
+      <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Telegramdan yuborish</button>
+      {% if capabilities.reports_view %}<a href="{% url 'student_report' student.pk %}" class="btn btn-secondary"><i class="fas fa-file-arrow-up"></i> Davomat va baho hisobotini yuborish</a>{% endif %}
+    </form>
+    {% else %}
+    <p class="text-muted">Xabar yuborish uchun o‘quvchi yoki ota-onaning tasdiqlangan Telegrami kerak.</p>
+    {% if capabilities.reports_view %}<a href="{% url 'student_report' student.pk %}" class="btn btn-secondary"><i class="fas fa-link"></i> Telegramni ulash yoki hisobot yuborish</a>{% endif %}
+    {% endif %}
+    {% if telegram_deliveries %}
+    <h4 style="margin-top:20px">Oxirgi xabarlar</h4>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Vaqt</th><th>Holat</th><th>Xabar</th></tr></thead>
+        <tbody>
+          {% for delivery in telegram_deliveries %}
+          <tr>
+            <td>{{ delivery.created_at|date:'d.m.Y H:i' }}</td>
+            <td>{{ delivery.status_label }}{% if delivery.error %}<br><span class="text-muted">{{ delivery.error }}</span>{% endif %}</td>
+            <td>{{ delivery.text|truncatechars:100 }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function copyReminder(studentName, groupName, debtSum) {
+  const sumText = debtSum ? ` Qoldiq qarz summasi: ${debtSum} so'm.` : '';
+  const text = `Assalomu alaykum, hurmatli ${studentName}! Sarget ta'lim markazida ${groupName ? groupName + ' kursi' : 'darslar'} bo'yicha to'lov muddati kelganligini eslatib o'tamiz.${sumText} To'lovni o'z vaqtida amalga oshirishingizni so'raymiz.`;
+  navigator.clipboard.writeText(text).then(() => {
+    alert("✓ To'lov eslatmasi matni nusxalandi! Telegram yoki SMS orqali yuborishingiz mumkin.");
+  }).catch(() => {
+    prompt("Eslatma matni:", text);
+  });
+}
+</script>
+{% endblock %}

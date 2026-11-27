@@ -1,0 +1,369 @@
+{% extends 'core/base.html' %}
+{% load custom_filters %}
+{% block title %}Dashboard{% endblock %}
+{% block extra_css %}
+<style>
+.dashboard-search-form {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+.dashboard-search-form .form-group {
+  flex: 1;
+  min-width: 260px;
+}
+.dashboard-search-hint {
+  margin-top: 8px;
+  color: var(--text-muted);
+  font-size: 0.76rem;
+}
+@media (max-width: 640px) {
+  .dashboard-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .dashboard-stats-grid .stat-card {
+    min-height: 90px;
+    gap: 8px;
+    padding: 11px 9px;
+    border-radius: var(--radius);
+  }
+  .dashboard-stats-grid .stat-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    font-size: 0.82rem;
+  }
+  .dashboard-stats-grid .stat-label {
+    margin-bottom: 4px;
+    font-size: 0.62rem;
+    letter-spacing: 0.01em;
+    line-height: 1.25;
+  }
+  .dashboard-stats-grid .stat-value {
+    font-size: 1rem;
+    line-height: 1.1;
+  }
+  .dashboard-stats-grid .stat-value-money {
+    font-size: 0.88rem;
+  }
+  .dashboard-stats-grid .stat-sub {
+    margin-top: 3px;
+    font-size: 0.64rem;
+    line-height: 1.2;
+  }
+}
+.att-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+@media (max-width: 640px) {
+  .att-mini-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.att-mini-card {
+  padding: 12px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  text-align: center;
+}
+.att-mini-card .num {
+  font-size: 1.18rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.att-mini-card .lbl {
+  margin-top: 4px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.att-mini-card.present .num { color: var(--green); }
+.att-mini-card.total .num { color: var(--text-primary); }
+.att-mini-card.late .num { color: var(--orange); }
+.att-mini-card.absent .num { color: var(--red); }
+.today-group-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.today-group-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.today-group-item:last-child { border-bottom: none; padding-bottom: 0; }
+.today-group-main { min-width: 0; }
+.today-group-name {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+.today-group-meta {
+  margin-top: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+.today-group-meta span {
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+}
+</style>
+{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-chart-pie"></i> Dashboard</h1>
+    <p>O'quv markazi umumiy ko'rinishi</p>
+  </div>
+  <div class="page-header-actions">
+    <a href="{% url 'payment_create' %}" class="btn btn-primary"><i class="fas fa-plus"></i> To'lov qabul</a>
+    <a href="{% url 'student_create' %}" class="btn btn-secondary"><i class="fas fa-user-plus"></i> O'quvchi</a>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-grid dashboard-stats-grid">
+  <div class="stat-card">
+    <div class="stat-icon blue"><i class="fas fa-user-graduate"></i></div>
+    <div class="stat-info">
+      <div class="stat-label">Aktiv o'quvchilar</div>
+      <div class="stat-value">{{ total_students }}</div>
+      <div class="stat-sub"><span style="color:var(--red)">{{ debt_count }}</span> ta qarzdor</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon purple"><i class="fas fa-chalkboard-user"></i></div>
+    <div class="stat-info">
+      <div class="stat-label">O'qituvchilar</div>
+      <div class="stat-value">{{ total_teachers }}</div>
+      <div class="stat-sub">{{ total_groups }} ta guruh</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon cyan"><i class="fas fa-headset"></i></div>
+    <div class="stat-info">
+      <div class="stat-label">Retsepshenlar</div>
+      <div class="stat-value">{{ total_receptionists }}</div>
+      <div class="stat-sub">Faol xodimlar</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon blue"><i class="fas fa-calendar-check"></i></div>
+    <div class="stat-info">
+      <div class="stat-label">Bu oylik davomat</div>
+      <div class="stat-value">{{ month_attendance_total }}</div>
+      <div class="stat-sub">yozuvlar</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon accent"><i class="fas fa-sack-dollar"></i></div>
+    <div class="stat-info">
+      <div class="stat-label">Bu oylik tushum</div>
+      <div class="stat-value stat-value-money">{{ monthly_income|floatformat:0 }}</div>
+      <div class="stat-sub">so'm, amaldagi to'lovlar; qaytarimlar ayrilgan</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon red"><i class="fas fa-file-invoice-dollar"></i></div>
+    <div class="stat-info">
+      <div class="stat-label">Bu oylik xarajat</div>
+      <div class="stat-value stat-value-money">{{ monthly_expenses|floatformat:0 }}</div>
+      <div class="stat-sub">so'm, hisoblangan oyliklar bilan</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon green"><i class="fas fa-chart-line"></i></div>
+    <div class="stat-info">
+      <div class="stat-label">Sof foyda</div>
+      <div class="stat-value stat-value-money" style="color:{% if net_income >= 0 %}var(--green){% else %}var(--red){% endif %}">{{ net_income|floatformat:0 }}</div>
+      <div class="stat-sub">so'm</div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom:20px">
+  <div class="card-header">
+    <h3><i class="fas fa-magnifying-glass"></i> Tezkor qidiruv</h3>
+    <span style="font-size:0.76rem;color:var(--text-muted)">Ctrl + /</span>
+  </div>
+  <div class="card-body">
+    <form action="{% url 'global_search' %}" method="get" class="dashboard-search-form">
+      <div class="form-group search-group">
+        <label>Qidirish</label>
+        <i class="fas fa-search"></i>
+        <input type="text" name="q" class="form-control" placeholder="O'quvchi, guruh, telefon, to'lov, davomat..." autocomplete="off">
+      </div>
+      <button type="submit" class="btn btn-primary"><i class="fas fa-magnifying-glass"></i> Qidirish</button>
+    </form>
+    <div class="dashboard-search-hint">Ism, telefon, guruh nomi, o'qituvchi, sana yoki summa bo'yicha qidiring.</div>
+  </div>
+</div>
+
+<div class="dashboard-grid">
+  <div class="dashboard-main">
+    <!-- Chart -->
+    <div class="card">
+      <div class="card-header">
+        <h3><i class="fas fa-chart-bar"></i> 6 oylik daromad/xarajat</h3>
+      </div>
+      <div class="card-body">
+        <div class="chart-wrapper">
+          {{ chart_data|json_script:"income-chart-data" }}
+          <canvas id="incomeChart" data-source="income-chart-data"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent payments -->
+    <div class="card">
+      <div class="card-header">
+        <h3><i class="fas fa-clock"></i> So'nggi to'lovlar</h3>
+        <a href="{% url 'payment_list' %}" class="btn btn-secondary btn-sm">Barchasi</a>
+      </div>
+      <div class="card-body">
+        {% if recent_payments %}
+          {% for p in recent_payments %}
+          <div class="recent-payment-item">
+            <div class="payment-avatar">{% include 'core/includes/student_avatar.html' with student=p.student %}</div>
+            <div class="payment-info">
+              <div class="payment-name">{{ p.student.name }}</div>
+              <div class="payment-meta">{{ p.paid_date|date:"d.m.Y H:i" }} &bull; {{ p.get_payment_type_display }}</div>
+            </div>
+            <div class="payment-amount">+{{ p.amount|floatformat:0 }}</div>
+          </div>
+          {% endfor %}
+        {% else %}
+          <div class="empty-state"><i class="fas fa-inbox"></i><p>To'lovlar yo'q</p></div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-side">
+    <!-- Top teacher -->
+    <div class="card">
+      <div class="card-header"><h3><i class="fas fa-trophy"></i> Bu oy eng yaxshi</h3></div>
+      <div class="card-body" style="text-align:center;padding:24px">
+        <div style="width:60px;height:60px;border-radius:50%;background:var(--accent-dim);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 12px">
+          <i class="fas fa-star"></i>
+        </div>
+        <div style="font-weight:700;font-size:1rem;margin-bottom:4px">{{ top_teacher }}</div>
+        <div style="color:var(--accent);font-family:var(--font-mono);font-weight:600">{{ top_teacher_amount|floatformat:0 }} so'm</div>
+      </div>
+    </div>
+
+    <!-- Attendance today -->
+    <div class="card">
+      <div class="card-header">
+        <h3><i class="fas fa-calendar-day"></i> Bugun davomat kerak</h3>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:0.76rem;color:var(--text-muted)">{{ today_groups|length }} ta guruh</span>
+          <a href="{% url 'attendance_list' %}" class="btn btn-secondary btn-sm">Ko'rish</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="att-mini-grid">
+          <div class="att-mini-card present">
+            <div class="num">{{ today_present }}</div>
+            <div class="lbl">Keldi</div>
+          </div>
+          <div class="att-mini-card total">
+            <div class="num">{{ today_attendance }}</div>
+            <div class="lbl">Jami</div>
+          </div>
+          <div class="att-mini-card late">
+            <div class="num">{{ today_late }}</div>
+            <div class="lbl">Kechikdi</div>
+          </div>
+          <div class="att-mini-card absent">
+            <div class="num">{{ today_absent }}</div>
+            <div class="lbl">Kelmadi</div>
+          </div>
+        </div>
+        <div class="today-group-list">
+          {% for group in today_groups %}
+          <div class="today-group-item">
+            <div class="today-group-main">
+              <div class="today-group-name">{{ group.name }}</div>
+              <div class="today-group-meta">
+                {% if group.teacher %}<span>{{ group.teacher.name }}</span>{% endif %}
+                <span>{{ group.start_time|time:"H:i" }} - {{ group.end_time|time:"H:i" }}</span>
+                {% if group.room %}<span>Xona {{ group.room }}</span>{% endif %}
+              </div>
+            </div>
+            <a href="{% url 'take_attendance' group.id %}" class="btn btn-secondary btn-sm">
+              <i class="fas fa-pen-to-square"></i> Davomat
+            </a>
+          </div>
+          {% empty %}
+          <div class="empty-state" style="padding:10px 0 0">
+            <i class="fas fa-circle-check"></i>
+            <p>Bugun davomat kerak bo'lgan guruh yo'q</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Debtors -->
+    {% if debtors %}
+    <div class="card">
+      <div class="card-header">
+        <h3><i class="fas fa-triangle-exclamation" style="color:var(--red)"></i> Qarzdorlar</h3>
+        <span class="badge badge-unpaid">{{ debt_count }} ta</span>
+      </div>
+      <div class="card-body">
+        {% for student in debtors %}
+        <div class="debtor-item" style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
+          <div class="payment-avatar" style="width:34px;height:34px">{% include 'core/includes/student_avatar.html' with student=student %}</div>
+          <div style="flex:1">
+            <div class="debtor-name" style="font-weight:700;font-size:0.86rem">{{ student.name }}</div>
+            {% if student.teacher %}<div class="debtor-teacher" style="font-size:0.75rem;color:var(--text-muted)">{{ student.teacher.name }}</div>{% endif %}
+          </div>
+          <div style="text-align:right">
+            <span class="debtor-months" style="background:var(--red-dim);color:var(--red);padding:2px 6px;border-radius:4px;font-size:0.75rem;font-weight:700">{{ student.get_debt_months }} oy</span>
+            <div style="font-size:0.74rem;color:var(--red);font-weight:700;margin-top:2px">{{ student.get_debt_amount|floatformat:0 }} so'm</div>
+          </div>
+        </div>
+        {% endfor %}
+        {% if debt_count > 5 %}
+        <div style="text-align:center;margin-top:10px">
+          <a href="{% url 'reports' %}" class="btn btn-secondary btn-sm">Barchasi ({{ debt_count }})</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Birthdays -->
+    {% if birthdays %}
+    <div class="card">
+      <div class="card-header"><h3><i class="fas fa-cake-candles" style="color:var(--purple)"></i> Bugun tug'ilgan kun</h3></div>
+      <div class="card-body">
+        {% for s in birthdays %}
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
+          <div style="width:32px;height:32px;border-radius:50%;background:var(--purple-dim);color:var(--purple);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;overflow:hidden">{% include 'core/includes/student_avatar.html' with student=s %}</div>
+          <div>
+            <div style="font-size:0.85rem;font-weight:600">{{ s.name }}</div>
+            <div style="font-size:0.72rem;color:var(--text-muted)">{{ s.phone }}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,1362 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Sertifikat {{ cert.certificate_number }} — {{ cert.student.name }}{% endblock %}
+
+{% block extra_css %}
+  {% include 'core/includes/fonts.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="cert-view-wrapper">
+  <!-- Action Toolbar (hidden on print) -->
+  <div class="cert-toolbar no-print">
+    <button type="button" class="btn btn-primary" onclick="printCertificate()">
+      <i class="fas fa-print"></i> Chop etish (Print A4)
+    </button>
+    <button type="button" class="btn btn-success" id="btnDownloadCertImage" onclick="downloadCertificateImage()">
+      <i class="fas fa-camera"></i> Rasm sifatida saqlash (PNG)
+    </button>
+    <a href="{{ verify_url }}" target="_blank" class="btn btn-info">
+      <i class="fas fa-qrcode"></i> QR tekshirish sahifasi
+    </a>
+    {% if capabilities.certificates_settings %}
+    <a href="{% url 'certificate_settings' %}" class="btn btn-secondary">
+      <i class="fas fa-sliders"></i> Sozlamalar
+    </a>
+    {% endif %}
+    {% if capabilities.certificates_edit %}
+    <a href="{% url 'certificate_edit' cert.pk %}" class="btn btn-secondary">
+      <i class="fas fa-pen"></i> Tahrirlash
+    </a>
+    {% endif %}
+    <a href="{% url 'certificate_list' %}" class="btn btn-secondary">
+      <i class="fas fa-arrow-left"></i> Barcha sertifikatlar
+    </a>
+  </div>
+
+  <!-- The Printable Certificate Sheet -->
+  <div class="cert-sheet-container">
+    <div class="cert-sheet" id="certificateCard" style="--cert-accent: {{ settings.accent_color|default:'#b48c36' }};">
+      <!-- Ornamental Inner Border -->
+      <div class="cert-inner-frame">
+        <svg class="cert-geometric-bg" viewBox="0 0 912 630" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="certBaseGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#f7f9fc"/>
+              <stop offset="50%" stop-color="#fcfdfe"/>
+              <stop offset="100%" stop-color="#f3f5f8"/>
+            </linearGradient>
+          </defs>
+          <rect width="912" height="630" fill="url(#certBaseGrad)"/>
+
+          <!-- Subtle top-right & bottom-left low-poly facet mesh -->
+          <g opacity="0.92">
+            <!-- Top-right facets -->
+            <polygon points="545,0 715,0 620,115" fill="#dfe3e8"/>
+            <polygon points="715,0 912,0 795,120" fill="#cfd5dc"/>
+            <polygon points="715,0 795,120 620,115" fill="#d7dce2"/>
+            <polygon points="545,0 620,115 585,80" fill="#eceff3"/>
+            <polygon points="912,0 912,185 795,120" fill="#c7cdd5"/>
+            <polygon points="795,120 912,185 835,275" fill="#d9dee4"/>
+            <polygon points="620,115 795,120 735,235" fill="#e6e9ee"/>
+            <polygon points="795,120 835,275 735,235" fill="#dfe3e8"/>
+            <polygon points="620,115 735,235 610,205" fill="#f1f3f6"/>
+            <polygon points="835,275 912,185 912,355" fill="#e2e6eb"/>
+
+            <!-- Bottom-left facets -->
+            <polygon points="0,335 125,395 45,515" fill="#e4e7ec"/>
+            <polygon points="125,395 255,445 160,555" fill="#eef0f4"/>
+            <polygon points="125,395 160,555 45,515" fill="#dfe3e8"/>
+            <polygon points="45,515 160,555 95,630" fill="#d5dae1"/>
+            <polygon points="0,565 45,515 95,630" fill="#cfd4dc"/>
+            <polygon points="0,565 95,630 0,630" fill="#c7cdd5"/>
+            <polygon points="160,555 255,445 315,575" fill="#e8ebef"/>
+            <polygon points="160,555 315,575 245,630" fill="#dde1e7"/>
+            <polygon points="160,555 245,630 95,630" fill="#e3e6eb"/>
+            <polygon points="315,575 425,630 245,630" fill="#f0f2f5"/>
+
+            <!-- Soft center-bottom facets -->
+            <polygon points="560,545 695,495 660,630" fill="#eceff3"/>
+            <polygon points="695,495 795,555 660,630" fill="#e3e6eb"/>
+          </g>
+
+          <!-- Left-side dark navy & gold angular ribbon -->
+          <polygon points="0,0 30,0 54,160 0,225" fill="#17365d"/>
+          <polygon points="0,225 54,160 18,370 0,410" fill="#0f2640"/>
+          <polygon points="0,0 12,0 38,160 0,200" fill="#1d4269" opacity="0.55"/>
+          <polyline points="30,0 54,160 18,370 0,410" fill="none" stroke="#d4af37" stroke-width="3.5"/>
+
+          <!-- Right-side dark navy & gold angular ribbon -->
+          <polygon points="912,245 876,415 912,485" fill="#17365d"/>
+          <polygon points="912,485 876,415 862,630 912,630" fill="#0f2640"/>
+          <polygon points="912,445 886,415 878,630 912,630" fill="#1d4269" opacity="0.55"/>
+          <polyline points="912,245 876,415 862,630" fill="none" stroke="#d4af37" stroke-width="3.5"/>
+        </svg>
+        <!-- Corner decorations -->
+        <div class="corner-flourish tl"></div>
+        <div class="corner-flourish tr"></div>
+        <div class="corner-flourish bl"></div>
+        <div class="corner-flourish br"></div>
+
+        <!-- Watermark Background -->
+        <div class="cert-watermark">
+          <img src="{% static 'img/logo_icon_tight.png' %}" alt="Watermark" loading="eager">
+        </div>
+
+        <!-- Header -->
+        <div class="cert-top-header">
+          <div class="cert-brand-emblem">
+            <img src="{% static 'img/logo_icon_tight.png' %}" alt="Sarget Logo" class="cert-logo-img" loading="eager">
+            <div class="cert-brand-titles">
+              <h2 class="cert-academy-title">{{ settings.academy_name|default:"SARGET IT ACADEMY" }}</h2>
+              <span class="cert-academy-subtitle">{{ settings.academy_subtitle|default:"ZAMONAVIY AXBOROT TEXNOLOGIYALARI AKADEMIYASI" }}</span>
+            </div>
+          </div>
+          <div class="cert-serial-tag">
+            <span class="tag-title">SERTIFIKAT №</span>
+            <span class="tag-num">{{ cert.certificate_number }}</span>
+          </div>
+        </div>
+
+        <div class="cert-header-line"></div>
+
+        <!-- Main Title -->
+        <div class="cert-main-heading">
+          <h1 class="cert-title-text">{{ settings.title_uz|default:"SERTIFIKAT" }}</h1>
+          <div class="cert-subtitle-text">{{ settings.title_en|default:"CERTIFICATE OF COMPLETION" }}</div>
+        </div>
+
+        <!-- Recipient Intro -->
+        <div class="cert-award-statement">
+          {{ settings.statement_text|default:"Ushbu sertifikat bilan rasman tasdiqlanadiki," }}
+        </div>
+
+        <!-- Student Full Name -->
+        <div class="cert-student-box">
+          <div class="cert-student-name{% if cert.student.name|length > 32 %} very-long-name{% elif cert.student.name|length > 22 %} long-name{% endif %}">{{ cert.student.name }}</div>
+          <div class="cert-name-underline"></div>
+        </div>
+
+        <!-- Course Info -->
+        <div class="cert-description-block">
+          <p class="cert-lead-text">
+            {{ settings.academy_name|default:"Sarget IT Academy" }} o'quv markazining maxsus professional dasturi bo'yicha quyidagi kursni muvaffaqiyatli tamomladi:
+          </p>
+          <div class="cert-course-period-row">
+            <div class="cert-course-badge">
+              <span class="course-name-text">{{ cert.course_name }}</span>
+            </div>
+
+            <!-- O'qish davri (Qachondan qachongacha o'qigani) -->
+            {% if cert.study_period_display and settings.show_study_period %}
+            <div class="cert-period-box">
+              <span class="period-label">O'qish davri:</span>
+              <span class="period-val">{{ cert.study_period_display }}</span>
+            </div>
+            {% endif %}
+          </div>
+
+          {% if cert.grade_text and settings.show_grade %}
+          <div class="cert-grade-tag">
+            <i class="fas fa-medal"></i> Natija: <strong>{{ cert.grade_text }}</strong>
+          </div>
+          {% endif %}
+
+          {% if cert.description %}
+          <p class="cert-skills-text">{{ cert.description }}</p>
+          {% endif %}
+        </div>
+
+        <!-- Footer / Signatures & QR -->
+        <div class="cert-footer-row">
+          <!-- Left Signature: Director -->
+          <div class="cert-sign-col">
+            <div class="sign-line"></div>
+            <div class="sign-person-title">{{ settings.director_title|default:"Akademiya Rahbari" }}</div>
+            <div class="sign-academy-name">{{ settings.director_name|default:"Sarget IT Academy" }}</div>
+          </div>
+
+          <!-- Center: Official Academy Seal -->
+          <div class="cert-seal-col">
+            <div class="official-seal">
+              <div class="seal-inner">
+                <i class="fas fa-award seal-icon"></i>
+                <span class="seal-text-top">{{ settings.seal_text_top|default:"SARGET IT ACADEMY" }}</span>
+                <span class="seal-text-mid">{{ settings.seal_text_mid|default:"RASMIY" }}</span>
+                <span class="seal-text-bot">{{ settings.seal_text_bot|default:"TASDIQLANGAN" }}</span>
+              </div>
+            </div>
+            <div class="seal-date-badge">
+              Berilgan sana: <strong>{{ cert.issue_date|date:"d.m.Y" }}</strong>
+            </div>
+          </div>
+
+          <!-- Right: Teacher & QR Code Verification -->
+          <div class="cert-qr-col">
+            <div class="qr-box-wrap">
+              <div id="certQrCode">
+                {% if qr_data_uri %}
+                <img id="certQrImage" src="{{ qr_data_uri }}" alt="QR Code" width="82" height="82" loading="eager" style="display:block;width:82px;height:82px;border:none;">
+                {% endif %}
+              </div>
+              <div class="qr-verify-info">
+                <div class="qr-scan-label"><i class="fas fa-camera"></i> Haqiqiyligini tekshirish</div>
+                <div class="qr-url-hint">{{ cert.certificate_number }}</div>
+              </div>
+            </div>
+            {% if cert.teacher_name %}
+            <div class="cert-instructor-sign">
+              <div class="sign-instructor-line"></div>
+              <div class="sign-instructor-name">{{ cert.teacher_name }}</div>
+              <div class="sign-instructor-role">{{ settings.instructor_default_title|default:"Bosh O'qituvchi / Ustoz" }}</div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Bottom verification note -->
+        <div class="cert-bottom-registry">
+          <span>Rasmiy reestr tekshiruvi: <code>{{ verify_url }}</code></span>
+          <span class="security-code">{{ settings.footer_note|default:"Haqiqiy sertifikat • Takrorlanmas raqam bilan himoyalangan" }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/qrcode.min.js' %}"></script>
+<script src="{% static 'js/html2canvas.min.js' %}"></script>
+<script>
+function fitCertificateToScreen() {
+  const container = document.querySelector('.cert-sheet-container');
+  const card = document.getElementById('certificateCard');
+  if (!container || !card) return;
+  if (document.body.classList.contains('certificate-print-mode') || card.classList.contains('certificate-capture-mode')) {
+    card.style.transform = '';
+    container.style.height = '';
+    return;
+  }
+  const availableWidth = container.clientWidth - 8;
+  const certWidth = 960;
+  const certHeight = 678;
+  if (availableWidth > 0 && availableWidth < certWidth) {
+    const scale = availableWidth / certWidth;
+    card.style.transform = `scale(${scale})`;
+    card.style.transformOrigin = 'top center';
+    container.style.height = `${Math.ceil(certHeight * scale) + 20}px`;
+  } else {
+    card.style.transform = '';
+    card.style.transformOrigin = '';
+    container.style.height = '';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  const qrEl = document.getElementById('certQrCode');
+  // Fallback to client-side QRCode only if server-side QR image is not present
+  if (qrEl && !qrEl.querySelector('img') && typeof QRCode !== 'undefined') {
+    new QRCode(qrEl, {
+      text: "{{ verify_url|escapejs }}",
+      width: 82,
+      height: 82,
+      colorDark: "#0f172a",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  }
+  fitCertificateToScreen();
+});
+window.addEventListener('resize', fitCertificateToScreen);
+
+// Wait for fonts, logos, seals and QR code images to finish loading before print
+function printCertificate() {
+  const card = document.getElementById('certificateCard');
+  const container = document.querySelector('.cert-sheet-container');
+  const images = Array.from(card.querySelectorAll('img'));
+  const imagePromises = images.map(img => {
+    if (img.complete) return Promise.resolve();
+    return new Promise(resolve => {
+      img.onload = resolve;
+      img.onerror = resolve;
+    });
+  });
+
+  const fontPromise = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+
+  document.body.classList.add('certificate-print-mode');
+  card.style.transform = '';
+  if (container) container.style.height = '';
+  window.addEventListener('afterprint', function removePrintMode() {
+    document.body.classList.remove('certificate-print-mode');
+    fitCertificateToScreen();
+    window.removeEventListener('afterprint', removePrintMode);
+  }, { once: true });
+
+  Promise.all([fontPromise, ...imagePromises]).then(() => {
+    setTimeout(() => {
+      window.print();
+    }, 120);
+  });
+}
+
+function downloadCertificateImage() {
+  const card = document.getElementById('certificateCard');
+  const container = document.querySelector('.cert-sheet-container');
+  const btn = document.getElementById('btnDownloadCertImage');
+  const oldText = btn.innerHTML;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Rasm saqlanmoqda...';
+  btn.disabled = true;
+
+  const originalCardStyle = card.getAttribute('style');
+  card.classList.add('certificate-capture-mode');
+  card.style.transform = 'none';
+  if (container) container.style.height = '';
+  card.style.width = '960px';
+  card.style.height = '678px';
+  card.style.minHeight = '678px';
+  card.style.maxWidth = '960px';
+  card.style.padding = '24px';
+  card.style.borderRadius = '8px';
+  card.style.boxShadow = '0 15px 45px rgba(0,0,0,0.18)';
+  card.style.flex = 'none';
+
+  const images = Array.from(card.querySelectorAll('img'));
+  const imagePromises = images.map(img => {
+    if (img.complete) return Promise.resolve();
+    return new Promise(resolve => {
+      img.onload = resolve;
+      img.onerror = resolve;
+    });
+  });
+
+  const fontPromise = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+
+  Promise.all([fontPromise, ...imagePromises])
+    .then(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))))
+    .then(() => html2canvas(card, {
+      scale: 3,
+      useCORS: true,
+      allowTaint: false,
+      backgroundColor: '#ffffff',
+      logging: false,
+      scrollX: 0,
+      scrollY: 0,
+      windowWidth: 1100,
+      windowHeight: 760,
+      onclone: function(clonedDocument) {
+        const clonedCard = clonedDocument.getElementById('certificateCard');
+        if (clonedCard) {
+          clonedCard.classList.add('certificate-capture-mode');
+          clonedCard.style.transform = 'none';
+          clonedCard.style.width = '960px';
+          clonedCard.style.height = '678px';
+          clonedCard.style.minHeight = '678px';
+          clonedCard.style.maxHeight = '678px';
+          clonedCard.style.padding = '24px';
+          clonedCard.style.overflow = 'hidden';
+        }
+      }
+    }))
+    .then(function(canvas) {
+      const link = document.createElement('a');
+      link.download = 'Sertifikat_{{ cert.certificate_number }}_{{ cert.student.name|slugify }}.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      restoreCertificateCard();
+    })
+    .catch(function(err) {
+      console.error('Cert capture error:', err);
+      alert('Rasmga olishda xatolik yuz berdi: ' + err.message);
+      restoreCertificateCard();
+    });
+
+  function restoreCertificateCard() {
+    card.classList.remove('certificate-capture-mode');
+    if (originalCardStyle === null) {
+      card.removeAttribute('style');
+    } else {
+      card.setAttribute('style', originalCardStyle);
+    }
+    fitCertificateToScreen();
+    btn.innerHTML = '<i class="fas fa-check"></i> Rasm saqlandi!';
+    setTimeout(() => {
+      btn.innerHTML = oldText;
+      btn.disabled = false;
+    }, 2000);
+  }
+}
+</script>
+
+<style>
+.cert-view-wrapper {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 10px 0 40px;
+}
+.cert-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+.cert-sheet-container {
+  overflow-x: auto;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* Certificate Sheet Dimensions & Screen Design */
+.cert-sheet {
+  --cert-accent: #b48c36;
+  width: 960px;
+  min-height: 678px;
+  background: #ffffff;
+  color: #0f172a;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 15px 45px rgba(0,0,0,0.18);
+  position: relative;
+  font-family: var(--font-body);
+  box-sizing: border-box;
+}
+
+/* Ornamental Inner Frame */
+.cert-inner-frame {
+  border: 3px solid var(--cert-accent);
+  outline: 1.5px solid #0f2744;
+  outline-offset: -9px;
+  padding: 24px 38px 16px;
+  position: relative;
+  background: #fbfcfe;
+  height: 630px;
+  min-height: 630px;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cert-geometric-bg {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  display: block !important;
+}
+.cert-inner-frame > :not(.cert-geometric-bg):not(.corner-flourish):not(.cert-watermark) {
+  position: relative;
+  z-index: 2;
+}
+
+/* Corner Flourishes */
+.corner-flourish {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border: 4px solid var(--cert-accent);
+  z-index: 2;
+}
+.corner-flourish.tl { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+.corner-flourish.tr { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+.corner-flourish.bl { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+.corner-flourish.br { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+/* Watermark */
+.cert-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.045;
+  pointer-events: none;
+  z-index: 1;
+}
+.cert-watermark img {
+  width: 380px;
+  height: auto;
+}
+
+/* Header */
+.cert-top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  padding-left: 14px;
+  box-sizing: border-box;
+}
+.cert-brand-emblem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.cert-logo-img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+}
+.cert-academy-title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: 2.5px;
+  color: #0f2744;
+  font-family: var(--font-body);
+}
+.cert-academy-subtitle {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 1.5px;
+  color: var(--cert-accent);
+  font-weight: 700;
+  margin-top: 3px;
+  font-family: var(--font-body);
+}
+.cert-serial-tag {
+  text-align: right;
+  border: 1px solid var(--cert-accent);
+  padding: 6px 14px;
+  border-radius: 4px;
+  background: #fff9ea;
+}
+.tag-title {
+  display: block;
+  font-size: 0.62rem;
+  letter-spacing: 1px;
+  color: #856404;
+  font-weight: 800;
+  font-family: var(--font-body);
+}
+.tag-num {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0f2744;
+  font-family: var(--font-body);
+}
+
+.cert-header-line {
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--cert-accent), transparent);
+  margin: 14px 0 10px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Main Heading */
+.cert-main-heading {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  margin-top: 4px;
+}
+.cert-title-text {
+  font-size: 2.6rem;
+  letter-spacing: 6px;
+  font-weight: 900;
+  color: #0f2744;
+  margin: 0;
+  text-transform: uppercase;
+}
+.cert-subtitle-text {
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  color: var(--cert-accent);
+  font-weight: 700;
+  margin-top: 2px;
+  font-family: var(--font-body);
+}
+
+/* Award Statement */
+.cert-award-statement {
+  text-align: center;
+  font-style: italic;
+  font-size: 0.96rem;
+  color: #475569;
+  margin-top: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Student Name & Underline */
+.cert-student-box {
+  text-align: center;
+  margin: 8px 0 10px;
+  position: relative;
+  z-index: 2;
+}
+.cert-student-name {
+  font-size: 2.1rem;
+  font-weight: 900;
+  color: #0f2744;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 0 16px;
+  max-width: 90%;
+  line-height: 1.2;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+.cert-student-name.long-name {
+  font-size: 1.7rem;
+  letter-spacing: 1px;
+}
+.cert-student-name.very-long-name {
+  font-size: 1.35rem;
+  letter-spacing: 0.5px;
+}
+.cert-name-underline {
+  width: min(440px, 85%);
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--cert-accent), #0f2744, var(--cert-accent), transparent);
+  margin: 4px auto 0;
+}
+
+/* Description & Course */
+.cert-description-block {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 14px;
+  position: relative;
+  z-index: 2;
+}
+.cert-lead-text {
+  font-size: 0.94rem;
+  color: #334155;
+  margin-bottom: 7px;
+  line-height: 1.35;
+}
+.cert-course-period-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.cert-course-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(248, 250, 252, 0.92);
+  border: 1.5px solid #0f2744;
+  padding: 6px 24px;
+  border-radius: 6px;
+}
+.course-name-text {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f2744;
+  letter-spacing: 0.8px;
+}
+
+/* Study Period Box */
+.cert-period-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #eef2f6;
+  border: 1px solid #cbd5e1;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.84rem;
+  color: #1e293b;
+  margin: 0;
+  max-width: 100%;
+  font-family: var(--font-body);
+  white-space: nowrap;
+}
+.cert-period-box i {
+  color: var(--cert-accent);
+}
+.cert-period-box .period-val {
+  font-weight: 700;
+  color: #0f2744;
+}
+.cert-period-box .period-label {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.cert-grade-tag {
+  font-size: 0.85rem;
+  color: var(--cert-accent);
+  font-weight: 700;
+  margin-bottom: 5px;
+  font-family: var(--font-body);
+}
+.cert-skills-text {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-style: italic;
+  margin-top: 3px;
+  line-height: 1.3;
+}
+
+/* Footer & Signatures */
+.cert-footer-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: flex-end;
+  margin-top: 14px;
+  position: relative;
+  z-index: 2;
+}
+.cert-sign-col {
+  text-align: center;
+  padding-bottom: 6px;
+}
+.sign-line {
+  width: 160px;
+  height: 1.5px;
+  background: #0f2744;
+  margin: 4px auto 5px;
+}
+.sign-person-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0f2744;
+}
+.sign-academy-name {
+  font-size: 0.7rem;
+  color: #64748b;
+  font-family: var(--font-body);
+}
+
+/* Official Seal */
+.cert-seal-col {
+  text-align: center;
+  padding: 0 16px;
+}
+.official-seal {
+  width: 92px;
+  height: 92px;
+  border: 3px double var(--cert-accent);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, #fffbee 40%, #fef3c7 100%);
+  box-shadow: 0 0 0 4px rgba(180, 140, 54, 0.15);
+}
+.seal-inner {
+  text-align: center;
+  color: #92400e;
+  line-height: 1.1;
+}
+.seal-inner > span {
+  display: block;
+  white-space: nowrap;
+  visibility: visible;
+  opacity: 1;
+}
+.seal-icon {
+  font-size: 1.05rem;
+  color: var(--cert-accent);
+  margin-bottom: 2px;
+}
+.seal-text-top {
+  font-size: 0.5rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+.seal-text-mid {
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+.seal-text-bot {
+  font-size: 0.5rem;
+  font-weight: 800;
+}
+.seal-date-badge {
+  font-size: 0.72rem;
+  color: #475569;
+  margin-top: 5px;
+  font-family: var(--font-body);
+}
+
+/* Right QR Column */
+.cert-qr-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.qr-box-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  padding: 5px 8px;
+  border-radius: 6px;
+}
+#certQrCode {
+  background: #ffffff;
+  padding: 3px;
+  border-radius: 4px;
+}
+.qr-verify-info {
+  text-align: left;
+}
+.qr-scan-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #0f2744;
+  font-family: var(--font-body);
+}
+.qr-url-hint {
+  font-size: 0.62rem;
+  font-family: var(--font-body);
+  color: #64748b;
+  margin-top: 2px;
+}
+.cert-instructor-sign {
+  margin-top: 6px;
+  text-align: center;
+}
+.sign-instructor-line {
+  width: 130px;
+  height: 1.5px;
+  background: #0f2744;
+  margin: 3px auto 3px;
+}
+.sign-instructor-name {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #0f2744;
+}
+.sign-instructor-role {
+  font-size: 0.68rem;
+  color: #64748b;
+  font-family: var(--font-body);
+}
+
+/* Bottom Registry Note */
+.cert-bottom-registry {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding: 6px 48px 0 12px;
+  box-sizing: border-box;
+  border-top: 1px solid #e2e8f0;
+  font-size: 0.65rem;
+  color: #94a3b8;
+  font-family: var(--font-body);
+  position: relative;
+  z-index: 2;
+}
+
+/* Fixed capture layout keeps PNG output identical to the printable sheet */
+.certificate-capture-mode.cert-sheet {
+  width: 960px !important;
+  height: 678px !important;
+  max-width: 960px !important;
+  max-height: 678px !important;
+  min-height: 678px !important;
+  padding: 24px !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  background: #fbfcfe !important;
+}
+.certificate-capture-mode .cert-geometric-bg {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+.certificate-capture-mode .cert-inner-frame {
+  width: 912px !important;
+  height: 630px !important;
+  min-height: 630px !important;
+  max-height: 630px !important;
+  padding: 24px 38px 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+.certificate-capture-mode .cert-course-period-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  margin-bottom: 8px !important;
+}
+.certificate-capture-mode .cert-top-header { margin-top: 2px !important; }
+.certificate-capture-mode .cert-header-line { margin: 7px 0 4px !important; }
+.certificate-capture-mode .cert-main-heading { margin-top: 14px !important; }
+.certificate-capture-mode .cert-award-statement { margin-top: 10px !important; }
+.certificate-capture-mode .cert-student-box { margin: 8px 0 7px !important; }
+.certificate-capture-mode .cert-description-block { margin: 2px auto 4px !important; }
+.certificate-capture-mode .cert-footer-row { margin-top: auto !important; padding-bottom: 3px !important; }
+.certificate-capture-mode .cert-bottom-registry { margin-top: 7px !important; }
+.certificate-capture-mode .cert-top-header { align-items: center !important; }
+.certificate-capture-mode .cert-logo-img { width: 58px !important; height: 58px !important; }
+.certificate-capture-mode .cert-academy-title { font-size: 1.35rem !important; }
+.certificate-capture-mode .cert-academy-subtitle { font-size: 0.68rem !important; }
+.certificate-capture-mode .cert-header-line { margin: 8px 0 6px !important; }
+.certificate-capture-mode .cert-main-heading { margin-top: 0 !important; }
+.certificate-capture-mode .cert-title-text { font-size: 2.6rem !important; }
+.certificate-capture-mode .cert-subtitle-text { font-size: 0.85rem !important; }
+.certificate-capture-mode .cert-award-statement { font-size: 0.96rem !important; margin-top: 6px !important; }
+.certificate-capture-mode .cert-student-box { margin: 5px 0 6px !important; }
+.certificate-capture-mode .cert-student-name { font-size: 2.1rem !important; }
+.certificate-capture-mode .cert-student-name.long-name { font-size: 1.7rem !important; }
+.certificate-capture-mode .cert-student-name.very-long-name { font-size: 1.35rem !important; }
+.certificate-capture-mode .cert-description-block { margin: 0 auto 4px !important; max-width: 780px !important; }
+.certificate-capture-mode .cert-lead-text { font-size: 0.94rem !important; margin-bottom: 5px !important; }
+.certificate-capture-mode .cert-course-badge { display: inline-flex !important; padding: 6px 24px !important; }
+.certificate-capture-mode .course-name-text { font-size: 1.25rem !important; }
+.certificate-capture-mode .cert-period-box {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: auto !important;
+  max-width: 460px !important;
+  min-height: 0 !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  font-size: 0.84rem !important;
+  padding: 6px 16px !important;
+  overflow: visible !important;
+  white-space: nowrap !important;
+}
+.certificate-capture-mode .cert-period-box .period-label,
+.certificate-capture-mode .cert-period-box .period-val {
+  display: inline-block !important;
+  flex: 0 0 auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  white-space: nowrap !important;
+}
+.certificate-capture-mode .cert-grade-tag { display: block !important; visibility: visible !important; }
+.certificate-capture-mode .cert-footer-row { margin-top: 4px !important; align-items: flex-end !important; }
+.certificate-capture-mode .official-seal { width: 92px !important; height: 92px !important; }
+.certificate-capture-mode .seal-inner,
+.certificate-capture-mode .seal-inner > span {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  white-space: nowrap !important;
+}
+.certificate-capture-mode #certQrCode,
+.certificate-capture-mode #certQrCode img { visibility: visible !important; opacity: 1 !important; }
+.certificate-capture-mode .cert-bottom-registry { margin-top: 5px !important; }
+
+@media (max-width: 1000px) {
+  .cert-view-wrapper { max-width: 100%; }
+  .cert-sheet-container {
+    justify-content: center;
+    overflow: hidden;
+  }
+  .cert-sheet {
+    flex: 0 0 960px;
+    width: 960px;
+    min-height: 678px;
+    transform-origin: top center;
+  }
+}
+
+@media (max-width: 640px) {
+  .cert-toolbar { align-items: stretch; }
+  .cert-toolbar > * { flex: 1 1 100%; justify-content: center; }
+}
+
+/* ==========================================================================
+   STRICT SINGLE-PAGE A4 LANDSCAPE PRINT CSS
+   ========================================================================== */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 0mm !important;
+  }
+
+  body.certificate-print-mode,
+  body.certificate-print-mode *,
+  body.certificate-print-mode *:before,
+  body.certificate-print-mode *:after {
+    box-shadow: none !important;
+  }
+
+  /* Force background colors, borders, seals, gradients and shadows to print accurately */
+  *, *:before, *:after,
+  html, body,
+  .cert-sheet, .cert-sheet * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  html, body {
+    width: 297mm !important;
+    height: 210mm !important;
+    max-width: 297mm !important;
+    max-height: 210mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    overflow: hidden !important;
+  }
+
+  /* Hide all non-printable browser/CRM UI */
+  .sidebar, .top-header, .cert-toolbar, .no-print, .global-theme, .theme-toggle,
+  .menu-toggle, .overlay, .messages-container, nav, header, footer,
+  .notification-center, .notification-toasts, .notification-panel,
+  .notification-toast {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Ensure containers do not add padding or margins */
+  .main-content, .cert-view-wrapper, .cert-sheet-container {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 297mm !important;
+    height: 210mm !important;
+    max-width: 297mm !important;
+    max-height: 210mm !important;
+    overflow: hidden !important;
+    display: block !important;
+    background: #ffffff !important;
+  }
+
+  /* Enforce Strict Single-Page A4 Landscape dimensions on container */
+  .cert-sheet {
+    width: 297mm !important;
+    height: 210mm !important;
+    max-width: 297mm !important;
+    max-height: 210mm !important;
+    min-height: 210mm !important;
+    box-sizing: border-box !important;
+    padding: 8mm 9mm !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    overflow: visible !important;
+    page-break-inside: avoid !important;
+    page-break-after: avoid !important;
+    page-break-before: avoid !important;
+    break-inside: avoid !important;
+    break-after: avoid !important;
+    break-before: avoid !important;
+  }
+
+  /* Inner frame: 297 - 24 = 273mm width; 210 - 24 = 186mm height */
+  .cert-inner-frame {
+    width: 279mm !important;
+    height: 194mm !important;
+    max-width: 279mm !important;
+    max-height: 194mm !important;
+    min-height: 194mm !important;
+    box-sizing: border-box !important;
+    padding: 6mm 10mm 5mm !important;
+    margin: 0 !important;
+    border: 4px solid var(--cert-accent) !important;
+    outline: 2px solid #0f2744 !important;
+    outline-offset: -10px !important;
+    background: #f8fafc !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    overflow: visible !important;
+    position: relative !important;
+  }
+
+  .cert-inner-frame > * {
+    flex: none !important;
+  }
+  .cert-top-header,
+  .cert-header-line,
+  .cert-main-heading,
+  .cert-award-statement,
+  .cert-student-box,
+  .cert-description-block,
+  .cert-footer-row,
+  .cert-bottom-registry {
+    width: 100% !important;
+  }
+
+  .corner-flourish {
+    width: 24px !important;
+    height: 24px !important;
+    border-width: 3.5px !important;
+  }
+  .corner-flourish.tl {
+    top: 0 !important;
+    left: 0 !important;
+  }
+  .corner-flourish.tr {
+    top: 0 !important;
+    right: 0 !important;
+  }
+  .corner-flourish.bl {
+    bottom: 0 !important;
+    left: 0 !important;
+  }
+  .corner-flourish.br {
+    bottom: 0 !important;
+    right: 0 !important;
+  }
+
+  .cert-watermark {
+    opacity: 0.05 !important;
+  }
+
+  .cert-watermark img {
+    width: 320px !important;
+  }
+
+  /* Header adjustments for print */
+  .cert-top-header {
+    flex: 0 0 auto !important;
+    margin: 0 !important;
+  }
+  .cert-logo-img {
+    width: 66px !important;
+    height: 66px !important;
+  }
+  .cert-academy-title {
+    font-size: 1.72rem !important;
+    letter-spacing: 2.5px !important;
+  }
+  .cert-academy-subtitle {
+    font-size: 0.85rem !important;
+    letter-spacing: 1.5px !important;
+  }
+  .cert-serial-tag {
+    padding: 6px 14px !important;
+    background: #fff9ea !important;
+    border: 1.5px solid var(--cert-accent) !important;
+  }
+  .tag-title {
+    font-size: 0.72rem !important;
+  }
+  .tag-num {
+    font-size: 1.15rem !important;
+  }
+
+  .cert-header-line {
+    flex: 0 0 auto !important;
+    margin: 8px 0 6px !important;
+    height: 2px !important;
+  }
+
+  /* Main Title adjustments for print */
+  .cert-main-heading {
+    flex: 0 0 auto !important;
+    margin-top: 16px !important;
+  }
+  .cert-title-text {
+    font-size: 3.5rem !important;
+    letter-spacing: 9px !important;
+  }
+  .cert-subtitle-text {
+    font-size: 1.08rem !important;
+    letter-spacing: 4px !important;
+  }
+
+  /* Award statement */
+  .cert-award-statement {
+    flex: 0 0 auto !important;
+    font-size: 1.24rem !important;
+    margin-top: 16px !important;
+  }
+
+  /* Student Name adjustments for print */
+  .cert-student-box {
+    flex: 0 0 auto !important;
+    margin: 12px 0 14px !important;
+  }
+  .cert-student-name {
+    font-size: 2.85rem !important;
+    letter-spacing: 1.4px !important;
+    padding: 0 12px !important;
+    max-width: 92% !important;
+  }
+  .cert-student-name.long-name {
+    font-size: 2.38rem !important;
+    letter-spacing: 0.8px !important;
+  }
+  .cert-student-name.very-long-name {
+    font-size: 1.85rem !important;
+    letter-spacing: 0.4px !important;
+  }
+  .cert-name-underline {
+    width: 520px !important;
+    height: 2.5px !important;
+    margin: 8px auto 0 !important;
+  }
+
+  /* Course info adjustments for print */
+  .cert-description-block {
+    flex: 0 0 auto !important;
+    margin: 6px auto 14px !important;
+    max-width: 820px !important;
+  }
+  .cert-lead-text {
+    font-size: 1.2rem !important;
+    margin-bottom: 14px !important;
+    line-height: 1.45 !important;
+  }
+  .cert-course-period-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 14px !important;
+    margin-bottom: 12px !important;
+  }
+  .cert-course-badge {
+    padding: 8px 30px !important;
+    margin-bottom: 0 !important;
+    background: #f8fafc !important;
+    border: 2px solid #0f2744 !important;
+  }
+  .course-name-text {
+    font-size: 1.65rem !important;
+  }
+  .cert-period-box {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 8px 20px !important;
+    font-size: 1.05rem !important;
+    margin: 0 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    background: #eef2f6 !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 20px !important;
+    white-space: nowrap !important;
+  }
+  .cert-period-box .period-label,
+  .cert-period-box .period-val {
+    display: inline-block !important;
+    white-space: nowrap !important;
+    background: transparent !important;
+    border: none !important;
+  }
+  .cert-grade-tag {
+    font-size: 1.15rem !important;
+    margin-top: 12px !important;
+    margin-bottom: 4px !important;
+  }
+  .cert-skills-text {
+    font-size: 0.88rem !important;
+    margin-top: 4px !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Footer adjustments for print */
+  .cert-footer-row {
+    flex: 0 0 auto !important;
+    margin-top: auto !important;
+    padding: 0 18px 6px !important;
+    box-sizing: border-box !important;
+    align-items: flex-end !important;
+  }
+  .sign-line {
+    width: 175px !important;
+    height: 2px !important;
+    margin: 2px auto 5px !important;
+  }
+  .sign-person-title {
+    font-size: 1.02rem !important;
+  }
+  .sign-academy-name {
+    font-size: 0.88rem !important;
+  }
+
+  /* Official Seal in print */
+  .official-seal {
+    width: 118px !important;
+    height: 118px !important;
+    border: 3.5px double var(--cert-accent) !important;
+    background: radial-gradient(circle, #fffbee 40%, #fef3c7 100%) !important;
+    box-shadow: 0 0 0 4px rgba(180, 140, 54, 0.15) !important;
+  }
+  .seal-icon {
+    font-size: 1.25rem !important;
+    margin-bottom: 3px !important;
+  }
+  .seal-text-top {
+    font-size: 0.64rem !important;
+  }
+  .seal-text-mid {
+    font-size: 0.96rem !important;
+    letter-spacing: 1.2px !important;
+  }
+  .seal-text-bot {
+    font-size: 0.64rem !important;
+  }
+  .seal-date-badge {
+    font-size: 0.92rem !important;
+    margin-top: 5px !important;
+  }
+
+  /* QR Code in print */
+  .qr-box-wrap {
+    padding: 5px 10px !important;
+    background: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+  }
+  #certQrCode {
+    padding: 3px !important;
+    background: #ffffff !important;
+  }
+  #certQrCode img {
+    width: 86px !important;
+    height: 86px !important;
+  }
+  .qr-scan-label {
+    font-size: 0.92rem !important;
+  }
+  .qr-url-hint {
+    font-size: 0.8rem !important;
+  }
+  .cert-instructor-sign {
+    margin-top: 5px !important;
+  }
+  .sign-instructor-line {
+    width: 155px !important;
+    height: 2px !important;
+    margin: 3px auto 3px !important;
+  }
+  .sign-instructor-name {
+    font-size: 0.98rem !important;
+  }
+  .sign-instructor-role {
+    font-size: 0.85rem !important;
+  }
+
+  /* Bottom registry note in print */
+  .cert-bottom-registry {
+    flex: 0 0 auto !important;
+    margin-top: 6px !important;
+    padding: 6px 52px 0 14px !important;
+    box-sizing: border-box !important;
+    font-size: 0.78rem !important;
+    border-top: 1px solid #e2e8f0 !important;
+  }
+}
+</style>
+{% endblock %}

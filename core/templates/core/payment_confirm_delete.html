@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+{% block title %}To'lovni bekor qilish{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div><h1><i class="fas fa-trash-can" style="color:var(--red)"></i> To'lovni bekor qilish</h1></div>
+    <a href="{% url 'payment_list' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Orqaga</a>
+</div>
+<div class="card delete-confirm-card">
+    <div class="card-body" style="padding:40px 32px">
+        <div class="delete-icon"><i class="fas fa-triangle-exclamation"></i></div>
+        <h2>To'lovni bekor qilish</h2>
+        <p>Quyidagi to'lov hisobdan chiqariladi, asl yozuv tarixda saqlanadi:</p>
+        <span class="delete-subject">{{ payment.student.name }} — {{ payment.amount }} so'm</span>
+        <p style="font-size:0.8rem;color:var(--red);margin-bottom:24px"><i class="fas fa-circle-info"></i> Bekor qilish sababi va amalni bajargan xodim tarixga yoziladi.</p>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group"><label for="reason">Bekor qilish sababi</label><textarea id="reason" name="reason" class="form-control" required maxlength="2000" rows="3"></textarea></div>
+            <div class="form-actions" style="justify-content:center;border:none;padding-top:0">
+                <a href="{% url 'payment_list' %}" class="btn btn-secondary"><i class="fas fa-xmark"></i> Bekor qilish</a>
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-can"></i> Ha, to'lovni bekor qilish</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

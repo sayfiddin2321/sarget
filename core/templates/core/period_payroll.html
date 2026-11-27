@@ -1,0 +1,352 @@
+{% extends 'core/base.html' %}
+{% block title %}Sana oralig'i bo'yicha to'lovlar va oylik hisobi{% endblock %}
+
+{% block content %}
+<div class="page-header no-print">
+  <div>
+    <h1><i class="fas fa-calendar-days text-primary"></i> Sana oralig'i bo'yicha to'lovlar va oylik</h1>
+    <p style="color:var(--text-muted);font-size:0.9rem">
+      Pul tushgan sana oralig'ini (masalan, 10-sanadan 10-sanagacha) va dars oyini (aprel, may, iyul...) alohida saralang.
+    </p>
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <button type="button" class="btn btn-secondary" onclick="window.print()">
+      <i class="fas fa-print"></i> Chop etish
+    </button>
+    <a class="btn btn-secondary" href="{% url 'salary_list' %}">
+      <i class="fas fa-wallet"></i> Oyliklar ro'yxati
+    </a>
+    <a class="btn btn-secondary" href="{% url 'payment_list' %}">
+      <i class="fas fa-receipt"></i> Barcha to'lovlar
+    </a>
+  </div>
+</div>
+
+<!-- Filtr kartasi -->
+<div class="card no-print" style="margin-bottom:20px;border-radius:12px">
+  <div class="card-body">
+    <!-- Tezkor oraliq tanlash tugmalari -->
+    <div style="margin-bottom:14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <span style="font-size:0.82rem;font-weight:600;color:var(--text-muted)"><i class="fas fa-bolt text-warning"></i> Tezkor tanlash:</span>
+      <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setPeriod10to10()">
+        10-sanadan 10-sanagacha
+      </button>
+      <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setCurrentMonth()">
+        Joriy oy (1-kundan oxirigacha)
+      </button>
+      <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setLast30Days()">
+        Oxirgi 30 kun
+      </button>
+    </div>
+
+    <form method="get" id="payrollForm">
+      {{ form.non_field_errors }}
+      <div class="filter-row" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:14px;align-items:flex-end">
+        <div class="form-group">
+          <label style="font-weight:600;font-size:0.82rem;margin-bottom:4px;display:block">
+            <i class="fas fa-calendar-arrow-down text-primary"></i> Pul tushgan sana: DAN
+          </label>
+          {{ form.date_from }}
+          {{ form.date_from.errors }}
+        </div>
+        <div class="form-group">
+          <label style="font-weight:600;font-size:0.82rem;margin-bottom:4px;display:block">
+            <i class="fas fa-calendar-arrow-up text-primary"></i> Pul tushgan sana: GACHA
+          </label>
+          {{ form.date_to }}
+          {{ form.date_to.errors }}
+        </div>
+        <div class="form-group">
+          <label style="font-weight:600;font-size:0.82rem;margin-bottom:4px;display:block">
+            <i class="fas fa-book-open text-info"></i> Qaysi dars oyi uchun (Ixtiyoriy)
+          </label>
+          {{ form.service_month }}
+          {{ form.service_month.errors }}
+        </div>
+        <div class="form-group">
+          <label style="font-weight:600;font-size:0.82rem;margin-bottom:4px;display:block">
+            <i class="fas fa-chalkboard-user text-success"></i> O'qituvchi
+          </label>
+          {{ form.teacher }}
+          {{ form.teacher.errors }}
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-primary" type="submit" style="flex:1">
+            <i class="fas fa-filter"></i> Hisoblash
+          </button>
+          <a href="{% url 'period_payroll' %}" class="btn btn-secondary" title="Filtrni tozalash">
+            <i class="fas fa-rotate-left"></i>
+          </a>
+        </div>
+      </div>
+    </form>
+    <div style="font-size:0.8rem;color:var(--text-muted);margin-top:10px">
+      <i class="fas fa-circle-info text-info"></i> Masalan: 10-maydan 10-iyungacha tushgan to'lovlar, lekin dars oyi esa aprel yoki iyul. Sana oralig'ining ikkala kuni ham to'liq hisobga kiradi.
+    </div>
+  </div>
+</div>
+
+{% if form.is_valid %}
+<p class="form-text">
+  Hisob davri: {{ form.cleaned_data.date_from|date:"d.m.Y" }} – {{ form.cleaned_data.date_to|date:"d.m.Y" }}.
+  Dars oyi: {% if form.cleaned_data.service_month %}{{ form.cleaned_data.service_month|date:"Y-m" }}{% else %}barcha oylar{% endif %}.
+  Jami tushum faqat shu filtrga kirgan to'lovlardan hisoblanadi.
+</p>
+<!-- Yig'ma statistika kartalari -->
+<div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:14px;margin-bottom:20px">
+  <div class="card" style="border-left:4px solid #3b82f6;border-radius:10px">
+    <div class="card-body" style="padding:16px">
+      <div style="font-size:0.78rem;font-weight:600;color:var(--text-muted);text-transform:uppercase">O'quvchilar</div>
+      <div style="font-size:1.6rem;font-weight:800;color:var(--text);margin-top:4px">{{ student_count }} ta</div>
+      <div style="font-size:0.75rem;color:#3b82f6;margin-top:2px">{{ payment_count }} ta to'lov tranzaksiyasi</div>
+    </div>
+  </div>
+  <div class="card" style="border-left:4px solid #10b981;border-radius:10px">
+    <div class="card-body" style="padding:16px">
+      <div style="font-size:0.78rem;font-weight:600;color:var(--text-muted);text-transform:uppercase">Jami Tushum</div>
+      <div style="font-size:1.4rem;font-weight:800;color:#10b981;margin-top:4px">{{ gross_total|floatformat:0 }} so'm</div>
+      <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px">Qaytarilgan: {{ refund_total|floatformat:0 }} so'm</div>
+    </div>
+  </div>
+  <div class="card" style="border-left:4px solid #06b6d4;border-radius:10px">
+    <div class="card-body" style="padding:16px">
+      <div style="font-size:0.78rem;font-weight:600;color:var(--text-muted);text-transform:uppercase">Sof Tushum</div>
+      <div style="font-size:1.4rem;font-weight:800;color:#06b6d4;margin-top:4px">{{ net_total|floatformat:0 }} so'm</div>
+      <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px">Qaytarimlardan keyingi tushum</div>
+    </div>
+  </div>
+  <div class="card" style="border-left:4px solid #8b5cf6;border-radius:10px">
+    <div class="card-body" style="padding:16px">
+      <div style="font-size:0.78rem;font-weight:600;color:var(--text-muted);text-transform:uppercase">O'qituvchilar Ulushi</div>
+      <div style="font-size:1.4rem;font-weight:800;color:#8b5cf6;margin-top:4px">{{ salary_total|floatformat:0 }} so'm</div>
+      <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px">Hisoblangan oylik miqdori</div>
+    </div>
+  </div>
+  <div class="card" style="border-left:4px solid #10b981;border-radius:10px">
+    <div class="card-body" style="padding:16px">
+      <div style="font-size:0.78rem;font-weight:600;color:var(--text-muted);text-transform:uppercase">Markazda qolgan qism</div>
+      <div style="font-size:1.4rem;font-weight:800;color:#10b981;margin-top:4px">{{ center_total|floatformat:0 }} so'm</div>
+      <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px">O'qituvchi ulushidan keyin, boshqa xarajatlardan oldin</div>
+    </div>
+  </div>
+</div>
+
+<!-- 1. Dars oylari bo'yicha taqsimot (Month Breakdown) -->
+<div class="card" style="margin-bottom:20px;border-radius:12px">
+  <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px">
+    <h3 style="margin:0;font-size:1.05rem;font-weight:700">
+      <i class="fas fa-calendar-check text-primary"></i> Dars oylari bo'yicha saralash (Qaysi oy uchun to'langan?)
+    </h3>
+    <span class="badge" style="background:#e0e7ff;color:#3730a3;font-size:0.8rem">
+      {{ month_totals|length }} xil dars oyi
+    </span>
+  </div>
+  <div class="table-wrapper">
+    <table class="table" style="margin-bottom:0">
+      <thead>
+        <tr style="background:#f8fafc">
+          <th>Dars oyi</th>
+          <th style="text-align:center">O'quvchilar soni</th>
+          <th style="text-align:center">To'lovlar soni</th>
+          <th style="text-align:right">Tushgan summa</th>
+          <th style="text-align:right">Qaytarilgan</th>
+          <th style="text-align:right">Sof tushum</th>
+          <th style="text-align:right">O'qituvchilar ulushi</th>
+          <th class="no-print" style="text-align:center">Saralash</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for m in month_totals %}
+        <tr>
+          <td>
+            <strong style="color:var(--primary);font-size:0.95rem">
+              <i class="fas fa-folder-open text-warning" style="margin-right:6px"></i>{{ m.month_name }}
+            </strong>
+            <span style="font-size:0.75rem;color:var(--text-muted);display:block">Kod: {{ m.month_key }}</span>
+          </td>
+          <td style="text-align:center">
+            <span class="badge" style="background:#f1f5f9;color:#334155;font-size:0.85rem">
+              {{ m.students|length }} ta o'quvchi
+            </span>
+          </td>
+          <td style="text-align:center">{{ m.count }} ta</td>
+          <td style="text-align:right;font-weight:600">{{ m.gross|floatformat:0 }} so'm</td>
+          <td style="text-align:right;color:#dc2626">{% if m.refunded %}-{{ m.refunded|floatformat:0 }} so'm{% else %}—{% endif %}</td>
+          <td style="text-align:right;font-weight:700;color:#16a34a">{{ m.net|floatformat:0 }} so'm</td>
+          <td style="text-align:right;font-weight:700;color:#7c3aed">{{ m.salary|floatformat:0 }} so'm</td>
+          <td class="no-print" style="text-align:center">
+            <button type="button" class="btn btn-sm btn-outline-primary" onclick="filterByServiceMonth('{{ m.month_key }}')">
+              Faqat shu oyni ko'rish
+            </button>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="8" style="text-align:center;padding:20px;color:var(--text-muted)">
+            Tanlangan sana oralig'ida to'lovlar topilmadi.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 2. O'qituvchilar bo'yicha hisob -->
+<div class="card" style="margin-bottom:20px;border-radius:12px">
+  <div class="card-header" style="padding:14px 20px">
+    <h3 style="margin:0;font-size:1.05rem;font-weight:700">
+      <i class="fas fa-chalkboard-user text-success"></i> O'qituvchilar bo'yicha oylik hisobi
+    </h3>
+  </div>
+  <div class="table-wrapper">
+    <table class="table" style="margin-bottom:0">
+      <thead>
+        <tr style="background:#f8fafc">
+          <th>O'qituvchi</th>
+          <th style="text-align:center">O'quvchilar soni</th>
+          <th style="text-align:center">To'lovlar soni</th>
+          <th style="text-align:right">Sof tushum</th>
+          <th style="text-align:right">Oylik ulushi</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in teacher_totals %}
+        <tr>
+          <td>
+            <strong>{{ row.teacher.name|default:"Biriktirilmagan" }}</strong>
+            {% if row.teacher.phone %}<span style="font-size:0.75rem;color:var(--text-muted);display:block">{{ row.teacher.phone }}</span>{% endif %}
+          </td>
+          <td style="text-align:center">{{ row.students|length }} ta o'quvchi</td>
+          <td style="text-align:center">{{ row.count }} ta</td>
+          <td style="text-align:right;font-weight:600">{{ row.income|floatformat:0 }} so'm</td>
+          <td style="text-align:right;font-weight:800;color:#7c3aed;font-size:1rem">{{ row.salary|floatformat:0 }} so'm</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" style="text-align:center;color:var(--text-muted)">Ma'lumot topilmadi</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 3. Hisobga kirgan barcha to'lovlar tafsiloti -->
+<div class="card" style="margin-bottom:30px;border-radius:12px">
+  <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px">
+    <h3 style="margin:0;font-size:1.05rem;font-weight:700">
+      <i class="fas fa-list-check text-info"></i> Hisobga kirgan to'lovlar ro'yxati
+    </h3>
+    <span style="font-size:0.85rem;color:var(--text-muted)">Jami: {{ rows|length }} ta to'lov</span>
+  </div>
+  <div class="table-wrapper">
+    <table class="table" style="margin-bottom:0">
+      <thead>
+        <tr style="background:#f8fafc">
+          <th>Chek №</th>
+          <th>O'quvchi</th>
+          <th>Dars oyi (Qaysi oy uchun)</th>
+          <th>Pul tushgan sana</th>
+          <th>O'qituvchi</th>
+          <th style="text-align:right">Summa</th>
+          <th style="text-align:right">Sof tushum</th>
+          <th style="text-align:center">Foiz</th>
+          <th style="text-align:right">O'qituvchi ulushi</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+        <tr>
+          <td>
+            <a href="{% url 'payment_receipt' row.payment.pk %}" style="font-weight:600;font-family:monospace" target="_blank">
+              {{ row.payment.receipt_number }}
+            </a>
+          </td>
+          <td>
+            <a href="{% url 'student_detail' row.student.pk %}" style="font-weight:600;color:var(--text)">
+              {{ row.student.name }}
+            </a>
+            {% if row.student.group %}<span style="font-size:0.75rem;color:var(--text-muted);display:block">{{ row.student.group.name }}</span>{% endif %}
+          </td>
+          <td>
+            <span class="badge" style="background:#eff6ff;color:#1e40af;font-size:0.82rem;font-weight:600;padding:4px 8px">
+              <i class="fas fa-calendar-day" style="margin-right:4px"></i>{{ row.service_month_name }}
+            </span>
+          </td>
+          <td style="font-size:0.85rem;color:var(--text-muted)">
+            {{ row.payment.paid_date|date:"d.m.Y, H:i" }}
+          </td>
+          <td>{{ row.teacher.name|default:"—" }}</td>
+          <td style="text-align:right;font-weight:600">{{ row.payment.amount|floatformat:0 }} so'm</td>
+          <td style="text-align:right;color:#16a34a;font-weight:600">{{ row.net|floatformat:0 }} so'm</td>
+          <td style="text-align:center">{{ row.percent }}%</td>
+          <td style="text-align:right;font-weight:700;color:#7c3aed">{{ row.share|floatformat:0 }} so'm</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="9" style="text-align:center;padding:24px;color:var(--text-muted)">Tanlangan oraliqda to'lovlar mavjud emas</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endif %}
+
+<script>
+function pad(num) { return num < 10 ? '0' + num : num; }
+
+function setPeriod10to10() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth(); // 0-based
+  
+  // O'tgan oy 10-sanasidan joriy oy 10-sanasigacha
+  let prevMonth = month - 1;
+  let prevYear = year;
+  if (prevMonth < 0) {
+    prevMonth = 11;
+    prevYear = year - 1;
+  }
+  
+  const fromDate = `${prevYear}-${pad(prevMonth + 1)}-10`;
+  const toDate = `${year}-${pad(month + 1)}-10`;
+  
+  document.querySelector('input[name="date_from"]').value = fromDate;
+  document.querySelector('input[name="date_to"]').value = toDate;
+  document.getElementById('payrollForm').submit();
+}
+
+function setCurrentMonth() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  const lastDay = new Date(year, month + 1, 0).getDate();
+  
+  const fromDate = `${year}-${pad(month + 1)}-01`;
+  const toDate = `${year}-${pad(month + 1)}-${pad(lastDay)}`;
+  
+  document.querySelector('input[name="date_from"]').value = fromDate;
+  document.querySelector('input[name="date_to"]').value = toDate;
+  document.getElementById('payrollForm').submit();
+}
+
+function setLast30Days() {
+  const now = new Date();
+  const past = new Date();
+  past.setDate(now.getDate() - 30);
+  
+  const fromDate = `${past.getFullYear()}-${pad(past.getMonth() + 1)}-${pad(past.getDate())}`;
+  const toDate = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+  
+  document.querySelector('input[name="date_from"]').value = fromDate;
+  document.querySelector('input[name="date_to"]').value = toDate;
+  document.getElementById('payrollForm').submit();
+}
+
+function filterByServiceMonth(monthKey) {
+  const monthInput = document.querySelector('input[name="service_month"]');
+  if (monthInput) {
+    monthInput.value = monthKey;
+    document.getElementById('payrollForm').submit();
+  }
+}
+</script>
+{% endblock %}

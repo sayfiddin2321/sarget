@@ -1,0 +1,7 @@
+{% extends 'core/base.html' %}
+{% block title %}XLSX import{% endblock %}
+{% block content %}<div class="page-header"><div><h1>XLSX import</h1><p>{{ kind }} {% if student %}— faqat {{ student.name }}{% endif %}</p></div></div>
+<div class="card"><div class="card-body"><p>1. Shablonni yuklab oling. 2. To'ldiring. 3. Tekshiring va natijani tasdiqlang.</p>
+<a class="btn btn-secondary" href="{% url 'xlsx_import_template' %}?kind={{ kind }}{% if student %}&amp;student={{ student.pk }}{% endif %}">XLSX shablon</a>
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+<form method="post" enctype="multipart/form-data">{% csrf_token %}<input type="hidden" name="kind" value="{{ kind }}">{% if student %}<input type="hidden" name="student" value="{{ student.pk }}">{% endif %}<p><label>XLSX fayl (5 MBgacha, 5000 satr)<input class="form-control" type="file" name="file" accept=".xlsx" required></label></p><label>Dublikat strategiyasi<select name="strategy" class="form-select">{% for key,label in strategies %}<option value="{{ key }}">{{ label }}</option>{% endfor %}</select></label><p>Telefon tengligi bo'yicha shaxslar avtomatik birlashtirilmaydi. Moliyaviy tarix bu importda yuklanmaydi.</p><button class="btn btn-primary">Avval tekshirish</button></form></div></div>{% endblock %}

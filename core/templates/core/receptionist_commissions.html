@@ -1,0 +1,69 @@
+{% extends 'core/base.html' %}
+{% block title %}{{ receptionist.name }} — Komissiyalar{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-chart-bar"></i> {{ receptionist.name }} — Komissiyalar</h1>
+    <p>{{ receptionist.commission_percent }}% komissiya stavkasi</p>
+  </div>
+  <a href="{% url 'receptionist_list' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Orqaga</a>
+</div>
+
+<div class="filter-bar">
+  <form method="get" style="display:contents">
+    <div class="form-group">
+      <label>Oy bo'yicha filter</label>
+      <input type="month" name="month" value="{{ selected_month }}" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary" style="align-self:flex-end"><i class="fas fa-filter"></i></button>
+    <a href="?" class="btn btn-secondary" style="align-self:flex-end"><i class="fas fa-xmark"></i></a>
+  </form>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 260px;gap:16px;margin-bottom:20px">
+  <div class="commission-highlight">
+    <i class="fas fa-hand-holding-dollar" style="font-size:2rem;color:var(--cyan)"></i>
+    <div>
+      <div style="font-size:0.8rem;color:var(--text-muted)">Jami komissiya (filtr bo'yicha)</div>
+      <div style="font-size:1.6rem;font-weight:700;font-family:var(--font-display);color:var(--cyan)">{{ total|floatformat:0 }} so'm</div>
+    </div>
+  </div>
+  <div class="card" style="padding:16px">
+    <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:6px">Faol o'quvchilar</div>
+    <div style="font-size:1.5rem;font-weight:700;color:var(--text-primary)">{{ receptionist.registered_students.count }}</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>O'quvchi</th><th>Oylik oyi</th><th>Dars oyi</th><th>To'lov summasi</th><th>Komissiya %</th><th>Komissiya summasi</th><th>Pul tushgan sana</th></tr>
+      </thead>
+      <tbody>
+        {% for c in commissions %}
+        <tr>
+          <td>
+            <div class="entity-cell">
+              <div class="entity-avatar" style="background:rgba(6,182,212,0.12);color:var(--cyan)">{% include 'core/includes/student_avatar.html' with student=c.student %}</div>
+              <div>
+                <div class="entity-name">{{ c.student.name }}</div>
+                {% if c.student.group %}<div class="entity-sub">{{ c.student.group.name }}</div>{% endif %}
+              </div>
+            </div>
+          </td>
+          <td style="color:var(--text-secondary)">{{ c.month|date:"Y - F" }}</td>
+          <td>{{ c.payment.month|date:"Y-m" }}</td>
+          <td><span class="amount">{{ c.payment_amount|floatformat:0 }} so'm</span></td>
+          <td><span style="color:var(--accent);font-weight:600">{{ c.commission_percent }}%</span></td>
+          <td><span class="amount amount-green" style="font-weight:700">{{ c.commission_amount|floatformat:0 }} so'm</span></td>
+          <td style="color:var(--text-muted);font-size:0.8rem">{{ c.payment.paid_date|date:"d.m.Y" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7"><div class="empty-state"><i class="fas fa-inbox"></i><p>Komissiyalar yo'q</p></div></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

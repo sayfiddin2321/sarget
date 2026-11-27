@@ -1,0 +1,35 @@
+{% extends "admin/base_site.html" %}
+{% load admin_urls %}
+
+{% block bodyclass %}{{ block.super }} delete-confirmation{% endblock %}
+
+{% block breadcrumbs %}
+<nav class="breadcrumbs" aria-label="Navigatsiya">
+    <a href="{% url 'admin:index' %}">Bosh sahifa</a> &rsaquo;
+    <a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural }}</a> &rsaquo;
+    O'chirish
+</nav>
+{% endblock %}
+
+{% block content %}
+<p>Quyidagi to'lovlar hisobdan chiqariladi. Asl yozuv, o'chirish sababi va amalni bajargan xodim tarixda saqlanadi.</p>
+<p>Qaytarimi bor to'lovlarda qaytarim tarixi saqlanadi va faqat qolgan summa hisobdan chiqariladi.</p>
+<ul>
+    {% for payment in queryset %}<li>{{ payment }}</li>{% endfor %}
+</ul>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="post" value="yes">
+    {% if bulk %}
+        <input type="hidden" name="action" value="delete_selected">
+        {% for payment in queryset %}
+            <input type="hidden" name="{{ action_checkbox_name }}" value="{{ payment.pk }}">
+        {% endfor %}
+    {% endif %}
+    <div class="submit-row">
+        <input type="submit" value="Ha, o'chirishni tasdiqlayman">
+        <a class="button" href="{% url opts|admin_urlname:'changelist' %}">Orqaga</a>
+    </div>
+</form>
+{% endblock %}

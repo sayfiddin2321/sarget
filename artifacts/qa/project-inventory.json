@@ -1,0 +1,4692 @@
+{
+  "routes": [
+    {
+      "name": "student_remove",
+      "path": "students/<int:pk>/remove/",
+      "view": "core.views.student_remove",
+      "models": [
+        "GuardianBinding",
+        "ReportSubscription",
+        "Student",
+        "TelegramBinding",
+        "TelegramDelivery",
+        "TelegramLinkToken"
+      ],
+      "templates": [
+        "core/student_remove.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:1223"
+    },
+    {
+      "name": "payment_qr",
+      "path": "receipt/verify/<str:token>/qr.png",
+      "view": "core.payment_verification.payment_qr",
+      "models": [
+        "Payment"
+      ],
+      "templates": [],
+      "decorators": [
+        "@never_cache"
+      ],
+      "source": "core\\payment_verification.py:58"
+    },
+    {
+      "name": "payment_verify",
+      "path": "receipt/verify/<str:token>/",
+      "view": "core.payment_verification.payment_verify",
+      "models": [
+        "Payment"
+      ],
+      "templates": [
+        "core/payment_verify.html"
+      ],
+      "decorators": [
+        "@never_cache"
+      ],
+      "source": "core\\payment_verification.py:105"
+    },
+    {
+      "name": "period_payroll",
+      "path": "salaries/period/",
+      "view": "core.period_payroll.period_payroll",
+      "models": [],
+      "templates": [
+        "core/period_payroll.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('salary.teacher.view')"
+      ],
+      "source": "core\\period_payroll.py:156"
+    },
+    {
+      "name": "academic_center",
+      "path": "academic/",
+      "view": "core.centers.center_view",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\centers.py:52"
+    },
+    {
+      "name": "staff_center",
+      "path": "staff/",
+      "view": "core.centers.center_view",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\centers.py:52"
+    },
+    {
+      "name": "learning_center",
+      "path": "learning/",
+      "view": "core.centers.center_view",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\centers.py:52"
+    },
+    {
+      "name": "salary_center",
+      "path": "payroll/",
+      "view": "core.centers.center_view",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\centers.py:52"
+    },
+    {
+      "name": "financial_migration",
+      "path": "finance/migration/",
+      "view": "core.financial_migration.migration_preview",
+      "models": [
+        "ImportBatch"
+      ],
+      "templates": [
+        "core/financial_migration.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@admin_required"
+      ],
+      "source": "core\\financial_migration.py:83"
+    },
+    {
+      "name": "financial_migration_template",
+      "path": "finance/migration/template/",
+      "view": "core.financial_migration.migration_template",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@admin_required"
+      ],
+      "source": "core\\financial_migration.py:70"
+    },
+    {
+      "name": "financial_migration_batch",
+      "path": "finance/migration/<uuid:public_id>/",
+      "view": "core.financial_migration.migration_batch",
+      "models": [
+        "ImportBatch"
+      ],
+      "templates": [
+        "core/financial_migration.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@admin_required"
+      ],
+      "source": "core\\financial_migration.py:102"
+    },
+    {
+      "name": "financial_migration_confirm",
+      "path": "finance/migration/<uuid:public_id>/confirm/",
+      "view": "core.financial_migration.migration_confirm",
+      "models": [
+        "ImportBatch",
+        "Payment"
+      ],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@admin_required",
+        "@require_POST",
+        "@transaction.atomic"
+      ],
+      "source": "core\\financial_migration.py:110"
+    },
+    {
+      "name": "staff_permissions",
+      "path": "staff/permissions/",
+      "view": "core.staff_views.staff_permissions",
+      "models": [
+        "StaffCapability"
+      ],
+      "templates": [
+        "core/staff_permissions.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@admin_required",
+        "@transaction.atomic"
+      ],
+      "source": "core\\staff_views.py:25"
+    },
+    {
+      "name": "profile_edit",
+      "path": "profile/",
+      "view": "core.staff_views.profile_edit",
+      "models": [
+        "Receptionist",
+        "Teacher"
+      ],
+      "templates": [
+        "core/profile_edit.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@transaction.atomic"
+      ],
+      "source": "core\\staff_views.py:66"
+    },
+    {
+      "name": "report_settings",
+      "path": "report-settings/",
+      "view": "core.staff_views.report_settings",
+      "models": [
+        "Branch",
+        "Campaign"
+      ],
+      "templates": [
+        "core/report_settings.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('settings.manage')"
+      ],
+      "source": "core\\staff_views.py:142"
+    },
+    {
+      "name": "report_center",
+      "path": "report-center/",
+      "view": "core.report_views.report_center",
+      "models": [],
+      "templates": [
+        "core/report_center.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\report_views.py:79"
+    },
+    {
+      "name": "report_export",
+      "path": "report-center/export/",
+      "view": "core.report_views.report_export",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST"
+      ],
+      "source": "core\\report_views.py:134"
+    },
+    {
+      "name": "report_jobs",
+      "path": "report-center/files/",
+      "view": "core.report_views.report_jobs",
+      "models": [
+        "ReportJob"
+      ],
+      "templates": [
+        "core/report_jobs.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\report_views.py:150"
+    },
+    {
+      "name": "report_job_download",
+      "path": "report-center/files/<uuid:public_id>/",
+      "view": "core.report_views.report_job_download",
+      "models": [
+        "ReportJob"
+      ],
+      "templates": [],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\report_views.py:161"
+    },
+    {
+      "name": "xlsx_import",
+      "path": "imports/xlsx/",
+      "view": "core.report_imports.xlsx_import",
+      "models": [
+        "ImportBatch"
+      ],
+      "templates": [
+        "core/xlsx_import.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\report_imports.py:311"
+    },
+    {
+      "name": "xlsx_import_template",
+      "path": "imports/xlsx/template/",
+      "view": "core.report_imports.import_template",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\report_imports.py:291"
+    },
+    {
+      "name": "xlsx_import_preview",
+      "path": "imports/xlsx/<uuid:public_id>/",
+      "view": "core.report_imports.xlsx_import_preview",
+      "models": [
+        "ImportBatch"
+      ],
+      "templates": [
+        "core/xlsx_import_preview.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\report_imports.py:336"
+    },
+    {
+      "name": "xlsx_import_confirm",
+      "path": "imports/xlsx/<uuid:public_id>/confirm/",
+      "view": "core.report_imports.xlsx_import_confirm",
+      "models": [
+        "ImportBatch"
+      ],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST"
+      ],
+      "source": "core\\report_imports.py:343"
+    },
+    {
+      "name": "student_report",
+      "path": "students/<int:pk>/report/",
+      "view": "core.report_views.student_report",
+      "models": [
+        "TelegramDelivery"
+      ],
+      "templates": [
+        "core/student_report.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\report_views.py:106"
+    },
+    {
+      "name": "student_report_send",
+      "path": "students/<int:pk>/report/send/",
+      "view": "core.message_views.student_report_send",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST"
+      ],
+      "source": "core\\message_views.py:30"
+    },
+    {
+      "name": "student_report_link",
+      "path": "students/<int:pk>/report/link-telegram/",
+      "view": "core.message_views.student_report_link",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST"
+      ],
+      "source": "core\\message_views.py:44"
+    },
+    {
+      "name": "student_report_subscribe",
+      "path": "students/<int:pk>/report/subscribe/",
+      "view": "core.message_views.student_report_subscribe",
+      "models": [
+        "ReportSubscription"
+      ],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST",
+        "@transaction.atomic"
+      ],
+      "source": "core\\message_views.py:62"
+    },
+    {
+      "name": "student_telegram_message",
+      "path": "students/<int:pk>/telegram-message/",
+      "view": "core.message_views.student_telegram_message",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST",
+        "@transaction.atomic"
+      ],
+      "source": "core\\message_views.py:85"
+    },
+    {
+      "name": "student_restore",
+      "path": "students/<int:pk>/restore/",
+      "view": "core.staff_views.student_restore",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST"
+      ],
+      "source": "core\\staff_views.py:215"
+    },
+    {
+      "name": "enrollment_create",
+      "path": "students/<int:student_id>/enrollments/add/",
+      "view": "core.staff_views.enrollment_edit",
+      "models": [
+        "Enrollment"
+      ],
+      "templates": [
+        "core/simple_form.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@transaction.atomic"
+      ],
+      "source": "core\\staff_views.py:192"
+    },
+    {
+      "name": "enrollment_edit",
+      "path": "students/<int:student_id>/enrollments/<int:pk>/",
+      "view": "core.staff_views.enrollment_edit",
+      "models": [
+        "Enrollment"
+      ],
+      "templates": [
+        "core/simple_form.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@transaction.atomic"
+      ],
+      "source": "core\\staff_views.py:192"
+    },
+    {
+      "name": "refund_create",
+      "path": "payments/<int:pk>/refund/",
+      "view": "core.staff_views.refund_create",
+      "models": [
+        "Payment",
+        "Refund"
+      ],
+      "templates": [
+        "core/simple_form.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('payments.refund')"
+      ],
+      "source": "core\\staff_views.py:228"
+    },
+    {
+      "name": "lead_message",
+      "path": "qabul/<int:pk>/message/",
+      "view": "core.message_views.lead_message",
+      "models": [
+        "Lead",
+        "LeadActivity",
+        "TelegramDelivery"
+      ],
+      "templates": [
+        "core/lead_message.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@transaction.atomic"
+      ],
+      "source": "core\\message_views.py:115"
+    },
+    {
+      "name": "lead_restore",
+      "path": "qabul/<int:pk>/restore/",
+      "view": "core.leads.lead_restore",
+      "models": [
+        "Lead",
+        "LeadActivity"
+      ],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST",
+        "@capability_required('leads.archive')"
+      ],
+      "source": "core\\leads.py:184"
+    },
+    {
+      "name": "telegram_link",
+      "path": "telegram/link/",
+      "view": "core.operations.telegram_link",
+      "models": [
+        "GuardianBinding",
+        "Receptionist",
+        "Student",
+        "Teacher",
+        "TelegramBinding",
+        "TelegramLinkToken"
+      ],
+      "templates": [
+        "core/telegram_link.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@require_http_methods(['GET', 'POST'])",
+        "@transaction.atomic"
+      ],
+      "source": "core\\operations.py:55"
+    },
+    {
+      "name": "financial_history",
+      "path": "finance/history/",
+      "view": "core.operations.financial_history",
+      "models": [
+        "FinancialAudit"
+      ],
+      "templates": [
+        "core/financial_history.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('finance.history')"
+      ],
+      "source": "core\\operations.py:16"
+    },
+    {
+      "name": "system_status",
+      "path": "system/status/",
+      "view": "core.operations.system_status",
+      "models": [
+        "OperationalRun",
+        "ReportJob",
+        "TelegramDelivery"
+      ],
+      "templates": [
+        "core/system_status.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('system.view')"
+      ],
+      "source": "core\\operations.py:31"
+    },
+    {
+      "name": "api_bot_create_lead",
+      "path": "api/bot/leads/",
+      "view": "core.api.api_bot_create_lead",
+      "models": [
+        "Campaign",
+        "Lead",
+        "LeadActivity"
+      ],
+      "templates": [],
+      "decorators": [
+        "@csrf_exempt",
+        "@require_POST",
+        "@require_api_key"
+      ],
+      "source": "core\\api.py:71"
+    },
+    {
+      "name": "api_bot_auth_user",
+      "path": "api/bot/auth/",
+      "view": "core.api.api_bot_auth_user",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@csrf_exempt",
+        "@require_POST",
+        "@require_api_key"
+      ],
+      "source": "core\\api.py:154"
+    },
+    {
+      "name": "api_bot_student_info",
+      "path": "api/bot/student-info/",
+      "view": "core.api.api_bot_student_info",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@csrf_exempt",
+        "@require_GET",
+        "@require_api_key"
+      ],
+      "source": "core\\api.py:172"
+    },
+    {
+      "name": "api_bot_staff_summary",
+      "path": "api/bot/staff-summary/",
+      "view": "core.api.api_bot_staff_summary",
+      "models": [
+        "Lead",
+        "Student"
+      ],
+      "templates": [],
+      "decorators": [
+        "@csrf_exempt",
+        "@require_GET",
+        "@require_api_key"
+      ],
+      "source": "core\\api.py:232"
+    },
+    {
+      "name": "api_bot_courses_list",
+      "path": "api/bot/courses/",
+      "view": "core.api.api_bot_courses_list",
+      "models": [
+        "Course"
+      ],
+      "templates": [],
+      "decorators": [
+        "@csrf_exempt",
+        "@require_GET",
+        "@require_api_key"
+      ],
+      "source": "core\\api.py:300"
+    },
+    {
+      "name": "api_bot_account",
+      "path": "api/bot/account/",
+      "view": "core.api_bot_extra.api_bot_account",
+      "models": [
+        "Student",
+        "TelegramBinding"
+      ],
+      "templates": [],
+      "decorators": [
+        "@csrf_exempt",
+        "@require_GET",
+        "@require_api_key"
+      ],
+      "source": "core\\api_bot_extra.py:20"
+    },
+    {
+      "name": "api_bot_lead_message",
+      "path": "api/bot/lead-message/",
+      "view": "core.api_bot_extra.api_bot_lead_message",
+      "models": [
+        "Lead",
+        "LeadActivity"
+      ],
+      "templates": [],
+      "decorators": [
+        "@csrf_exempt",
+        "@require_POST",
+        "@require_api_key"
+      ],
+      "source": "core\\api_bot_extra.py:52"
+    },
+    {
+      "name": "api_health_check",
+      "path": "api/bot/health/",
+      "view": "core.api.api_health_check",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@require_GET"
+      ],
+      "source": "core\\api.py:311"
+    },
+    {
+      "name": "lead_list",
+      "path": "qabul/",
+      "view": "core.leads.lead_list",
+      "models": [
+        "Lead",
+        "LeadActivity"
+      ],
+      "templates": [
+        "core/lead_list.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\leads.py:25"
+    },
+    {
+      "name": "lead_create",
+      "path": "qabul/create/",
+      "view": "core.leads.lead_edit",
+      "models": [
+        "Branch",
+        "Lead",
+        "LeadActivity"
+      ],
+      "templates": [
+        "core/lead_form.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@transaction.atomic"
+      ],
+      "source": "core\\leads.py:74"
+    },
+    {
+      "name": "lead_edit",
+      "path": "qabul/<int:pk>/edit/",
+      "view": "core.leads.lead_edit",
+      "models": [
+        "Branch",
+        "Lead",
+        "LeadActivity"
+      ],
+      "templates": [
+        "core/lead_form.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@transaction.atomic"
+      ],
+      "source": "core\\leads.py:74"
+    },
+    {
+      "name": "lead_claim",
+      "path": "qabul/<int:pk>/claim/",
+      "view": "core.leads.lead_claim",
+      "models": [
+        "Lead",
+        "LeadActivity"
+      ],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST",
+        "@transaction.atomic"
+      ],
+      "source": "core\\leads.py:57"
+    },
+    {
+      "name": "lead_status_update",
+      "path": "qabul/<int:pk>/status/",
+      "view": "core.leads.lead_status_update",
+      "models": [
+        "Lead",
+        "LeadActivity"
+      ],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST",
+        "@transaction.atomic"
+      ],
+      "source": "core\\leads.py:115"
+    },
+    {
+      "name": "lead_enroll",
+      "path": "qabul/<int:pk>/enroll/",
+      "view": "core.leads.lead_enroll",
+      "models": [
+        "Lead",
+        "LeadActivity",
+        "Student"
+      ],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST",
+        "@transaction.atomic"
+      ],
+      "source": "core\\leads.py:157"
+    },
+    {
+      "name": "lead_delete",
+      "path": "qabul/<int:pk>/delete/",
+      "view": "core.leads.lead_delete",
+      "models": [
+        "Lead"
+      ],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST",
+        "@capability_required('leads.archive')"
+      ],
+      "source": "core\\leads.py:176"
+    },
+    {
+      "name": "lead_export",
+      "path": "qabul/export/",
+      "view": "core.leads.lead_export",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\leads.py:194"
+    },
+    {
+      "name": "telegram_webhook",
+      "path": "integrations/telegram/webhook/",
+      "view": "core.leads.telegram_webhook",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@csrf_exempt",
+        "@require_POST"
+      ],
+      "source": "core\\leads.py:207"
+    },
+    {
+      "name": "dashboard",
+      "path": "",
+      "view": "core.views.dashboard",
+      "models": [
+        "Attendance",
+        "Group",
+        "Notification",
+        "Payment",
+        "Receptionist",
+        "Salary",
+        "Student",
+        "Teacher"
+      ],
+      "templates": [
+        "core/dashboard.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:98"
+    },
+    {
+      "name": "login",
+      "path": "login/",
+      "view": "core.views.login_view",
+      "models": [],
+      "templates": [
+        "core/login.html"
+      ],
+      "decorators": [],
+      "source": "core\\views.py:71"
+    },
+    {
+      "name": "logout",
+      "path": "logout/",
+      "view": "core.views.logout_view",
+      "models": [],
+      "templates": [],
+      "decorators": [],
+      "source": "core\\views.py:92"
+    },
+    {
+      "name": "api_students_search",
+      "path": "api/students/search/",
+      "view": "core.views.api_students_search",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:255"
+    },
+    {
+      "name": "api_group_students",
+      "path": "api/groups/<int:group_id>/students/",
+      "view": "core.views.api_group_students",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:277"
+    },
+    {
+      "name": "mark_notification_read",
+      "path": "api/notifications/<int:pk>/read/",
+      "view": "core.views.mark_notification_read",
+      "models": [
+        "Notification"
+      ],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST"
+      ],
+      "source": "core\\views.py:285"
+    },
+    {
+      "name": "notification_poll",
+      "path": "api/notifications/poll/",
+      "view": "core.views.poll_notifications",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_GET"
+      ],
+      "source": "core\\views.py:366"
+    },
+    {
+      "name": "api_notification_clear_all",
+      "path": "api/notifications/clear-all/",
+      "view": "core.views.clear_all_notifications",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST"
+      ],
+      "source": "core\\views.py:317"
+    },
+    {
+      "name": "api_notification_read_all",
+      "path": "api/notifications/read-all/",
+      "view": "core.views.mark_all_notifications_read",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST"
+      ],
+      "source": "core\\views.py:294"
+    },
+    {
+      "name": "notification_list",
+      "path": "notifications/",
+      "view": "core.views.notification_list",
+      "models": [],
+      "templates": [
+        "core/notification_list.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@require_GET"
+      ],
+      "source": "core\\views.py:339"
+    },
+    {
+      "name": "notification_clear_all",
+      "path": "notifications/clear-all/",
+      "view": "core.views.clear_all_notifications",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST"
+      ],
+      "source": "core\\views.py:317"
+    },
+    {
+      "name": "notification_read_all",
+      "path": "notifications/read-all/",
+      "view": "core.views.mark_all_notifications_read",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST"
+      ],
+      "source": "core\\views.py:294"
+    },
+    {
+      "name": "notification_open",
+      "path": "notifications/<int:pk>/open/",
+      "view": "core.views.notification_open",
+      "models": [
+        "Notification"
+      ],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST"
+      ],
+      "source": "core\\views.py:356"
+    },
+    {
+      "name": "notification_delete",
+      "path": "notifications/<int:pk>/delete/",
+      "view": "core.views.notification_delete",
+      "models": [
+        "Notification"
+      ],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST"
+      ],
+      "source": "core\\views.py:327"
+    },
+    {
+      "name": "global_search",
+      "path": "search/",
+      "view": "core.views.global_search",
+      "models": [
+        "Attendance",
+        "Group",
+        "Payment",
+        "Receptionist",
+        "Student",
+        "Teacher"
+      ],
+      "templates": [
+        "core/search.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:399"
+    },
+    {
+      "name": "student_list",
+      "path": "students/",
+      "view": "core.views.student_list",
+      "models": [
+        "Group",
+        "Student",
+        "Teacher"
+      ],
+      "templates": [
+        "core/student_list.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:637"
+    },
+    {
+      "name": "student_create",
+      "path": "students/create/",
+      "view": "core.views.student_create",
+      "models": [
+        "AssignmentHistory"
+      ],
+      "templates": [
+        "core/student_form.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:1100"
+    },
+    {
+      "name": "student_export",
+      "path": "students/export/",
+      "view": "core.views.student_export",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:730"
+    },
+    {
+      "name": "student_import",
+      "path": "students/import/",
+      "view": "core.report_imports.xlsx_import",
+      "models": [
+        "ImportBatch"
+      ],
+      "templates": [
+        "core/xlsx_import.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\report_imports.py:311"
+    },
+    {
+      "name": "student_import_template",
+      "path": "students/import/template/",
+      "view": "core.report_imports.import_template",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\report_imports.py:291"
+    },
+    {
+      "name": "student_detail",
+      "path": "students/<int:pk>/",
+      "view": "core.views.student_detail",
+      "models": [
+        "Attendance",
+        "Grade",
+        "Payment",
+        "TelegramDelivery"
+      ],
+      "templates": [
+        "core/student_detail.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:1160"
+    },
+    {
+      "name": "student_status_update",
+      "path": "students/<int:pk>/status/",
+      "view": "core.views.student_status_update",
+      "models": [
+        "Student"
+      ],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST"
+      ],
+      "source": "core\\views.py:712"
+    },
+    {
+      "name": "student_card_print",
+      "path": "students/<int:pk>/card/",
+      "view": "core.views.student_card_print",
+      "models": [
+        "Attendance",
+        "Grade"
+      ],
+      "templates": [
+        "core/student_card.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:2418"
+    },
+    {
+      "name": "student_edit",
+      "path": "students/<int:pk>/edit/",
+      "view": "core.views.student_edit",
+      "models": [
+        "AssignmentHistory"
+      ],
+      "templates": [
+        "core/student_form.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:1131"
+    },
+    {
+      "name": "student_delete",
+      "path": "students/<int:pk>/delete/",
+      "view": "core.views.student_delete",
+      "models": [],
+      "templates": [
+        "core/student_confirm_delete.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:1211"
+    },
+    {
+      "name": "teacher_list",
+      "path": "teachers/",
+      "view": "core.views.teacher_list",
+      "models": [
+        "Teacher"
+      ],
+      "templates": [
+        "core/teacher_list.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('teachers.view')"
+      ],
+      "source": "core\\views.py:1248"
+    },
+    {
+      "name": "teacher_create",
+      "path": "teachers/create/",
+      "view": "core.views.teacher_create",
+      "models": [],
+      "templates": [
+        "core/teacher_form.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('teachers.create')"
+      ],
+      "source": "core\\views.py:1255"
+    },
+    {
+      "name": "teacher_edit",
+      "path": "teachers/<int:pk>/edit/",
+      "view": "core.views.teacher_edit",
+      "models": [
+        "Teacher"
+      ],
+      "templates": [
+        "core/teacher_form.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('teachers.edit')"
+      ],
+      "source": "core\\views.py:1266"
+    },
+    {
+      "name": "teacher_delete",
+      "path": "teachers/<int:pk>/delete/",
+      "view": "core.views.teacher_delete",
+      "models": [
+        "Teacher"
+      ],
+      "templates": [
+        "core/teacher_confirm_delete.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('teachers.archive')"
+      ],
+      "source": "core\\views.py:1280"
+    },
+    {
+      "name": "receptionist_list",
+      "path": "receptionists/",
+      "view": "core.views.receptionist_list",
+      "models": [
+        "Receptionist"
+      ],
+      "templates": [
+        "core/receptionist_list.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('receptionists.view')"
+      ],
+      "source": "core\\views.py:1299"
+    },
+    {
+      "name": "receptionist_create",
+      "path": "receptionists/create/",
+      "view": "core.views.receptionist_create",
+      "models": [],
+      "templates": [
+        "core/receptionist_form.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('receptionists.create')"
+      ],
+      "source": "core\\views.py:1308"
+    },
+    {
+      "name": "receptionist_edit",
+      "path": "receptionists/<int:pk>/edit/",
+      "view": "core.views.receptionist_edit",
+      "models": [
+        "Receptionist"
+      ],
+      "templates": [
+        "core/receptionist_form.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('receptionists.edit')"
+      ],
+      "source": "core\\views.py:1319"
+    },
+    {
+      "name": "receptionist_delete",
+      "path": "receptionists/<int:pk>/delete/",
+      "view": "core.views.receptionist_delete",
+      "models": [
+        "Receptionist"
+      ],
+      "templates": [
+        "core/receptionist_confirm_delete.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('receptionists.archive')"
+      ],
+      "source": "core\\views.py:1333"
+    },
+    {
+      "name": "receptionist_commissions",
+      "path": "receptionists/<int:pk>/commissions/",
+      "view": "core.views.receptionist_commissions",
+      "models": [
+        "Receptionist",
+        "ReceptionistCommission"
+      ],
+      "templates": [
+        "core/receptionist_commissions.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('salary.receptionist.view')"
+      ],
+      "source": "core\\views.py:1426"
+    },
+    {
+      "name": "receptionist_salary_list",
+      "path": "receptionists/salaries/",
+      "view": "core.views.receptionist_salary_list",
+      "models": [
+        "ReceptionistSalary"
+      ],
+      "templates": [
+        "core/receptionist_salary_list.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:1351"
+    },
+    {
+      "name": "calculate_receptionist_salaries",
+      "path": "receptionists/salaries/calculate/",
+      "view": "core.views.calculate_receptionist_salaries",
+      "models": [
+        "Receptionist",
+        "ReceptionistSalary"
+      ],
+      "templates": [
+        "core/calculate_receptionist_salary.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('salary.receptionist.manage')",
+        "@transaction.atomic"
+      ],
+      "source": "core\\views.py:1375"
+    },
+    {
+      "name": "receptionist_salary_toggle",
+      "path": "receptionists/salaries/<int:pk>/toggle/",
+      "view": "core.views.receptionist_salary_toggle",
+      "models": [
+        "ReceptionistSalary"
+      ],
+      "templates": [],
+      "decorators": [
+        "@require_POST",
+        "@login_required",
+        "@capability_required('salary.receptionist.manage')",
+        "@transaction.atomic"
+      ],
+      "source": "core\\views.py:1413"
+    },
+    {
+      "name": "course_list",
+      "path": "courses/",
+      "view": "core.views.course_list",
+      "models": [
+        "Course"
+      ],
+      "templates": [
+        "core/course_list.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('courses.view')"
+      ],
+      "source": "core\\views.py:1445"
+    },
+    {
+      "name": "course_create",
+      "path": "courses/create/",
+      "view": "core.views.course_create",
+      "models": [],
+      "templates": [
+        "core/course_form.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('courses.create')"
+      ],
+      "source": "core\\views.py:1453"
+    },
+    {
+      "name": "course_edit",
+      "path": "courses/<int:pk>/edit/",
+      "view": "core.views.course_edit",
+      "models": [
+        "Course"
+      ],
+      "templates": [
+        "core/course_form.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('courses.edit')"
+      ],
+      "source": "core\\views.py:1467"
+    },
+    {
+      "name": "course_delete",
+      "path": "courses/<int:pk>/delete/",
+      "view": "core.views.course_delete",
+      "models": [
+        "Course"
+      ],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@capability_required('courses.delete')",
+        "@require_POST"
+      ],
+      "source": "core\\views.py:1483"
+    },
+    {
+      "name": "group_list",
+      "path": "groups/",
+      "view": "core.views.group_list",
+      "models": [],
+      "templates": [
+        "core/group_list.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:1498"
+    },
+    {
+      "name": "group_create",
+      "path": "groups/create/",
+      "view": "core.views.group_create",
+      "models": [],
+      "templates": [
+        "core/group_form.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('groups.create')"
+      ],
+      "source": "core\\views.py:1506"
+    },
+    {
+      "name": "group_edit",
+      "path": "groups/<int:pk>/edit/",
+      "view": "core.views.group_edit",
+      "models": [],
+      "templates": [
+        "core/group_form.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('groups.edit')"
+      ],
+      "source": "core\\views.py:1520"
+    },
+    {
+      "name": "group_delete",
+      "path": "groups/<int:pk>/delete/",
+      "view": "core.views.group_delete",
+      "models": [],
+      "templates": [
+        "core/group_confirm_delete.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('groups.delete')"
+      ],
+      "source": "core\\views.py:1535"
+    },
+    {
+      "name": "schedule",
+      "path": "schedule/",
+      "view": "core.views.schedule_view",
+      "models": [
+        "Group",
+        "Teacher"
+      ],
+      "templates": [
+        "core/schedule.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:1559"
+    },
+    {
+      "name": "payment_list",
+      "path": "payments/",
+      "view": "core.views.payment_list",
+      "models": [
+        "Payment",
+        "Teacher"
+      ],
+      "templates": [
+        "core/payment_list.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('payments.view')"
+      ],
+      "source": "core\\views.py:1611"
+    },
+    {
+      "name": "payment_create",
+      "path": "payments/create/",
+      "view": "core.views.payment_create",
+      "models": [],
+      "templates": [
+        "core/payment_form.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('payments.accept')"
+      ],
+      "source": "core\\views.py:1682"
+    },
+    {
+      "name": "payment_export",
+      "path": "payments/export/",
+      "view": "core.views.payment_export",
+      "models": [
+        "Payment"
+      ],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@capability_required('reports.export')"
+      ],
+      "source": "core\\views.py:1733"
+    },
+    {
+      "name": "payment_import",
+      "path": "payments/import/",
+      "view": "core.financial_migration.migration_preview",
+      "models": [
+        "ImportBatch"
+      ],
+      "templates": [
+        "core/financial_migration.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@admin_required"
+      ],
+      "source": "core\\financial_migration.py:83"
+    },
+    {
+      "name": "payment_import_template",
+      "path": "payments/import/template/",
+      "view": "core.financial_migration.migration_template",
+      "models": [],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@admin_required"
+      ],
+      "source": "core\\financial_migration.py:70"
+    },
+    {
+      "name": "payment_receipt",
+      "path": "payments/<int:pk>/receipt/",
+      "view": "core.views.payment_receipt",
+      "models": [
+        "Payment"
+      ],
+      "templates": [
+        "core/payment_receipt.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('payments.view')"
+      ],
+      "source": "core\\views.py:1707"
+    },
+    {
+      "name": "payment_edit",
+      "path": "payments/<int:pk>/edit/",
+      "view": "core.views.payment_edit",
+      "models": [
+        "Payment"
+      ],
+      "templates": [
+        "core/payment_form.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('payments.edit')"
+      ],
+      "source": "core\\views.py:2015"
+    },
+    {
+      "name": "payment_delete",
+      "path": "payments/<int:pk>/delete/",
+      "view": "core.views.payment_delete",
+      "models": [
+        "Payment"
+      ],
+      "templates": [
+        "core/payment_confirm_delete.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('payments.void')"
+      ],
+      "source": "core\\views.py:2033"
+    },
+    {
+      "name": "salary_list",
+      "path": "salaries/",
+      "view": "core.views.salary_list",
+      "models": [
+        "Salary"
+      ],
+      "templates": [
+        "core/salary_list.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:2049"
+    },
+    {
+      "name": "calculate_salaries",
+      "path": "salaries/calculate/",
+      "view": "core.views.calculate_salaries",
+      "models": [
+        "Salary",
+        "Teacher"
+      ],
+      "templates": [
+        "core/calculate_salary.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('salary.teacher.manage')",
+        "@transaction.atomic"
+      ],
+      "source": "core\\views.py:2082"
+    },
+    {
+      "name": "update_salary_status",
+      "path": "salaries/<int:pk>/toggle/",
+      "view": "core.views.update_salary_status",
+      "models": [
+        "Salary"
+      ],
+      "templates": [],
+      "decorators": [
+        "@require_POST",
+        "@login_required",
+        "@capability_required('salary.teacher.manage')",
+        "@transaction.atomic"
+      ],
+      "source": "core\\views.py:2117"
+    },
+    {
+      "name": "attendance_list",
+      "path": "attendance/",
+      "view": "core.views.attendance_list",
+      "models": [
+        "Attendance",
+        "Group"
+      ],
+      "templates": [
+        "core/attendance_list.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:2131"
+    },
+    {
+      "name": "take_attendance_select",
+      "path": "attendance/take/select/",
+      "view": "core.views.take_attendance_select",
+      "models": [],
+      "templates": [
+        "core/attendance_pick.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:2242"
+    },
+    {
+      "name": "take_attendance",
+      "path": "attendance/take/<int:group_id>/",
+      "view": "core.views.take_attendance",
+      "models": [
+        "Attendance",
+        "Grade",
+        "Group"
+      ],
+      "templates": [
+        "core/attendance_form.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@transaction.atomic"
+      ],
+      "source": "core\\views.py:2166"
+    },
+    {
+      "name": "grade_list",
+      "path": "grades/",
+      "view": "core.views.grade_list",
+      "models": [
+        "Grade",
+        "Group"
+      ],
+      "templates": [
+        "core/grade_list.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:2260"
+    },
+    {
+      "name": "take_grades_select",
+      "path": "grades/take/select/",
+      "view": "core.views.take_grades_select",
+      "models": [],
+      "templates": [
+        "core/grade_pick.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:2309"
+    },
+    {
+      "name": "take_grades",
+      "path": "grades/take/<int:group_id>/",
+      "view": "core.views.take_grades",
+      "models": [
+        "Grade",
+        "Group"
+      ],
+      "templates": [
+        "core/grade_form.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:2326"
+    },
+    {
+      "name": "grade_delete",
+      "path": "grades/<int:pk>/delete/",
+      "view": "core.views.grade_delete",
+      "models": [
+        "Grade"
+      ],
+      "templates": [],
+      "decorators": [
+        "@login_required",
+        "@require_POST"
+      ],
+      "source": "core\\views.py:2402"
+    },
+    {
+      "name": "assignment_history",
+      "path": "assignments/",
+      "view": "core.views.assignment_history",
+      "models": [
+        "AssignmentHistory",
+        "Student"
+      ],
+      "templates": [
+        "core/assignment_history.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('assignments.view')"
+      ],
+      "source": "core\\views.py:2442"
+    },
+    {
+      "name": "expense_list",
+      "path": "expenses/",
+      "view": "core.views.expense_list",
+      "models": [
+        "Expense"
+      ],
+      "templates": [
+        "core/expense_list.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('expenses.view')"
+      ],
+      "source": "core\\views.py:2457"
+    },
+    {
+      "name": "expense_create",
+      "path": "expenses/create/",
+      "view": "core.views.expense_create",
+      "models": [],
+      "templates": [
+        "core/expense_form.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('expenses.create')"
+      ],
+      "source": "core\\views.py:2478"
+    },
+    {
+      "name": "expense_delete",
+      "path": "expenses/<int:pk>/delete/",
+      "view": "core.views.expense_delete",
+      "models": [
+        "Expense"
+      ],
+      "templates": [
+        "core/expense_confirm_delete.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('expenses.delete')"
+      ],
+      "source": "core\\views.py:2491"
+    },
+    {
+      "name": "reports",
+      "path": "reports/",
+      "view": "core.views.reports",
+      "models": [
+        "Attendance",
+        "Receptionist",
+        "ReceptionistCommission",
+        "Student",
+        "Teacher"
+      ],
+      "templates": [
+        "core/reports.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('finance.reports')"
+      ],
+      "source": "core\\views.py:2503"
+    },
+    {
+      "name": "certificate_list",
+      "path": "certificates/",
+      "view": "core.views.certificate_list",
+      "models": [
+        "Certificate",
+        "CertificateSetting"
+      ],
+      "templates": [
+        "core/certificate_list.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:2590"
+    },
+    {
+      "name": "certificate_settings",
+      "path": "certificates/settings/",
+      "view": "core.views.certificate_settings",
+      "models": [
+        "CertificateSetting"
+      ],
+      "templates": [
+        "core/certificate_settings.html"
+      ],
+      "decorators": [
+        "@login_required",
+        "@capability_required('certificates.settings')"
+      ],
+      "source": "core\\views.py:2773"
+    },
+    {
+      "name": "certificate_create",
+      "path": "certificates/create/",
+      "view": "core.views.certificate_create",
+      "models": [],
+      "templates": [
+        "core/certificate_form.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:2652"
+    },
+    {
+      "name": "certificate_detail",
+      "path": "certificates/<int:pk>/",
+      "view": "core.views.certificate_detail",
+      "models": [
+        "CertificateSetting"
+      ],
+      "templates": [
+        "core/certificate_detail.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:2688"
+    },
+    {
+      "name": "certificate_edit",
+      "path": "certificates/<int:pk>/edit/",
+      "view": "core.views.certificate_edit",
+      "models": [],
+      "templates": [
+        "core/certificate_form.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:2739"
+    },
+    {
+      "name": "certificate_delete",
+      "path": "certificates/<int:pk>/delete/",
+      "view": "core.views.certificate_delete",
+      "models": [],
+      "templates": [
+        "core/certificate_confirm_delete.html"
+      ],
+      "decorators": [
+        "@login_required"
+      ],
+      "source": "core\\views.py:2760"
+    },
+    {
+      "name": "certificate_verify",
+      "path": "certificate/verify/<str:number_or_code>/",
+      "view": "core.views.certificate_verify",
+      "models": [
+        "Certificate",
+        "CertificateSetting"
+      ],
+      "templates": [
+        "core/certificate_verify.html"
+      ],
+      "decorators": [],
+      "source": "core\\views.py:2788"
+    },
+    {
+      "name": "certificate_verify_short",
+      "path": "c/<str:number_or_code>/",
+      "view": "core.views.certificate_verify",
+      "models": [
+        "Certificate",
+        "CertificateSetting"
+      ],
+      "templates": [
+        "core/certificate_verify.html"
+      ],
+      "decorators": [],
+      "source": "core\\views.py:2788"
+    }
+  ],
+  "models": [
+    {
+      "model": "Branch",
+      "table": "core_branch",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "name",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "is_active",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "Teacher",
+      "table": "core_teacher",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "user",
+          "type": "OneToOneField",
+          "related_model": "User",
+          "nullable": true,
+          "unique": true
+        },
+        {
+          "name": "name",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "phone",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "subject",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "percent",
+          "type": "IntegerField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "photo",
+          "type": "FileField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "is_active",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "telegram_chat_id",
+          "type": "BigIntegerField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "notes",
+          "type": "TextField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "created_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "Receptionist",
+      "table": "core_receptionist",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "user",
+          "type": "OneToOneField",
+          "related_model": "User",
+          "nullable": true,
+          "unique": true
+        },
+        {
+          "name": "name",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "phone",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "commission_percent",
+          "type": "DecimalField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "is_active",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "telegram_chat_id",
+          "type": "BigIntegerField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "notes",
+          "type": "TextField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "photo",
+          "type": "FileField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "created_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "Course",
+      "table": "core_course",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "name",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "description",
+          "type": "TextField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "is_active",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "created_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "Group",
+      "table": "core_group",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "name",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "course",
+          "type": "ForeignKey",
+          "related_model": "Course",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "branch",
+          "type": "ForeignKey",
+          "related_model": "Branch",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "teacher",
+          "type": "ForeignKey",
+          "related_model": "Teacher",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "room",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "days",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "custom_days",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "start_time",
+          "type": "TimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "end_time",
+          "type": "TimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "monthly_fee",
+          "type": "DecimalField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "max_students",
+          "type": "IntegerField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "is_active",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "description",
+          "type": "TextField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "created_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "Student",
+      "table": "core_student",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "deleted_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "name",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "public_id",
+          "type": "UUIDField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "branch",
+          "type": "ForeignKey",
+          "related_model": "Branch",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "payment_due_day",
+          "type": "PositiveSmallIntegerField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "phone",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "parent_phone",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "photo",
+          "type": "FileField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "birth_date",
+          "type": "DateField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "teacher",
+          "type": "ForeignKey",
+          "related_model": "Teacher",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "group",
+          "type": "ForeignKey",
+          "related_model": "Group",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "receptionist",
+          "type": "ForeignKey",
+          "related_model": "Receptionist",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "created_by",
+          "type": "ForeignKey",
+          "related_model": "User",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "status",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "source",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "registration_date",
+          "type": "DateField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "notes",
+          "type": "TextField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "discount_percent",
+          "type": "IntegerField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "telegram_chat_id",
+          "type": "BigIntegerField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "StudentTariff",
+      "table": "core_studenttariff",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "student",
+          "type": "ForeignKey",
+          "related_model": "Student",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "effective_month",
+          "type": "DateField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "fee",
+          "type": "DecimalField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "due_day",
+          "type": "PositiveSmallIntegerField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "billing_enabled",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "group_id_snapshot",
+          "type": "BigIntegerField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "group_name",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "is_estimated",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "created_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [
+        "<UniqueConstraint: fields=('student', 'effective_month') name='unique_student_tariff_month'>",
+        "<CheckConstraint: condition=(AND: ('fee__gte', 0)) name='tariff_fee_nonnegative'>"
+      ],
+      "unique_together": []
+    },
+    {
+      "model": "AssignmentHistory",
+      "table": "core_assignmenthistory",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "student",
+          "type": "ForeignKey",
+          "related_model": "Student",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "teacher",
+          "type": "ForeignKey",
+          "related_model": "Teacher",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "group",
+          "type": "ForeignKey",
+          "related_model": "Group",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "assigned_date",
+          "type": "DateField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "changed_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "changed_by",
+          "type": "ForeignKey",
+          "related_model": "User",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "note",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "Payment",
+      "table": "core_payment",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "submission_key",
+          "type": "UUIDField",
+          "related_model": null,
+          "nullable": true,
+          "unique": true
+        },
+        {
+          "name": "student",
+          "type": "ForeignKey",
+          "related_model": "Student",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "enrollment",
+          "type": "ForeignKey",
+          "related_model": "Enrollment",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "group_at_payment",
+          "type": "ForeignKey",
+          "related_model": "Group",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "branch_at_payment",
+          "type": "ForeignKey",
+          "related_model": "Branch",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "course_at_payment",
+          "type": "ForeignKey",
+          "related_model": "Course",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "teacher_at_payment",
+          "type": "ForeignKey",
+          "related_model": "Teacher",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "teacher_percent_at_payment",
+          "type": "IntegerField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "amount",
+          "type": "DecimalField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "month",
+          "type": "DateField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "paid_date",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "teacher_salary_month",
+          "type": "DateField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "receptionist_salary_month",
+          "type": "DateField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "payment_type",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "received_by",
+          "type": "ForeignKey",
+          "related_model": "User",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "comment",
+          "type": "TextField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "is_partial",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "voided_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "void_reason",
+          "type": "TextField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "is_historical_migration",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "ReceptionistCommission",
+      "table": "core_receptionistcommission",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "receptionist",
+          "type": "ForeignKey",
+          "related_model": "Receptionist",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "student",
+          "type": "ForeignKey",
+          "related_model": "Student",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "payment",
+          "type": "OneToOneField",
+          "related_model": "Payment",
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "month",
+          "type": "DateField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "payment_amount",
+          "type": "DecimalField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "commission_percent",
+          "type": "DecimalField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "commission_amount",
+          "type": "DecimalField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "created_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "ReceptionistSalary",
+      "table": "core_receptionistsalary",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "receptionist",
+          "type": "ForeignKey",
+          "related_model": "Receptionist",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "month",
+          "type": "DateField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "base_salary",
+          "type": "DecimalField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "total_commission",
+          "type": "DecimalField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "total_salary",
+          "type": "DecimalField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "is_paid",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "calculated_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": [
+        [
+          "receptionist",
+          "month"
+        ]
+      ]
+    },
+    {
+      "model": "Salary",
+      "table": "core_salary",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "teacher",
+          "type": "ForeignKey",
+          "related_model": "Teacher",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "month",
+          "type": "DateField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "total_income",
+          "type": "DecimalField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "percent",
+          "type": "IntegerField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "salary_amount",
+          "type": "DecimalField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "is_paid",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "calculated_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "note",
+          "type": "TextField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": [
+        [
+          "teacher",
+          "month"
+        ]
+      ]
+    },
+    {
+      "model": "Attendance",
+      "table": "core_attendance",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "student",
+          "type": "ForeignKey",
+          "related_model": "Student",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "group",
+          "type": "ForeignKey",
+          "related_model": "Group",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "date",
+          "type": "DateField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "status",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "marked_by",
+          "type": "ForeignKey",
+          "related_model": "User",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "marked_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "note",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": [
+        [
+          "student",
+          "date",
+          "group"
+        ]
+      ]
+    },
+    {
+      "model": "Grade",
+      "table": "core_grade",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "student",
+          "type": "ForeignKey",
+          "related_model": "Student",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "group",
+          "type": "ForeignKey",
+          "related_model": "Group",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "date",
+          "type": "DateField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "grade_type",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "score",
+          "type": "IntegerField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "note",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "graded_by",
+          "type": "ForeignKey",
+          "related_model": "User",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "created_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [
+        "<UniqueConstraint: fields=('student', 'group', 'date', 'grade_type') name='unique_student_grade_per_day_type'>"
+      ],
+      "unique_together": []
+    },
+    {
+      "model": "Expense",
+      "table": "core_expense",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "title",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "category",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "amount",
+          "type": "DecimalField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "date",
+          "type": "DateField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "description",
+          "type": "TextField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "added_by",
+          "type": "ForeignKey",
+          "related_model": "User",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "created_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "Notification",
+      "table": "core_notification",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "title",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "message",
+          "type": "TextField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "type",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "is_read",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "recipient",
+          "type": "ForeignKey",
+          "related_model": "User",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "lead",
+          "type": "ForeignKey",
+          "related_model": "Lead",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "student",
+          "type": "ForeignKey",
+          "related_model": "Student",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "created_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "Lead",
+      "table": "core_lead",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "name",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "phone",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "course",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "source",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "channel",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "advertising_source",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "campaign_record",
+          "type": "ForeignKey",
+          "related_model": "Campaign",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "branch",
+          "type": "ForeignKey",
+          "related_model": "Branch",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "is_test",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "archived_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "status",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "telegram_chat_id",
+          "type": "BigIntegerField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "telegram_user_id",
+          "type": "BigIntegerField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "campaign",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "notes",
+          "type": "TextField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "follow_up_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "assigned_to",
+          "type": "ForeignKey",
+          "related_model": "User",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "student",
+          "type": "ForeignKey",
+          "related_model": "Student",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "created_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "updated_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "LeadActivity",
+      "table": "core_leadactivity",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "lead",
+          "type": "ForeignKey",
+          "related_model": "Lead",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "user",
+          "type": "ForeignKey",
+          "related_model": "User",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "status",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "note",
+          "type": "TextField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "kind",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "created_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "ReminderDispatch",
+      "table": "core_reminderdispatch",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "key",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "created_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "TelegramSession",
+      "table": "core_telegramsession",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "chat_id",
+          "type": "BigIntegerField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "step",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "data",
+          "type": "JSONField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "updated_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "TelegramUpdate",
+      "table": "core_telegramupdate",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "update_id",
+          "type": "BigIntegerField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "reply",
+          "type": "JSONField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "delivered",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "created_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "TelegramLinkToken",
+      "table": "core_telegramlinktoken",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "token_hash",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "role",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "target_id",
+          "type": "PositiveBigIntegerField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "created_by",
+          "type": "ForeignKey",
+          "related_model": "User",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "expires_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "used_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "TelegramBinding",
+      "table": "core_telegrambinding",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "role",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "target_id",
+          "type": "PositiveBigIntegerField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "chat_id",
+          "type": "BigIntegerField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "verified_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "reports_enabled",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [
+        "<UniqueConstraint: fields=('role', 'target_id') name='unique_telegram_target'>"
+      ],
+      "unique_together": []
+    },
+    {
+      "model": "FinancialAudit",
+      "table": "core_financialaudit",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "entity",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "object_id",
+          "type": "PositiveBigIntegerField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "action",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "actor",
+          "type": "ForeignKey",
+          "related_model": "User",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "actor_name",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "before",
+          "type": "JSONField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "after",
+          "type": "JSONField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "created_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "OperationalRun",
+      "table": "core_operationalrun",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "job",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "status",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "started_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "finished_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "details",
+          "type": "JSONField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "StaffCapability",
+      "table": "core_staffcapability",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "user",
+          "type": "ForeignKey",
+          "related_model": "User",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "code",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "allowed",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [
+        "<UniqueConstraint: fields=('user', 'code') name='unique_staff_capability'>"
+      ],
+      "unique_together": []
+    },
+    {
+      "model": "Enrollment",
+      "table": "core_enrollment",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "student",
+          "type": "ForeignKey",
+          "related_model": "Student",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "group",
+          "type": "ForeignKey",
+          "related_model": "Group",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "status",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "starts_on",
+          "type": "DateField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "ends_on",
+          "type": "DateField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "monthly_fee",
+          "type": "DecimalField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "due_day",
+          "type": "PositiveSmallIntegerField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "is_primary",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "mirrors_student",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "created_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [
+        "<UniqueConstraint: fields=('student',) name='unique_primary_enrollment' condition=(AND: ('is_primary', True))>",
+        "<CheckConstraint: condition=(AND: ('monthly_fee__gte', 0)) name='enrollment_fee_nonnegative'>"
+      ],
+      "unique_together": []
+    },
+    {
+      "model": "Campaign",
+      "table": "core_campaign",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "name",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "start_parameter",
+          "type": "SlugField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "advertising_source",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "is_active",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "Refund",
+      "table": "core_refund",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "payment",
+          "type": "ForeignKey",
+          "related_model": "Payment",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "amount",
+          "type": "DecimalField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "reason",
+          "type": "TextField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "paid_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "created_by",
+          "type": "ForeignKey",
+          "related_model": "User",
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [
+        "<CheckConstraint: condition=(AND: ('amount__gt', 0)) name='refund_amount_positive'>"
+      ],
+      "unique_together": []
+    },
+    {
+      "model": "ReportJob",
+      "table": "core_reportjob",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "public_id",
+          "type": "UUIDField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "owner",
+          "type": "ForeignKey",
+          "related_model": "User",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "kind",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "file_format",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "filters",
+          "type": "JSONField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "scope_ids",
+          "type": "JSONField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "status",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "file_name",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "error",
+          "type": "TextField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "created_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "started_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "completed_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "ImportBatch",
+      "table": "core_importbatch",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "public_id",
+          "type": "UUIDField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "owner",
+          "type": "ForeignKey",
+          "related_model": "User",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "kind",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "strategy",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "student",
+          "type": "ForeignKey",
+          "related_model": "Student",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "rows",
+          "type": "JSONField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "errors",
+          "type": "JSONField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "fingerprint",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "status",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "created_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "confirmed_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "GuardianBinding",
+      "table": "core_guardianbinding",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "student",
+          "type": "ForeignKey",
+          "related_model": "Student",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "chat_id",
+          "type": "BigIntegerField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "verified_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "reports_enabled",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [
+        "<UniqueConstraint: fields=('student', 'chat_id') name='unique_guardian_student_chat'>"
+      ],
+      "unique_together": []
+    },
+    {
+      "model": "ReportSubscription",
+      "table": "core_reportsubscription",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "owner",
+          "type": "ForeignKey",
+          "related_model": "User",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "student",
+          "type": "ForeignKey",
+          "related_model": "Student",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "recipient",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "file_format",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "enabled",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "next_run_on",
+          "type": "DateField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [
+        "<UniqueConstraint: fields=('student', 'recipient') name='unique_student_report_subscription'>"
+      ],
+      "unique_together": []
+    },
+    {
+      "model": "TelegramDelivery",
+      "table": "core_telegramdelivery",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "key",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "chat_id",
+          "type": "BigIntegerField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "text",
+          "type": "TextField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "report_job",
+          "type": "ForeignKey",
+          "related_model": "ReportJob",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "student",
+          "type": "ForeignKey",
+          "related_model": "Student",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "lead",
+          "type": "ForeignKey",
+          "related_model": "Lead",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "recipient",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "owner",
+          "type": "ForeignKey",
+          "related_model": "User",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "status",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "attempts",
+          "type": "PositiveIntegerField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "next_attempt_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "started_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "sent_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "provider_message_id",
+          "type": "BigIntegerField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "error",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "created_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "CertificateSetting",
+      "table": "core_certificatesetting",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "academy_name",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "academy_subtitle",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "title_uz",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "title_en",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "statement_text",
+          "type": "TextField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "director_title",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "director_name",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "instructor_default_title",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "seal_text_top",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "seal_text_mid",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "seal_text_bot",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "certificate_prefix",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "accent_color",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "footer_note",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "show_study_period",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "show_grade",
+          "type": "BooleanField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "updated_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    },
+    {
+      "model": "Certificate",
+      "table": "core_certificate",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BigAutoField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "certificate_number",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "verification_code",
+          "type": "UUIDField",
+          "related_model": null,
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "student",
+          "type": "ForeignKey",
+          "related_model": "Student",
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "course_name",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "group",
+          "type": "ForeignKey",
+          "related_model": "Group",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "teacher_name",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "grade_text",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "start_date",
+          "type": "DateField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "end_date",
+          "type": "DateField",
+          "related_model": null,
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "description",
+          "type": "TextField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "issue_date",
+          "type": "DateField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "status",
+          "type": "CharField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "created_by",
+          "type": "ForeignKey",
+          "related_model": "User",
+          "nullable": true,
+          "unique": false
+        },
+        {
+          "name": "created_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        },
+        {
+          "name": "updated_at",
+          "type": "DateTimeField",
+          "related_model": null,
+          "nullable": false,
+          "unique": false
+        }
+      ],
+      "constraints": [],
+      "unique_together": []
+    }
+  ],
+  "python_files": 71,
+  "templates": 82
+}

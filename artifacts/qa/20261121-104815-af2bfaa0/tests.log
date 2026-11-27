@@ -1,0 +1,729 @@
+test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) ... ok
+test_attendance_overlong_note_is_rejected_without_partial_save (core.test_project_qa.ProjectQATests.test_attendance_overlong_note_is_rejected_without_partial_save) ... ERROR
+test_full_financial_user_journey_preserves_data_after_relogin (core.test_project_qa.ProjectQATests.test_full_financial_user_journey_preserves_data_after_relogin) ... ERROR
+test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) ... 
+  test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) (amount='NaN') ... ERROR
+  test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) (amount='10000000000') ... ERROR
+  test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) (amount='0.001') ... FAIL
+test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) ... FAIL
+test_payment_submission_key_cannot_be_reused_for_different_amount (core.test_project_qa.ProjectQATests.test_payment_submission_key_cannot_be_reused_for_different_amount) ... FAIL
+test_percentage_rounding_matches_independent_controls (core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls) ... ok
+test_protected_course_delete_returns_message_instead_of_500 (core.test_project_qa.ProjectQATests.test_protected_course_delete_returns_message_instead_of_500) ... ERROR
+test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) ... 
+  test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='10000000000') ... ERROR
+  test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='1e1000') ... ERROR
+  test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='0.001') ... FAIL
+  test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='-1') ... FAIL
+  test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='NaN') ... FAIL
+  test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='Infinity') ... FAIL
+test_replayed_payment_submission_creates_one_payment (core.test_project_qa.ProjectQATests.test_replayed_payment_submission_creates_one_payment) ... FAIL
+test_concurrent_cancellations_create_only_one_void_event (core.test_project_qa.ConcurrentFinancialQATests.test_concurrent_cancellations_create_only_one_void_event) ... FAIL
+test_concurrent_refunds_cannot_exceed_payment (core.test_project_qa.ConcurrentFinancialQATests.test_concurrent_refunds_cannot_exceed_payment) ... ok
+
+======================================================================
+ERROR: test_attendance_overlong_note_is_rejected_without_partial_save (core.test_project_qa.ProjectQATests.test_attendance_overlong_note_is_rejected_without_partial_save)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 1070, in get_or_create
+    return self.get(**kwargs), False
+           ~~~~~~~~^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 722, in get
+    raise self.model.DoesNotExist(
+        "%s matching query does not exist." % self.model._meta.object_name
+    )
+core.models.Attendance.DoesNotExist: Attendance matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.StringDataRightTruncation: ОШИБКА:  значение не умещается в тип character varying(200)
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_project_qa.py", line 66, in test_attendance_overlong_note_is_rejected_without_partial_save
+    response = self.client.post(reverse('take_attendance', args=[self.group.pk]), {
+        f'attendance_{self.student.pk}': 'present', f'note_{self.student.pk}': 'x' * 201,
+        f'score_{self.student.pk}': '90',
+    })
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\test\client.py", line 1157, in post
+    response = super().post(
+        path,
+    ...<5 lines>...
+        **extra,
+    )
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\test\client.py", line 499, in post
+    return self.generic(
+           ~~~~~~~~~~~~^
+        "POST",
+        ^^^^^^^
+    ...<6 lines>...
+        **extra,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\test\client.py", line 671, in generic
+    return self.request(**r)
+           ~~~~~~~~~~~~^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\test\client.py", line 1091, in request
+    self.check_exception(response)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\test\client.py", line 805, in check_exception
+    raise exc_value
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python315\Lib\contextlib.py", line 116, in inner
+    return func(*args, **kwds)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\views.py", line 2209, in take_attendance
+    Attendance.objects.update_or_create(student=student, group=group, date=today, defaults=defaults)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 1112, in update_or_create
+    obj, created = self.select_for_update().get_or_create(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        create_defaults, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 1077, in get_or_create
+    return self.create(**params), True
+           ~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 752, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\base.py", line 904, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\base.py", line 996, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\base.py", line 1201, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, insert_fields, returning_fields, raw
+    )
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\base.py", line 1253, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 2166, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1954, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.DataError: ОШИБКА:  значение не умещается в тип character varying(200)
+
+
+======================================================================
+ERROR: test_full_financial_user_journey_preserves_data_after_relogin (core.test_project_qa.ProjectQATests.test_full_financial_user_journey_preserves_data_after_relogin)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_project_qa.py", line 126, in test_full_financial_user_journey_preserves_data_after_relogin
+    self.assertEqual(self.student.get_debt_amount(today=date(2026, 11, 20)), 0)
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Student.get_debt_amount() got an unexpected keyword argument 'today'
+
+======================================================================
+ERROR: test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) (amount='NaN')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_project_qa.py", line 92, in test_model_payment_amount_rejects_nonfinite_and_precision_overflow
+    Payment.objects.create(student=self.student, amount=Decimal(amount), month=date(2026, 11, 1))
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 752, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python315\Lib\contextlib.py", line 116, in inner
+    return func(*args, **kwds)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\models.py", line 419, in save
+    if self.amount is None or Decimal(self.amount) <= 0:
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+decimal.InvalidOperation: [<class 'decimal.InvalidOperation'>]
+
+======================================================================
+ERROR: test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) (amount='10000000000')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.NumericValueOutOfRange: ОШИБКА:  переполнение поля numeric
+DETAIL:  Поле с точностью 12, порядком 2 должно округляться до абсолютного значения меньше чем 10^10.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_project_qa.py", line 92, in test_model_payment_amount_rejects_nonfinite_and_precision_overflow
+    Payment.objects.create(student=self.student, amount=Decimal(amount), month=date(2026, 11, 1))
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 752, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python315\Lib\contextlib.py", line 116, in inner
+    return func(*args, **kwds)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\models.py", line 465, in save
+    super().save(*args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\base.py", line 904, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\base.py", line 996, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\base.py", line 1201, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, insert_fields, returning_fields, raw
+    )
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\base.py", line 1253, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 2166, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1954, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.DataError: ОШИБКА:  переполнение поля numeric
+DETAIL:  Поле с точностью 12, порядком 2 должно округляться до абсолютного значения меньше чем 10^10.
+
+
+======================================================================
+ERROR: test_protected_course_delete_returns_message_instead_of_500 (core.test_project_qa.ProjectQATests.test_protected_course_delete_returns_message_instead_of_500)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_project_qa.py", line 84, in test_protected_course_delete_returns_message_instead_of_500
+    response = self.client.post(reverse('course_delete', args=[self.group.course_id]))
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\test\client.py", line 1157, in post
+    response = super().post(
+        path,
+    ...<5 lines>...
+        **extra,
+    )
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\test\client.py", line 499, in post
+    return self.generic(
+           ~~~~~~~~~~~~^
+        "POST",
+        ^^^^^^^
+    ...<6 lines>...
+        **extra,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\test\client.py", line 671, in generic
+    return self.request(**r)
+           ~~~~~~~~~~~~^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\test\client.py", line 1091, in request
+    self.check_exception(response)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\test\client.py", line 805, in check_exception
+    raise exc_value
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\permissions.py", line 97, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\views\decorators\http.py", line 63, in inner
+    return func(request, *args, **kwargs)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\views.py", line 1486, in course_delete
+    course.delete()
+    ~~~~~~~~~~~~~^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\base.py", line 1332, in delete
+    collector.collect([self], keep_parents=keep_parents)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\deletion.py", line 385, in collect
+    raise ProtectedError(
+    ...<7 lines>...
+    )
+django.db.models.deletion.ProtectedError: ("Cannot delete some instances of model 'Course' because they are referenced through protected foreign keys: 'Group.course'.", {<Group: QA group>})
+
+======================================================================
+ERROR: test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='10000000000')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 1070, in get_or_create
+    return self.get(**kwargs), False
+           ~~~~~~~~^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 722, in get
+    raise self.model.DoesNotExist(
+        "%s matching query does not exist." % self.model._meta.object_name
+    )
+core.models.ReceptionistSalary.DoesNotExist: ReceptionistSalary matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.NumericValueOutOfRange: ОШИБКА:  переполнение поля numeric
+DETAIL:  Поле с точностью 12, порядком 2 должно округляться до абсолютного значения меньше чем 10^10.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_project_qa.py", line 77, in test_receptionist_salary_out_of_range_is_rejected
+    response = self.client.post(reverse('calculate_receptionist_salaries'), {
+        'month': '2026-11', 'base_salary': amount,
+    })
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\test\client.py", line 1157, in post
+    response = super().post(
+        path,
+    ...<5 lines>...
+        **extra,
+    )
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\test\client.py", line 499, in post
+    return self.generic(
+           ~~~~~~~~~~~~^
+        "POST",
+        ^^^^^^^
+    ...<6 lines>...
+        **extra,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\test\client.py", line 671, in generic
+    return self.request(**r)
+           ~~~~~~~~~~~~^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\test\client.py", line 1091, in request
+    self.check_exception(response)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\test\client.py", line 805, in check_exception
+    raise exc_value
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\permissions.py", line 97, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\views.py", line 1396, in calculate_receptionist_salaries
+    ReceptionistSalary.objects.update_or_create(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        receptionist=rec,
+        ^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        }
+        ^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 1112, in update_or_create
+    obj, created = self.select_for_update().get_or_create(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        create_defaults, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 1077, in get_or_create
+    return self.create(**params), True
+           ~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 752, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python315\Lib\contextlib.py", line 116, in inner
+    return func(*args, **kwds)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\models.py", line 526, in save
+    return super().save(*args, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\base.py", line 904, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\base.py", line 996, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\base.py", line 1201, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, insert_fields, returning_fields, raw
+    )
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\base.py", line 1253, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 2166, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1954, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.DataError: ОШИБКА:  переполнение поля numeric
+DETAIL:  Поле с точностью 12, порядком 2 должно округляться до абсолютного значения меньше чем 10^10.
+
+
+======================================================================
+ERROR: test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='1e1000')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 1070, in get_or_create
+    return self.get(**kwargs), False
+           ~~~~~~~~^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 722, in get
+    raise self.model.DoesNotExist(
+        "%s matching query does not exist." % self.model._meta.object_name
+    )
+core.models.ReceptionistSalary.DoesNotExist: ReceptionistSalary matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.NumericValueOutOfRange: ОШИБКА:  переполнение поля numeric
+DETAIL:  Поле с точностью 12, порядком 2 должно округляться до абсолютного значения меньше чем 10^10.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_project_qa.py", line 77, in test_receptionist_salary_out_of_range_is_rejected
+    response = self.client.post(reverse('calculate_receptionist_salaries'), {
+        'month': '2026-11', 'base_salary': amount,
+    })
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\test\client.py", line 1157, in post
+    response = super().post(
+        path,
+    ...<5 lines>...
+        **extra,
+    )
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\test\client.py", line 499, in post
+    return self.generic(
+           ~~~~~~~~~~~~^
+        "POST",
+        ^^^^^^^
+    ...<6 lines>...
+        **extra,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\test\client.py", line 671, in generic
+    return self.request(**r)
+           ~~~~~~~~~~~~^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\test\client.py", line 1091, in request
+    self.check_exception(response)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\test\client.py", line 805, in check_exception
+    raise exc_value
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\permissions.py", line 97, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\views.py", line 1396, in calculate_receptionist_salaries
+    ReceptionistSalary.objects.update_or_create(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        receptionist=rec,
+        ^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        }
+        ^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 1112, in update_or_create
+    obj, created = self.select_for_update().get_or_create(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        create_defaults, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 1077, in get_or_create
+    return self.create(**params), True
+           ~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 752, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python315\Lib\contextlib.py", line 116, in inner
+    return func(*args, **kwds)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\models.py", line 526, in save
+    return super().save(*args, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\base.py", line 904, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\base.py", line 996, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\base.py", line 1201, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, insert_fields, returning_fields, raw
+    )
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\base.py", line 1253, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\query.py", line 2166, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1954, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\User\Desktop\sargetcrm_CRM\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.DataError: ОШИБКА:  переполнение поля numeric
+DETAIL:  Поле с точностью 12, порядком 2 должно округляться до абсолютного значения меньше чем 10^10.
+
+
+======================================================================
+FAIL: test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) (amount='0.001')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_project_qa.py", line 91, in test_model_payment_amount_rejects_nonfinite_and_precision_overflow
+    with self.assertRaises(ValidationError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+AssertionError: ValidationError not raised
+
+======================================================================
+FAIL: test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_project_qa.py", line 93, in test_model_payment_amount_rejects_nonfinite_and_precision_overflow
+    self.assertFalse(Payment.objects.exists())
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_payment_submission_key_cannot_be_reused_for_different_amount (core.test_project_qa.ProjectQATests.test_payment_submission_key_cannot_be_reused_for_different_amount)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_project_qa.py", line 62, in test_payment_submission_key_cannot_be_reused_for_different_amount
+    self.assertEqual(response.status_code, 200)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 302 != 200
+
+======================================================================
+FAIL: test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='0.001')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_project_qa.py", line 81, in test_receptionist_salary_out_of_range_is_rejected
+    self.assertFalse(ReceptionistSalary.objects.exists())
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='-1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_project_qa.py", line 81, in test_receptionist_salary_out_of_range_is_rejected
+    self.assertFalse(ReceptionistSalary.objects.exists())
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='NaN')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_project_qa.py", line 81, in test_receptionist_salary_out_of_range_is_rejected
+    self.assertFalse(ReceptionistSalary.objects.exists())
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='Infinity')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_project_qa.py", line 81, in test_receptionist_salary_out_of_range_is_rejected
+    self.assertFalse(ReceptionistSalary.objects.exists())
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_replayed_payment_submission_creates_one_payment (core.test_project_qa.ProjectQATests.test_replayed_payment_submission_creates_one_payment)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_project_qa.py", line 54, in test_replayed_payment_submission_creates_one_payment
+    self.assertEqual(first.url, second.url)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '/payments/6/receipt/?created=1' != '/payments/7/receipt/?created=1'
+- /payments/6/receipt/?created=1
+?           ^
++ /payments/7/receipt/?created=1
+?           ^
+
+
+======================================================================
+FAIL: test_concurrent_cancellations_create_only_one_void_event (core.test_project_qa.ConcurrentFinancialQATests.test_concurrent_cancellations_create_only_one_void_event)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_project_qa.py", line 191, in test_concurrent_cancellations_create_only_one_void_event
+    self.assertCountEqual(results, ['saved', 'rejected'])
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Element counts were not equal:
+First has 2, Second has 1:  'saved'
+First has 0, Second has 1:  'rejected'
+
+----------------------------------------------------------------------
+Ran 11 tests in 2.453s
+
+FAILED (failures=9, errors=7)

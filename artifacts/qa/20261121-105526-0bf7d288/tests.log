@@ -1,0 +1,31 @@
+test_admin_cannot_create_negative_expense (core.test_project_qa.ProjectQATests.test_admin_cannot_create_negative_expense) ... FAIL
+test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) ... ok
+test_attendance_overlong_note_is_rejected_without_partial_save (core.test_project_qa.ProjectQATests.test_attendance_overlong_note_is_rejected_without_partial_save) ... ok
+test_distinct_payment_submissions_allow_legitimate_same_amount (core.test_project_qa.ProjectQATests.test_distinct_payment_submissions_allow_legitimate_same_amount) ... ok
+test_full_financial_user_journey_preserves_data_after_relogin (core.test_project_qa.ProjectQATests.test_full_financial_user_journey_preserves_data_after_relogin) ... ok
+test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) ... ok
+test_month_end_leap_day_and_year_change_use_one_charge_per_month (core.test_project_qa.ProjectQATests.test_month_end_leap_day_and_year_change_use_one_charge_per_month) ... ok
+test_payment_form_supplies_a_unique_submission_key (core.test_project_qa.ProjectQATests.test_payment_form_supplies_a_unique_submission_key) ... ok
+test_payment_submission_key_cannot_be_reused_for_different_amount (core.test_project_qa.ProjectQATests.test_payment_submission_key_cannot_be_reused_for_different_amount) ... ok
+test_percentage_rounding_matches_independent_controls (core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls) ... ok
+test_protected_course_delete_returns_message_instead_of_500 (core.test_project_qa.ProjectQATests.test_protected_course_delete_returns_message_instead_of_500) ... ok
+test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) ... ok
+test_replayed_payment_submission_creates_one_payment (core.test_project_qa.ProjectQATests.test_replayed_payment_submission_creates_one_payment) ... ok
+test_concurrent_cancellations_create_only_one_void_event (core.test_project_qa.ConcurrentFinancialQATests.test_concurrent_cancellations_create_only_one_void_event) ... ok
+test_concurrent_refunds_cannot_exceed_payment (core.test_project_qa.ConcurrentFinancialQATests.test_concurrent_refunds_cannot_exceed_payment) ... ok
+test_concurrent_retry_of_same_submission_is_saved_once (core.test_project_qa.ConcurrentFinancialQATests.test_concurrent_retry_of_same_submission_is_saved_once) ... ok
+test_payment_and_salary_paid_status_keep_the_same_total (core.test_project_qa.ConcurrentFinancialQATests.test_payment_and_salary_paid_status_keep_the_same_total) ... ok
+
+======================================================================
+FAIL: test_admin_cannot_create_negative_expense (core.test_project_qa.ProjectQATests.test_admin_cannot_create_negative_expense)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_project_qa.py", line 119, in test_admin_cannot_create_negative_expense
+    self.assertEqual(response.status_code, 200)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 302 != 200
+
+----------------------------------------------------------------------
+Ran 17 tests in 7.078s
+
+FAILED (failures=1)

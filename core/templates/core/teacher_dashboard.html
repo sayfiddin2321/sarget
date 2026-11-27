@@ -1,0 +1,211 @@
+{% extends 'core/base.html' %}
+{% load custom_filters %}
+{% block title %}Dashboard{% endblock %}
+{% block extra_css %}
+<style>
+.att-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+@media (max-width: 640px) {
+  .att-mini-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.att-mini-card {
+  padding: 12px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  text-align: center;
+}
+.att-mini-card .num { font-size: 1.18rem; font-weight: 800; line-height: 1; }
+.att-mini-card .lbl { margin-top: 4px; font-size: 0.72rem; color: var(--text-muted); }
+.att-mini-card.present .num { color: var(--green); }
+.att-mini-card.total .num { color: var(--text-primary); }
+.att-mini-card.late .num { color: var(--orange); }
+.att-mini-card.absent .num { color: var(--red); }
+.today-group-list { display: flex; flex-direction: column; gap: 10px; }
+.today-group-item {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+}
+.today-group-item:last-child { border-bottom: none; padding-bottom: 0; }
+.today-group-name { font-size: 0.9rem; font-weight: 800; color: var(--text-primary); }
+.today-group-meta { margin-top: 4px; display: flex; flex-wrap: wrap; gap: 6px; color: var(--text-muted); font-size: 0.75rem; }
+.today-group-meta span { padding: 2px 7px; border-radius: 999px; background: var(--bg-elevated); border: 1px solid var(--border); }
+.my-group-card {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 13px 0; border-bottom: 1px solid var(--border);
+}
+.my-group-card:last-child { border-bottom: none; }
+.salary-highlight {
+  text-align: center; padding: 22px;
+  background: linear-gradient(135deg, var(--accent-dim), color-mix(in srgb, var(--gold-1) 14%, transparent));
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+  border-radius: var(--radius-lg);
+}
+.salary-highlight .amount {
+  font-family: var(--font-display); font-size: 1.9rem; font-weight: 800;
+  background: linear-gradient(135deg, var(--gold-1), var(--gold-4));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.salary-highlight .label { margin-top: 6px; color: var(--text-muted); font-size: 0.82rem; font-weight: 700; }
+</style>
+{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-chalkboard-user"></i> Xush kelibsiz, {{ teacher.name|default:user.username }}</h1>
+    <p>{% if teacher %}{{ teacher.subject }} &bull; {{ teacher.percent }}% ulush{% else %}O'qituvchi paneli{% endif %}</p>
+  </div>
+  <div class="page-header-actions">
+    {% if capabilities.attendance_write %}<a href="{% url 'take_attendance_select' %}" class="btn btn-primary"><i class="fas fa-calendar-check"></i> Davomat olish</a>{% endif %}
+  </div>
+</div>
+
+{% if not teacher %}
+<div class="card"><div class="card-body empty-state">
+  <i class="fas fa-triangle-exclamation"></i>
+  <p>Sizning o'qituvchi profilingiz hali boshliq tomonidan biriktirilmagan.</p>
+</div></div>
+{% else %}
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-icon blue"><i class="fas fa-user-graduate"></i></div>
+    <div class="stat-info">
+      <div class="stat-label">Mening o'quvchilarim</div>
+      <div class="stat-value">{{ my_students_count }}</div>
+      <div class="stat-sub">{{ my_groups|length }} ta guruhda</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon green"><i class="fas fa-circle-check"></i></div>
+    <div class="stat-info">
+      <div class="stat-label">Bugun keldi</div>
+      <div class="stat-value">{{ today_present }}</div>
+      <div class="stat-sub">o'quvchi</div>
+    </div>
+  </div>
+  <div class="stat-icon-wrap"></div>
+  <div class="stat-card">
+    <div class="stat-icon orange"><i class="fas fa-clock"></i></div>
+    <div class="stat-info">
+      <div class="stat-label">Bugun kechikdi</div>
+      <div class="stat-value">{{ today_late }}</div>
+      <div class="stat-sub">o'quvchi</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon red"><i class="fas fa-circle-xmark"></i></div>
+    <div class="stat-info">
+      <div class="stat-label">Bugun kelmadi</div>
+      <div class="stat-value">{{ today_absent }}</div>
+      <div class="stat-sub">o'quvchi</div>
+    </div>
+  </div>
+</div>
+
+<div class="dashboard-grid">
+  <div class="dashboard-main">
+    <div class="card">
+      <div class="card-header"><h3><i class="fas fa-layer-group"></i> Mening guruhlarim</h3></div>
+      <div class="card-body">
+        {% for g in my_groups %}
+        <div class="my-group-card">
+          <div>
+            <div class="today-group-name">{{ g.name }}</div>
+            <div class="today-group-meta">
+              <span>{{ g.get_days_display_human }}</span>
+              <span>{{ g.start_time|time:"H:i" }} - {{ g.end_time|time:"H:i" }}</span>
+              {% if g.room %}<span>Xona {{ g.room }}</span>{% endif %}
+              <span>{{ g.get_student_count }} o'quvchi</span>
+            </div>
+          </div>
+          {% if capabilities.attendance_write %}<a href="{% url 'take_attendance' g.id %}" class="btn btn-secondary btn-sm"><i class="fas fa-pen-to-square"></i> Davomat</a>{% endif %}
+        </div>
+        {% empty %}
+        <div class="empty-state"><i class="fas fa-inbox"></i><p>Sizga hali guruh biriktirilmagan</p></div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3><i class="fas fa-calendar-day"></i> Bugun davomat kerak</h3>
+        <span style="font-size:0.76rem;color:var(--text-muted)">{{ today_groups|length }} ta guruh</span>
+      </div>
+      <div class="card-body">
+        <div class="today-group-list">
+          {% for group in today_groups %}
+          <div class="today-group-item">
+            <div class="today-group-main">
+              <div class="today-group-name">{{ group.name }}</div>
+              <div class="today-group-meta">
+                <span>{{ group.start_time|time:"H:i" }} - {{ group.end_time|time:"H:i" }}</span>
+                {% if group.room %}<span>Xona {{ group.room }}</span>{% endif %}
+              </div>
+            </div>
+            {% if capabilities.attendance_write %}<a href="{% url 'take_attendance' group.id %}" class="btn btn-secondary btn-sm"><i class="fas fa-pen-to-square"></i> Davomat</a>{% endif %}
+          </div>
+          {% empty %}
+          <div class="empty-state" style="padding:10px 0 0">
+            <i class="fas fa-circle-check"></i>
+            <p>Bugun davomat kerak bo'lgan guruh yo'q</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-side">
+    {% if capabilities.salary_teacher_self_view %}
+    <div class="card">
+      <div class="card-header"><h3><i class="fas fa-wallet"></i> Bu oylik maoshim</h3></div>
+      <div class="card-body">
+        {% if month_salary %}
+        <div class="salary-highlight">
+          <div class="amount">{{ month_salary.salary_amount|floatformat:0 }} so'm</div>
+          <div class="label">{{ month_salary.percent }}% &bull; {% if month_salary.is_paid %}<span style="color:var(--green)">To'langan</span>{% else %}<span style="color:var(--orange)">Hali to'lanmagan</span>{% endif %}</div>
+        </div>
+        {% else %}
+        <div class="empty-state"><i class="fas fa-hourglass-half"></i><p>Bu oy uchun hali hisoblanmagan</p></div>
+        {% endif %}
+
+        {% if salary_history %}
+        <div style="margin-top:16px">
+          <div style="font-size:0.72rem;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px">Oxirgi oyliklar</div>
+          {% for s in salary_history %}
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
+            <span style="font-size:0.84rem;color:var(--text-secondary)">{{ s.month|date:"F Y" }}</span>
+            <span style="font-weight:700;font-family:var(--font-mono)">{{ s.salary_amount|floatformat:0 }} so'm</span>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if birthdays %}
+    <div class="card">
+      <div class="card-header"><h3><i class="fas fa-cake-candles" style="color:var(--purple)"></i> Bugun tug'ilgan kun</h3></div>
+      <div class="card-body">
+        {% for s in birthdays %}
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
+          <div style="width:32px;height:32px;border-radius:50%;background:var(--purple-dim);color:var(--purple);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;overflow:hidden">{% include 'core/includes/student_avatar.html' with student=s %}</div>
+          <div>
+            <div style="font-size:0.85rem;font-weight:600">{{ s.name }}</div>
+            <div style="font-size:0.72rem;color:var(--text-muted)">{{ s.phone }}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+{% endblock %}

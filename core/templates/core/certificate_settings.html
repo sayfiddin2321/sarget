@@ -1,0 +1,151 @@
+{% extends 'core/base.html' %}
+{% block title %}Sertifikat sozlamalari{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-sliders"></i> Sertifikat sozlamalari</h1>
+    <p>Sertifikat matnlari, tashkilot nomi, rahbar imzosi, ranglar va seriya raqamlarini to'g'irlash</p>
+  </div>
+  <div style="display:flex;gap:10px">
+    <a href="{% url 'certificate_list' %}" class="btn btn-secondary">
+      <i class="fas fa-award"></i> Sertifikatlar ro'yxati
+    </a>
+  </div>
+</div>
+
+<div class="card" style="max-width:860px;margin:0 auto">
+  <div class="card-header">
+    <h3><i class="fas fa-pen-ruler"></i> Sertifikat shablonini sozlash</h3>
+  </div>
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+      <div class="alert alert-danger" style="margin-bottom:16px">
+        {% for err in form.non_field_errors %}{{ err }}{% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- 1. Markaz / Tashkilot ma'lumotlari -->
+      <h4 style="font-size:1rem;color:var(--accent);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)">
+        <i class="fas fa-building"></i> 1. O'quv markazi ma'lumotlari
+      </h4>
+      <div class="form-row">
+        <div class="form-group">
+          <label>O'quv markazi / Akademiya nomi *</label>
+          {{ form.academy_name }}
+          {% if form.academy_name.errors %}
+          <div style="color:var(--red);font-size:0.8rem;margin-top:4px">{{ form.academy_name.errors.0 }}</div>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          <label>Akademiya shiori / tavsifi</label>
+          {{ form.academy_subtitle }}
+        </div>
+      </div>
+
+      <!-- 2. Sarlavhalar va Kirish matni -->
+      <h4 style="font-size:1rem;color:var(--accent);margin:24px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border)">
+        <i class="fas fa-heading"></i> 2. Sertifikat sarlavhalari va kirish matni
+      </h4>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Asosiy sarlavha (Katta harflarda) *</label>
+          {{ form.title_uz }}
+        </div>
+        <div class="form-group">
+          <label>Kichik inglizcha sarlavha *</label>
+          {{ form.title_en }}
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Kirish jumlasi (Ismdan oldingi matn) *</label>
+        {{ form.statement_text }}
+      </div>
+
+      <!-- 3. Rahbariyat va Imzo -->
+      <h4 style="font-size:1rem;color:var(--accent);margin:24px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border)">
+        <i class="fas fa-signature"></i> 3. Rahbariyat va Imzo maydonlari
+      </h4>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Rahbar / Direktor lavozimi *</label>
+          {{ form.director_title }}
+        </div>
+        <div class="form-group">
+          <label>Rahbar / Direktor F.I.Sh. *</label>
+          {{ form.director_name }}
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Standart o'qituvchi lavozimi *</label>
+          {{ form.instructor_default_title }}
+        </div>
+        <div class="form-group">
+          <label>Sertifikat seriya prefiksi (masalan: SAR) *</label>
+          {{ form.certificate_prefix }}
+          <div class="form-text" style="font-size:0.75rem;color:var(--text-muted);margin-top:4px">
+            Yangi sertifikatlar mana shu prefiks bilan boshlanadi: <code>SAR-2026-00001</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Muhr va Bezak rangi -->
+      <h4 style="font-size:1rem;color:var(--accent);margin:24px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border)">
+        <i class="fas fa-stamp"></i> 4. Rasmiy muhr va Bezak rangi
+      </h4>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Muhr ustki matni</label>
+          {{ form.seal_text_top }}
+        </div>
+        <div class="form-group">
+          <label>Muhr markaziy matni</label>
+          {{ form.seal_text_mid }}
+        </div>
+        <div class="form-group">
+          <label>Muhr pastki matni</label>
+          {{ form.seal_text_bot }}
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Sertifikat asosiy bezak rangi</label>
+          {{ form.accent_color }}
+        </div>
+        <div class="form-group">
+          <label>Pastki xavfsizlik va reestr matni</label>
+          {{ form.footer_note }}
+        </div>
+      </div>
+
+      <!-- 5. Ko'rinish sozlamalari -->
+      <h4 style="font-size:1rem;color:var(--accent);margin:24px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border)">
+        <i class="fas fa-eye"></i> 5. Ko'rsatish sozlamalari
+      </h4>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px">
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-weight:600">
+          {{ form.show_study_period }}
+          <span>O'qish davrini sertifikatda ko'rsatish (qachondan qachongacha o'qigani)</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-weight:600">
+          {{ form.show_grade }}
+          <span>Baho / Erishilgan natijani sertifikatda ko'rsatish</span>
+        </label>
+      </div>
+
+      <div class="form-actions" style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border)">
+        <button type="submit" class="btn btn-primary" style="padding:10px 24px">
+          <i class="fas fa-floppy-disk"></i> Sozlamalarni saqlash
+        </button>
+        <a href="{% url 'certificate_list' %}" class="btn btn-secondary">
+          Bekor qilish
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+

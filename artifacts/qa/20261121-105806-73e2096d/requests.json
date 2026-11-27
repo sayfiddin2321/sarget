@@ -1,0 +1,135 @@
+[
+  {
+    "test": "core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin",
+    "method": "GET",
+    "path": "/login/",
+    "route": "login",
+    "status": 200
+  },
+  {
+    "test": "core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin",
+    "method": "POST",
+    "path": "/login/",
+    "route": "login",
+    "status": 302
+  },
+  {
+    "test": "core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin",
+    "method": "GET",
+    "path": "/",
+    "route": "dashboard",
+    "status": 200
+  },
+  {
+    "test": "core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin",
+    "method": "GET",
+    "path": "/api/notifications/poll/",
+    "route": "notification_poll",
+    "status": 200
+  },
+  {
+    "test": "core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin",
+    "method": "GET",
+    "path": "/payments/create/",
+    "route": "payment_create",
+    "status": 200
+  },
+  {
+    "test": "core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin",
+    "method": "GET",
+    "path": "/api/notifications/poll/",
+    "route": "notification_poll",
+    "status": 200
+  },
+  {
+    "test": "core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin",
+    "method": "POST",
+    "path": "/payments/create/",
+    "route": "payment_create",
+    "status": 302
+  },
+  {
+    "test": "core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin",
+    "method": "GET",
+    "path": "/payments/1/receipt/",
+    "route": "payment_receipt",
+    "status": 200
+  },
+  {
+    "test": "core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin",
+    "method": "GET",
+    "path": "/api/notifications/poll/",
+    "route": "notification_poll",
+    "status": 200
+  },
+  {
+    "test": "core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin",
+    "method": "GET",
+    "path": "/",
+    "route": "dashboard",
+    "status": 200
+  },
+  {
+    "test": "core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin",
+    "method": "GET",
+    "path": "/api/notifications/poll/",
+    "route": "notification_poll",
+    "status": 200
+  },
+  {
+    "test": "core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin",
+    "method": "GET",
+    "path": "/",
+    "route": "dashboard",
+    "status": 200
+  },
+  {
+    "test": "core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin",
+    "method": "GET",
+    "path": "/api/notifications/poll/",
+    "route": "notification_poll",
+    "status": 200
+  },
+  {
+    "test": "core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin",
+    "method": "GET",
+    "path": "/logout/",
+    "route": "logout",
+    "status": 302
+  },
+  {
+    "test": "core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin",
+    "method": "GET",
+    "path": "/login/",
+    "route": "login",
+    "status": 200
+  },
+  {
+    "test": "core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin",
+    "method": "GET",
+    "path": "/login/",
+    "route": "login",
+    "status": 200
+  },
+  {
+    "test": "core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin",
+    "method": "POST",
+    "path": "/login/",
+    "route": "login",
+    "status": 302
+  },
+  {
+    "test": "core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin",
+    "method": "GET",
+    "path": "/",
+    "route": "dashboard",
+    "status": 200
+  },
+  {
+    "test": "core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin",
+    "method": "GET",
+    "path": "/api/notifications/poll/",
+    "route": "notification_poll",
+    "status": 200
+  }
+]

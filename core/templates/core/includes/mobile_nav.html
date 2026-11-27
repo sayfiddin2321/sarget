@@ -1,0 +1,31 @@
+<nav class="mobile-nav{% if capabilities.payments_accept %} mobile-nav--payments{% endif %}" aria-label="Tezkor menyu">
+  <a href="{% url 'dashboard' %}" class="mobile-nav-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+    <i class="fas fa-house" aria-hidden="true"></i><span>Asosiy</span>
+  </a>
+  {% if capabilities.students_view %}
+  <a href="{% url 'student_list' %}" class="mobile-nav-item {% if 'student' in request.resolver_match.url_name %}active{% endif %}">
+    <i class="fas fa-user-graduate" aria-hidden="true"></i><span>O‘quvchilar</span>
+  </a>
+  {% else %}
+  <a href="{% url 'notification_list' %}" class="mobile-nav-item {% if request.resolver_match.url_name == 'notification_list' %}active{% endif %}">
+    <i class="fas fa-bell" aria-hidden="true"></i><span>Xabarlar</span>
+  </a>
+  {% endif %}
+  {% if capabilities.groups_view %}
+  <a href="{% url 'learning_center' %}" class="mobile-nav-item {% if navigation_section == 'learning_center' %}active{% endif %}">
+    <i class="fas fa-layer-group" aria-hidden="true"></i><span>O‘quv</span>
+  </a>
+  {% else %}
+  <a href="{% url 'telegram_link' %}" class="mobile-nav-item {% if request.resolver_match.url_name == 'telegram_link' %}active{% endif %}">
+    <i class="fab fa-telegram" aria-hidden="true"></i><span>Telegram</span>
+  </a>
+  {% endif %}
+  {% if capabilities.payments_accept %}
+  <a href="{% url 'payment_create' %}" class="mobile-nav-item {% if 'payment' in request.resolver_match.url_name %}active{% endif %}" aria-label="To‘lov qabul qilish" title="To‘lov qabul qilish">
+    <i class="fas fa-money-bill-transfer" aria-hidden="true"></i><span>To‘lov</span>
+  </a>
+  {% endif %}
+  <button type="button" class="mobile-nav-item" id="mobileMenuToggle" aria-controls="sidebar" aria-expanded="false" aria-label="Menyuni ochish">
+    <i class="fas fa-bars" aria-hidden="true"></i><span>Menyu</span>
+  </button>
+</nav>

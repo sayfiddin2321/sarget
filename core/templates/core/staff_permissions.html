@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+{% block title %}Xodim huquqlari{% endblock %}
+{% block content %}
+<div class="page-header"><div><h1>Xodim huquqlari</h1><p>O'qituvchining o'quvchi va guruhlarga kirishi o'z guruhlari bilan chegaralanadi. Umumiy moliya va barcha xodimlar oyligi alohida ruxsat bilan ochiladi. Huquq berish faqat boshliqda qoladi.</p></div></div>
+<form method="get" class="filter-bar"><label for="staff">Xodim</label><select id="staff" name="user" class="form-select"><option value="">Tanlang</option>{% for staff in staff_users %}<option value="{{ staff.pk }}" {% if target.pk == staff.pk %}selected{% endif %}>{{ staff.username }}</option>{% endfor %}</select><button class="btn btn-secondary">Ochish</button></form>
+{% if target %}<div class="card"><div class="card-body"><form method="post">{% csrf_token %}<input type="hidden" name="user" value="{{ target.pk }}">
+<p class="text-muted">Kerakli amallarni belgilang. Amal uchun zarur bo'lgan ko'rish huquqlari birga yoqiladi. O'z oyligi va barcha xodimlar oyligi alohida huquqlardir.</p>
+<div class="staff-permission-grid">
+{% for group in permission_groups %}
+<fieldset class="staff-permission-group"><legend>{{ group.label }}</legend>
+{% for row in group.rows %}<label class="staff-permission-option"><input type="checkbox" name="capabilities" value="{{ row.code }}" data-dependencies="{{ row.dependencies }}" {% if row.allowed %}checked{% endif %}> <span>{{ row.label }}</span></label>{% endfor %}
+</fieldset>
+{% endfor %}
+</div>
+<button class="btn btn-primary">Huquqlarni saqlash</button></form></div></div>{% endif %}
+{% endblock %}
+{% block extra_js %}
+<script>
+(() => {
+  const inputs = [...document.querySelectorAll('input[name="capabilities"]')];
+  const byCode = new Map(inputs.map(input => [input.value, input]));
+  function enable(input) {
+    input.checked = true;
+    (input.dataset.dependencies || '').split(' ').filter(Boolean).forEach(code => {
+      const dependency = byCode.get(code);
+      if (dependency && !dependency.checked) enable(dependency);
+    });
+  }
+  function disable(input) {
+    input.checked = false;
+    inputs.forEach(dependent => {
+      if (dependent.checked && (dependent.dataset.dependencies || '').split(' ').includes(input.value)) disable(dependent);
+    });
+  }
+  inputs.forEach(input => input.addEventListener('change', () => input.checked ? enable(input) : disable(input)));
+})();
+</script>
+{% endblock %}

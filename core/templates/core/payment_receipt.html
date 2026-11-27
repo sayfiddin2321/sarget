@@ -1,0 +1,174 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}To'lov cheki {{ payment.receipt_number }}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/payment_receipt.css' %}?v=20261117-1">
+{% endblock %}
+
+{% block content %}
+<div class="receipt-page-wrapper">
+  {% if is_new %}
+  <div class="alert alert-success receipt-alert" style="max-width:540px;margin:0 auto 20px;display:flex;align-items:center;gap:12px;background:var(--green-dim);border:1px solid rgba(34,197,94,0.3);color:var(--green);border-radius:var(--radius);padding:14px 18px">
+    <i class="fas fa-circle-check" style="font-size:1.4rem"></i>
+    <div>
+      <div style="font-weight:700;font-size:0.95rem">To'lov muvaffaqiyatli qabul qilindi!</div>
+      <div style="font-size:0.82rem;opacity:0.9">Chek saqlandi va chiqarishga tayyor.</div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Receipt Action Toolbar -->
+  <div class="receipt-actions-bar no-print">
+    {% if capabilities.payments_refund and not payment.voided_at %}<a href="{% url 'refund_create' payment.pk %}" class="btn btn-secondary">Pul qaytarishni qayd etish</a>{% endif %}
+    <button type="button" class="btn btn-primary" id="btnPrintReceipt" onclick="printReceipt()">
+      <i class="fas fa-print"></i> Chop etish (Print)
+    </button>
+    <button type="button" class="btn btn-success" id="btnDownloadImage" onclick="downloadReceiptImage()">
+      <i class="fas fa-camera"></i> Rasmga olish (PNG saqlash)
+    </button>
+    {% if capabilities.payments_accept %}<a href="{% url 'payment_create' %}" class="btn btn-secondary">
+      <i class="fas fa-plus"></i> Yangi to'lov
+    </a>{% endif %}
+    <a href="{% url 'student_detail' student.pk %}" class="btn btn-secondary">
+      <i class="fas fa-user-graduate"></i> O'quvchi
+    </a>
+    <a href="{% url 'payment_list' %}" class="btn btn-secondary">
+      <i class="fas fa-arrow-left"></i> Barcha to'lovlar
+    </a>
+  </div>
+
+  <div class="receipt-print-settings no-print">
+    <label for="receiptPaperWidth">Printer qog'ozi:</label>
+    <select id="receiptPaperWidth" aria-describedby="receiptPrintHelp">
+      <option value="80">80 mm</option>
+      <option value="58">58 mm</option>
+    </select>
+    <p id="receiptPrintHelp">Chrome: More settings → Headers and footers — OFF;
+      Margins — None; Scale — 100%. Printer sozlamasida ham tanlangan qog'oz kengligi
+      va uzluksiz rulon (Roll / Receipt) rejimini tanlang.</p>
+    <p>Ortiqcha qog'oz chiqsa, printer drayveridagi sahifa uzunligi, qog'oz uzatish (Feed)
+      va kesish (Cut) sozlamalarini tekshiring.</p>
+  </div>
+
+  <!-- The Actual Printable Receipt Card -->
+  <div class="receipt-container" id="receiptCard">
+    {% if payment.voided_at %}<div class="receipt-void-notice">BEKOR QILINGAN TO'LOV — {{ payment.voided_at|date:'d.m.Y H:i' }}. Sabab: {{ payment.void_reason }}</div>{% endif %}
+    <div class="receipt-header">
+      <div class="receipt-logo">
+        <img src="{% static 'img/logo_icon_tight.png' %}" alt="Sarget" class="receipt-logo-img">
+        <div class="receipt-brand-wrap">
+          <div class="receipt-brand">SARGET IT ACADEMY</div>
+          <div class="receipt-brand-sub">Rasmiy to'lov cheki</div>
+        </div>
+      </div>
+      <div class="receipt-check-num">
+        <span class="chk-label">CHEK №</span>
+        <span class="chk-val">{{ payment.receipt_number }}</span>
+      </div>
+    </div>
+
+    <div class="receipt-divider"></div>
+
+    <div class="receipt-grid">
+      <div class="receipt-field">
+        <span class="r-label">O'quvchi:</span>
+        <span class="r-val highlight">{{ student.name }}</span>
+      </div>
+      <div class="receipt-field">
+        <span class="r-label">Telefon:</span>
+        <span class="r-val">{{ student.phone|default:"—" }}</span>
+      </div>
+      {% if student.group %}
+      {% if student.group.course %}
+      <div class="receipt-field">
+        <span class="r-label">Kurs:</span>
+        <span class="r-val">{{ student.group.course.name }}</span>
+      </div>
+      {% endif %}
+      <div class="receipt-field">
+        <span class="r-label">Guruh:</span>
+        <span class="r-val">{{ student.group.name }}</span>
+      </div>
+      {% endif %}
+      {% if student.teacher %}
+      <div class="receipt-field">
+        <span class="r-label">O'qituvchi:</span>
+        <span class="r-val">{{ student.teacher.name }}</span>
+      </div>
+      {% endif %}
+      <div class="receipt-field">
+        <span class="r-label">Dars davri:</span>
+        <span class="r-val font-semibold">{{ payment.month|date:"d.m.Y" }} – {{ payment.service_period_end|date:"d.m.Y" }}</span>
+      </div>
+      <div class="receipt-field">
+        <span class="r-label">To'langan vaqt:</span>
+        <span class="r-val font-semibold">{{ payment.paid_date|date:"d.m.Y, H:i" }}</span>
+      </div>
+      <div class="receipt-field">
+        <span class="r-label">To'lov turi:</span>
+        <span class="r-val">
+          {{ payment.get_payment_type_display }}
+        </span>
+      </div>
+      <div class="receipt-field">
+        <span class="r-label">Qabul qiluvchi:</span>
+        <span class="r-val">{% if payment.received_by %}{{ payment.received_by.get_full_name|default:payment.received_by.username }}{% else %}Noma'lum{% endif %}</span>
+      </div>
+      {% if payment.comment %}
+      <div class="receipt-field full">
+        <span class="r-label">Izoh:</span>
+        <span class="r-val">{{ payment.comment }}</span>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="receipt-divider"></div>
+
+    <!-- Amount Section -->
+    <div class="receipt-total-box">
+      <div class="receipt-total-row">
+        <span class="total-title">JAMI TO'LANDI:</span>
+        <span class="total-amount">{{ receipt_amount }} SO'M</span>
+      </div>
+      {% if amount_in_words %}
+      <div class="receipt-words">
+        <span class="words-label">So'z bilan:</span>
+        <span class="words-val">{{ amount_in_words }}</span>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="receipt-divider"></div>
+
+    <!-- Keep a scannable QR beside the status rather than a large decorative stamp. -->
+    <div class="receipt-footer">
+      <div class="receipt-qr-wrap">
+        <div id="receiptQrCode">
+          <img id="receiptQrImage" src="{{ receipt_qr_data_uri }}" alt="To'lovni tekshirish QR kodi" width="320" height="320" loading="eager">
+        </div>
+      </div>
+      <div class="receipt-footer-info">
+          <div class="receipt-status">
+            {% if payment.voided_at %}
+            <span>BEKOR QILINGAN</span>
+            {% else %}
+            <span>TO'LANDI</span>
+            {% endif %}
+          </div>
+          <a href="{{ verification_url }}" target="_blank" rel="noopener" class="receipt-verify-link">Haqiqiyligini tekshirish</a>
+          <p class="qr-hint">QRni skanerlab chek raqami, summa va holatni tekshiring.</p>
+      </div>
+    </div>
+
+    <div class="receipt-bottom-note">
+      <p>Sarget CRM • To'lovingiz uchun tashakkur!</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/html2canvas.min.js' %}"></script>
+<script src="{% static 'js/payment_receipt.js' %}?v=20261117-1"></script>
+{% endblock %}

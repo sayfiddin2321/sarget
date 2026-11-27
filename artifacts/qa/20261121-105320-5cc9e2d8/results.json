@@ -1,0 +1,72 @@
+{
+  "backend": "django.db.backends.sqlite3",
+  "isolated_database": ":memory:",
+  "application_database_accessed": false,
+  "labels": [
+    "core.test_project_qa.ProjectQATests"
+  ],
+  "seconds": 2.847,
+  "failure_count": 1,
+  "passed": 8,
+  "failed": 1,
+  "skipped": 0,
+  "tests": [
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.2123
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_attendance_overlong_note_is_rejected_without_partial_save",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.0338
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_full_financial_user_journey_preserves_data_after_relogin",
+      "status": "FAIL",
+      "detail": "Traceback (most recent call last):\n  File \"C:\\Users\\User\\Desktop\\sargetcrm_CRM\\core\\test_project_qa.py\", line 154, in test_full_financial_user_journey_preserves_data_after_relogin\n    self.assertEqual(self.student.get_debt_amount(), 350000)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Decimal('100000.00') != 350000\n",
+      "seconds": 0.2707
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.0212
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_payment_submission_key_cannot_be_reused_for_different_amount",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.0706
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.0098
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_protected_course_delete_returns_message_instead_of_500",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.0154
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.0321
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_replayed_payment_submission_creates_one_payment",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.0298
+    }
+  ],
+  "test_methods": 9,
+  "subtests_passed": 67,
+  "subtests_failed": 0
+}

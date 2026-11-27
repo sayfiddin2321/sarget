@@ -1,0 +1,460 @@
+{% extends 'core/base.html' %}
+{% load custom_filters %}
+{% block title %}Hisobotlar{% endblock %}
+
+{% block extra_css %}
+<style>
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 22px;
+}
+@media (max-width: 900px) { .report-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .report-grid { grid-template-columns: 1fr; } }
+
+.report-kpi {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+.report-kpi:hover { box-shadow: var(--shadow); transform: translateY(-1px); }
+.report-kpi-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.report-kpi-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+.report-kpi-sub { font-size: 0.76rem; color: var(--text-muted); }
+.kpi-green .report-kpi-value { color: var(--green); }
+.kpi-red .report-kpi-value   { color: var(--red); }
+.kpi-accent .report-kpi-value { color: var(--accent); }
+
+.debt-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--red);
+  background: var(--red-dim);
+  border: 1px solid color-mix(in srgb, var(--red) 22%, transparent);
+}
+
+.subject-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--blue);
+  background: var(--blue-dim);
+}
+
+.att-stats-wrap {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  align-items: center;
+}
+@media (max-width: 640px) { .att-stats-wrap { grid-template-columns: 1fr; } }
+
+.att-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--green) 0deg calc(var(--present-deg, 0) * 1deg),
+    var(--orange) calc(var(--present-deg, 0) * 1deg) calc((var(--present-deg, 0) + var(--late-deg, 0)) * 1deg),
+    var(--red) calc((var(--present-deg, 0) + var(--late-deg, 0)) * 1deg) 360deg
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.att-circle::after {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+}
+.att-circle-text {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+.att-circle-pct { font-size: 1.1rem; font-weight: 800; color: var(--text-primary); }
+.att-circle-lbl { font-size: 0.68rem; color: var(--text-muted); }
+
+.att-stat-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+}
+.att-stat-item:last-child { border-bottom: none; }
+.att-stat-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+}
+.att-stat-name i { width: 16px; text-align: center; }
+.att-stat-num {
+  font-weight: 800;
+  font-size: 0.92rem;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-chart-line"></i> Hisobotlar</h1>
+    <p>Batafsil tahlil va statistik ma'lumotlar</p>
+  </div>
+  <button class="btn btn-secondary" type="button" onclick="window.print()">
+    <i class="fas fa-print"></i> Chop etish
+  </button>
+</div>
+
+<!-- KPI Cards -->
+<div class="report-grid">
+  <div class="report-kpi kpi-green">
+    <div class="report-kpi-label"><i class="fas fa-arrow-up"></i> Yillik daromad</div>
+    <div class="report-kpi-value">{{ total_income_year|floatformat:0 }}</div>
+    <div class="report-kpi-sub">so'm — {{ today.year }} yil, amaldagi to'lovlar; qaytarimlar ayrilgan</div>
+  </div>
+  <div class="report-kpi kpi-red">
+    <div class="report-kpi-label"><i class="fas fa-arrow-down"></i> Yillik xarajat</div>
+    <div class="report-kpi-value">{{ total_expense_year|floatformat:0 }}</div>
+    <div class="report-kpi-sub">so'm — {{ today.year }} yil, hisoblangan oyliklar bilan</div>
+  </div>
+  <div class="report-kpi {% if total_income_year > total_expense_year %}kpi-green{% else %}kpi-red{% endif %}">
+    <div class="report-kpi-label"><i class="fas fa-chart-line"></i> Sof foyda</div>
+    <div class="report-kpi-value">{{ total_income_year|subtract:total_expense_year|floatformat:0 }}</div>
+    <div class="report-kpi-sub">so'm — {{ today.year }} yil</div>
+  </div>
+  <div class="report-kpi">
+    <div class="report-kpi-label"><i class="fas fa-users"></i> Qarzdorlar</div>
+    <div class="report-kpi-value kpi-red" style="color:var(--red)">{{ debtors|length }}</div>
+    <div class="report-kpi-sub">ta aktiv o'quvchi</div>
+  </div>
+  <div class="report-kpi">
+    <div class="report-kpi-label"><i class="fas fa-calendar-check"></i> Davomat (30 kun)</div>
+    <div class="report-kpi-value">{{ attendance_stats.present_percent }}%</div>
+    <div class="report-kpi-sub">{{ attendance_stats.present }} / {{ attendance_stats.total }} keldi</div>
+  </div>
+  <div class="report-kpi kpi-accent">
+    <div class="report-kpi-label"><i class="fas fa-headset"></i> Retsepshenlar</div>
+    <div class="report-kpi-value">{{ receptionist_stats|length }}</div>
+    <div class="report-kpi-sub">faol xodim</div>
+  </div>
+</div>
+
+<!-- Monthly Income/Expense Chart -->
+<div class="card" style="margin-bottom:18px">
+  <div class="card-header">
+    <h3><i class="fas fa-chart-bar"></i> Oylik daromad / xarajat (12 oy)</h3>
+  </div>
+  <div class="card-body">
+    <div style="position:relative;height:300px">
+      {{ monthly_income|json_script:"report-chart-data" }}
+      <canvas id="reportChart" data-source="report-chart-data"></canvas>
+    </div>
+    <div style="margin-top:18px;overflow-x:auto">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Oy</th>
+            <th>Daromad</th>
+            <th>Xarajat</th>
+            <th>Sof foyda</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in monthly_income %}
+          <tr>
+            <td style="font-size:0.84rem;color:var(--text-secondary)">{{ item.month }}</td>
+            <td style="font-family:var(--font-mono);font-weight:600;color:var(--green)">{{ item.income|format_number }} so'm</td>
+            <td style="font-family:var(--font-mono);font-weight:600;color:var(--red)">{{ item.expense|format_number }} so'm</td>
+            <td style="font-family:var(--font-mono);font-weight:700;color:{% if item.net >= 0 %}var(--green){% else %}var(--red){% endif %}">
+              {{ item.net|format_number }} so'm
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="4" class="text-center" style="color:var(--text-muted);padding:20px">Ma'lumot yo'q</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Two columns: Debtors + Attendance -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px" class="report-2col">
+  <!-- Debtors -->
+  <div class="card">
+    <div class="card-header">
+      <h3><i class="fas fa-triangle-exclamation" style="color:var(--red)"></i> Qarzdorlar</h3>
+      <span style="font-size:0.82rem;color:var(--red);font-weight:700">{{ debtors|length }} ta</span>
+    </div>
+    <div class="card-body p-0">
+      <div style="overflow-x:auto">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>O'quvchi</th>
+              <th>Qarz</th>
+              <th>Oxirgi to'lov</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for debtor in debtors %}
+            <tr>
+              <td style="color:var(--text-muted);font-size:0.8rem">{{ forloop.counter }}</td>
+              <td>
+                <div class="entity-cell">
+                  <div class="entity-avatar">{% include 'core/includes/student_avatar.html' with student=debtor.student %}</div>
+                  <div>
+                    <div style="font-weight:700;font-size:0.86rem">{{ debtor.student.name }}</div>
+                    <div style="font-size:0.74rem;color:var(--text-muted)">{{ debtor.student.phone }}</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="debt-badge"><i class="fas fa-circle-exclamation"></i> {{ debtor.months_debt }} oy</span></td>
+              <td style="font-size:0.8rem;color:var(--text-muted)">{{ debtor.last_payment_month }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="4" style="text-align:center;padding:24px;color:var(--green)">
+                <i class="fas fa-circle-check"></i> Barcha o'quvchilar to'lagan
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Attendance chart + stats -->
+  <div class="card">
+    <div class="card-header">
+      <h3><i class="fas fa-calendar-check"></i> Davomat (30 kun)</h3>
+    </div>
+    <div class="card-body">
+      <div class="att-stats-wrap">
+        <div class="att-circle" id="attCircle">
+          <div class="att-circle-text">
+            <div class="att-circle-pct">{{ attendance_stats.present_percent }}%</div>
+            <div class="att-circle-lbl">Davomat</div>
+          </div>
+        </div>
+        <div>
+          <div class="att-stat-item">
+            <div class="att-stat-name"><i class="fas fa-circle-check" style="color:var(--green)"></i> Keldi</div>
+            <div class="att-stat-num" style="color:var(--green)">{{ attendance_stats.present }}</div>
+          </div>
+          <div class="att-stat-item">
+            <div class="att-stat-name"><i class="fas fa-clock" style="color:var(--orange)"></i> Kechikdi</div>
+            <div class="att-stat-num" style="color:var(--orange)">{{ attendance_stats.late }}</div>
+          </div>
+          <div class="att-stat-item">
+            <div class="att-stat-name"><i class="fas fa-circle-xmark" style="color:var(--red)"></i> Kelmadi</div>
+            <div class="att-stat-num" style="color:var(--red)">{{ attendance_stats.absent }}</div>
+          </div>
+          <div class="att-stat-item">
+            <div class="att-stat-name"><i class="fas fa-users" style="color:var(--accent)"></i> Jami</div>
+            <div class="att-stat-num">{{ attendance_stats.total }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Teacher Income -->
+<div class="card" style="margin-bottom:18px">
+  <div class="card-header">
+    <h3><i class="fas fa-chalkboard-user"></i> O'qituvchilar daromadi ({{ today.year }} yil)</h3>
+  </div>
+  <div class="card-body p-0">
+    <div style="overflow-x:auto">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th><th>O'qituvchi</th><th>Fan</th><th>Foiz</th><th>Jami daromad (oylik)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in teacher_income %}
+          <tr>
+            <td style="color:var(--text-muted);font-size:0.8rem">{{ forloop.counter }}</td>
+            <td>
+              <div class="entity-cell">
+                <div class="entity-avatar teacher">{{ item.teacher.name|first }}</div>
+                <div class="entity-name">{{ item.teacher.name }}</div>
+              </div>
+            </td>
+            <td><span class="subject-badge">{{ item.teacher.subject }}</span></td>
+            <td><span class="subject-badge">{{ item.teacher.percent }}%</span></td>
+            <td>
+              <span style="font-family:var(--font-mono);font-weight:700;color:var(--green)">
+                {{ item.total|format_number }} so'm
+              </span>
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="5" class="text-center" style="color:var(--text-muted);padding:20px">Ma'lumot mavjud emas</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Receptionist stats -->
+{% if receptionist_stats %}
+<div class="card" style="margin-bottom:18px">
+  <div class="card-header">
+    <h3><i class="fas fa-headset"></i> Retsepshen statistikasi</h3>
+  </div>
+  <div class="card-body p-0">
+    <div style="overflow-x:auto">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Retsepshen</th>
+            <th>Bu oy komissiya</th>
+            <th>Yillik komissiya</th>
+            <th>Aktiv o'quvchi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in receptionist_stats %}
+          <tr>
+            <td>
+              <div class="entity-cell">
+                <div class="entity-avatar receptionist">{{ r.receptionist.name|first }}</div>
+                <div class="entity-name">{{ r.receptionist.name }}</div>
+              </div>
+            </td>
+            <td style="font-family:var(--font-mono);font-weight:600;color:var(--accent)">
+              {{ r.month_commission|format_number }} so'm
+            </td>
+            <td style="font-family:var(--font-mono);font-weight:600;color:var(--green)">
+              {{ r.year_commission|format_number }} so'm
+            </td>
+            <td>
+              <span style="background:var(--blue-dim);color:var(--blue);padding:3px 8px;border-radius:6px;font-size:0.78rem;font-weight:700">
+                {{ r.student_count }} ta
+              </span>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Set attendance circle CSS vars
+(function () {
+  const total = {{ attendance_stats.total }};
+  const present = {{ attendance_stats.present }};
+  const late = {{ attendance_stats.late }};
+  const circle = document.getElementById('attCircle');
+  if (circle && total > 0) {
+    const pDeg = (present / total) * 360;
+    const lDeg = (late / total) * 360;
+    circle.style.setProperty('--present-deg', pDeg.toFixed(1));
+    circle.style.setProperty('--late-deg', lDeg.toFixed(1));
+  }
+})();
+
+// Report chart — override to use monthly_income data correctly
+document.addEventListener('DOMContentLoaded', function () {
+  const canvas = document.getElementById('reportChart');
+  if (!canvas || typeof Chart === 'undefined') return;
+  const rawData = JSON.parse(canvas.dataset.chart || '[]');
+  const isLight = document.body.classList.contains('light-mode');
+  const gridColor = isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.05)';
+  const tickColor = isLight ? '#94a3b8' : '#4b5879';
+  new Chart(canvas, {
+    type: 'bar',
+    data: {
+      labels: rawData.map(d => d.month),
+      datasets: [
+        {
+          label: 'Daromad',
+          data: rawData.map(d => d.income),
+          backgroundColor: 'rgba(34,197,94,0.5)',
+          borderColor: '#22c55e',
+          borderWidth: 1, borderRadius: 5,
+        },
+        {
+          label: 'Xarajat',
+          data: rawData.map(d => d.expense),
+          backgroundColor: 'rgba(239,68,68,0.45)',
+          borderColor: '#ef4444',
+          borderWidth: 1, borderRadius: 5,
+        },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: tickColor, font: { family: "'Inter', sans-serif", size: 12 } } },
+        tooltip: { callbacks: { label: ctx => ` ${window.formatNumber ? window.formatNumber(ctx.raw) : ctx.raw} so'm` } }
+      },
+      scales: {
+        x: { grid: { color: gridColor }, ticks: { color: tickColor } },
+        y: { grid: { color: gridColor }, ticks: { color: tickColor, callback: v => (window.formatNumber ? window.formatNumber(v) : v) } }
+      }
+    }
+  });
+});
+
+// Fix responsive grid
+document.addEventListener('DOMContentLoaded', function () {
+  const col = document.querySelector('.report-2col');
+  if (col && window.innerWidth < 900) col.style.gridTemplateColumns = '1fr';
+  window.addEventListener('resize', function () {
+    if (col) col.style.gridTemplateColumns = window.innerWidth < 900 ? '1fr' : '1fr 1fr';
+  });
+});
+</script>
+{% endblock %}

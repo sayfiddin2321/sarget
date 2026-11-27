@@ -1,0 +1,135 @@
+{% extends 'core/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1><i class="fas fa-{% if action == 'edit' %}pen{% else %}user-plus{% endif %}"></i> {{ title }}</h1>
+        <p>{% if reception_mode %}Yangi o'quvchi qabul qilish (asosiy ma'lumotlar){% else %}O'quvchi ma'lumotlari{% endif %}</p>
+    </div>
+    <a href="{% url 'student_list' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Orqaga</a>
+</div>
+
+{% if reception_mode %}
+<div class="card" style="max-width:680px;margin-bottom:16px;border-left:3px solid var(--accent)">
+    <div class="card-body" style="display:flex;align-items:center;gap:12px;padding:14px 18px">
+        <i class="fas fa-circle-info" style="color:var(--accent);font-size:1.2rem"></i>
+        <div>
+            <div style="font-weight:700;font-size:0.88rem">Qabul jarayoni</div>
+            <div style="font-size:0.8rem;color:var(--text-muted)">Asosiy ma'lumotlarni kiriting. Guruh va o'qituvchi biriktirishni Boshliq amalga oshiradi.</div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="card" style="max-width:680px">
+    <div class="card-header"><h3><i class="fas fa-user-graduate"></i> O'quvchi ma'lumotlari</h3></div>
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if form.non_field_errors %}<div class="alert alert-danger">{% for e in form.non_field_errors %}{{ e }}{% endfor %}</div>{% endif %}
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Ism familiya *</label>
+                    {{ form.name }}
+                    {% if form.name.errors %}<div class="form-text" style="color:var(--red)">{{ form.name.errors.0 }}</div>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-phone"></i> Telefon *</label>
+                    {{ form.phone }}
+                    {% if form.phone.errors %}<div class="form-text" style="color:var(--red)">{{ form.phone.errors.0 }}</div>{% endif %}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fas fa-phone-volume"></i> Ota-ona telefoni</label>
+                    {{ form.parent_phone }}
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-cake-candles"></i> Tug'ilgan sana</label>
+                    {{ form.birth_date }}
+                </div>
+            </div>
+
+            {% if not reception_mode %}
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fas fa-chalkboard-user"></i> O'qituvchi</label>
+                    {{ form.teacher }}
+                    {% if form.teacher.errors %}<div class="form-text" style="color:var(--red)">{{ form.teacher.errors.0 }}</div>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-layer-group"></i> Guruh</label>
+                    {{ form.group }}
+                    {% if form.group.errors %}<div class="form-text" style="color:var(--red)">{{ form.group.errors.0 }}</div>{% endif %}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fas fa-circle-half-stroke"></i> Holat</label>
+                    {{ form.status }}
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> Manba</label>
+                    {{ form.source }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fas fa-percent"></i> Chegirma (%)</label>
+                    {{ form.discount_percent }}
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-headset"></i> Retsepshen</label>
+                    {{ form.receptionist }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-camera"></i> O'quvchi rasmi</label>
+                {{ form.photo }}
+                <div class="form-text">Telefon yoki planshetda kamera ochiladi; kompyuterda rasm faylini tanlashingiz mumkin.</div>
+                {% if student and student.photo %}<div style="margin-top:8px"><img src="{{ student.photo.url }}" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--border)"></div>{% endif %}
+            </div>
+            {% else %}
+            <div class="form-group">
+                <label><i class="fas fa-tag"></i> Manba</label>
+                {{ form.source }}
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-camera"></i> O'quvchi rasmi (ixtiyoriy)</label>
+                {{ form.photo }}
+                <div class="form-text">Telefon yoki planshetda kamera ochiladi; kompyuterda rasm faylini tanlashingiz mumkin.</div>
+            </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label><i class="fas fa-align-left"></i> Izoh</label>
+                {{ form.notes }}
+            </div>
+
+            <div class="form-row"><div class="form-group"><label>Filial</label>{{ form.branch }}{{ form.branch.errors }}</div><div class="form-group"><label>Kelishilgan to'lov kuni</label>{{ form.payment_due_day }}{{ form.payment_due_day.errors }}<small>{{ form.payment_due_day.help_text }}</small></div></div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-floppy-disk"></i> {% if reception_mode %}Qabul qilish{% else %}Saqlash{% endif %}</button>
+                <a href="{% url 'student_list' %}" class="btn btn-secondary"><i class="fas fa-xmark"></i> Bekor qilish</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    var teacherSel = document.getElementById('id_teacher');
+    var groupSel = document.getElementById('id_group');
+    if(teacherSel && groupSel){
+        teacherSel.addEventListener('change', function(){
+            var tid = this.value;
+            if(!tid) return;
+            fetch('/api/students/search/?q=')
+            .catch(function(){});
+        });
+    }
+});
+</script>
+{% endblock %}

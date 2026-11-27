@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+{% block title %}Tizim holati{% endblock %}
+{% block content %}
+<div class="page-header"><div><h1>Tizim holati</h1><p>Eslatmalar va zaxira nusxalarning oxirgi natijalari.</p></div></div>
+{% if reminder_stale %}<div class="alert alert-warning">Eslatmalar oxirgi 3 daqiqada ishga tushmagan. Rejalashtirilgan vazifani tekshiring.</div>{% endif %}
+{% if backup_stale %}<div class="alert alert-warning">Oxirgi 24 soatda zaxiralash boshlanmagan. Kunlik zaxiralashni tekshiring.</div>{% endif %}
+{% if worker_stale %}<div class="alert alert-warning">Hisobot va Telegram jarayoni oxirgi 3 daqiqada ishlamagan. Fon jarayonini tekshiring.</div>{% endif %}
+<p>Kutilayotgan hisobotlar: {{ pending_reports }} · Kutilayotgan Telegram xabarlari: {{ pending_messages }} · Yuborilmagan xabarlar: {{ failed_messages }}</p>
+{% if reminder_failed %}<div class="alert alert-danger">Eslatmalarni yuborishda xato bor. Quyidagi natijani va server jurnalini tekshiring.</div>{% endif %}
+{% if backup_failed %}<div class="alert alert-danger">Oxirgi zaxiralash bajarilmadi. Qayta ishga tushiring va saqlash joyini tekshiring.</div>{% endif %}
+<div class="card"><div class="table-wrapper"><table>
+  <thead><tr><th>Vazifa</th><th>Holat</th><th>Boshlandi</th><th>Tugadi</th><th>Natija</th></tr></thead>
+  <tbody>{% for run in runs %}<tr><td>{{ run.job_label }}</td><td>{{ run.status_label }}</td><td>{{ run.started_at|date:'d.m.Y H:i:s' }}</td><td>{{ run.finished_at|date:'d.m.Y H:i:s'|default:'—' }}</td><td style="overflow-wrap:anywhere">{{ run.result_label }}</td></tr>{% empty %}<tr><td colspan="5">Vazifalar hali ishga tushmagan.</td></tr>{% endfor %}</tbody>
+</table></div></div>
+{% endblock %}

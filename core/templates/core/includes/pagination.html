@@ -1,0 +1,17 @@
+{% load navigation %}
+{% if page_obj.paginator.count %}
+<nav class="pagination-bar" aria-label="Sahifalar">
+  <span class="text-muted">{{ page_obj.start_index }}–{{ page_obj.end_index }} / {{ page_obj.paginator.count }} ta</span>
+  <div class="pagination-actions">
+    {% if page_obj.has_previous %}
+    <a class="btn btn-secondary btn-sm" href="{% page_url request 1 %}" aria-label="Birinchi sahifa">Birinchi</a>
+    <a class="btn btn-secondary btn-sm" href="{% page_url request page_obj.previous_page_number %}">Oldingi</a>
+    {% endif %}
+    <span aria-current="page">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+    <a class="btn btn-secondary btn-sm" href="{% page_url request page_obj.next_page_number %}">Keyingi</a>
+    <a class="btn btn-secondary btn-sm" href="{% page_url request page_obj.paginator.num_pages %}" aria-label="Oxirgi sahifa">Oxirgi</a>
+    {% endif %}
+  </div>
+</nav>
+{% endif %}

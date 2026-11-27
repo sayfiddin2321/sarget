@@ -1,0 +1,24 @@
+{
+  "backend": "django.db.backends.postgresql",
+  "isolated_database": "test_sarget_qa_44ee897cc4ab",
+  "application_database_accessed": false,
+  "labels": [
+    "core.test_financial_browser_qa"
+  ],
+  "seconds": 9.668,
+  "failure_count": 0,
+  "passed": 1,
+  "failed": 0,
+  "skipped": 0,
+  "tests": [
+    {
+      "test": "core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 4.9233
+    }
+  ],
+  "test_methods": 1,
+  "subtests_passed": 0,
+  "subtests_failed": 0
+}

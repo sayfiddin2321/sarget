@@ -1,0 +1,38 @@
+test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) ... 
+  test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) (width=1360, theme='light') ... FAIL
+  test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) (width=1360, theme='dark') ... FAIL
+
+======================================================================
+FAIL: test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) (width=1360, theme='light')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_mobile_rosters.py", line 87, in test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking
+    self.assertLessEqual(page.evaluate('document.documentElement.scrollWidth'), width,
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        page.evaluate("""() => ['html','body','.main-content','.container','.lead-board','.lead-board-filters','.lead-list-card']
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            .map(sel => {let el=document.querySelector(sel),r=el.getBoundingClientRect(),s=getComputedStyle(el);
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            return {sel,left:r.left,right:r.right,width:r.width,scroll:el.scrollWidth,client:el.clientWidth,x:s.overflowX,y:s.overflowY};})"""))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2118 not less than or equal to 1360 : [{'sel': 'html', 'left': 0, 'right': 1360, 'width': 1360, 'scroll': 2118, 'client': 1360, 'x': 'visible', 'y': 'visible'}, {'sel': 'body', 'left': 0, 'right': 1360, 'width': 1360, 'scroll': 1360, 'client': 1360, 'x': 'hidden', 'y': 'auto'}, {'sel': '.main-content', 'left': 272, 'right': 1360, 'width': 1088, 'scroll': 1088, 'client': 1088, 'x': 'visible', 'y': 'visible'}, {'sel': '.container', 'left': 302, 'right': 1330, 'width': 1028, 'scroll': 1028, 'client': 1028, 'x': 'visible', 'y': 'visible'}, {'sel': '.lead-board', 'left': 302, 'right': 1330, 'width': 1028, 'scroll': 2164, 'client': 1028, 'x': 'auto', 'y': 'auto'}, {'sel': '.lead-board-filters', 'left': 302, 'right': 1330, 'width': 1028, 'scroll': 1028, 'client': 1028, 'x': 'visible', 'y': 'visible'}, {'sel': '.lead-list-card', 'left': 302, 'right': 1330, 'width': 1028, 'scroll': 1026, 'client': 1026, 'x': 'visible', 'y': 'visible'}]
+
+======================================================================
+FAIL: test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) (width=1360, theme='dark')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_mobile_rosters.py", line 87, in test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking
+    self.assertLessEqual(page.evaluate('document.documentElement.scrollWidth'), width,
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        page.evaluate("""() => ['html','body','.main-content','.container','.lead-board','.lead-board-filters','.lead-list-card']
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            .map(sel => {let el=document.querySelector(sel),r=el.getBoundingClientRect(),s=getComputedStyle(el);
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            return {sel,left:r.left,right:r.right,width:r.width,scroll:el.scrollWidth,client:el.clientWidth,x:s.overflowX,y:s.overflowY};})"""))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2118 not less than or equal to 1360 : [{'sel': 'html', 'left': 0, 'right': 1360, 'width': 1360, 'scroll': 2118, 'client': 1360, 'x': 'visible', 'y': 'visible'}, {'sel': 'body', 'left': 0, 'right': 1360, 'width': 1360, 'scroll': 1360, 'client': 1360, 'x': 'hidden', 'y': 'auto'}, {'sel': '.main-content', 'left': 272, 'right': 1360, 'width': 1088, 'scroll': 1088, 'client': 1088, 'x': 'visible', 'y': 'visible'}, {'sel': '.container', 'left': 302, 'right': 1330, 'width': 1028, 'scroll': 1028, 'client': 1028, 'x': 'visible', 'y': 'visible'}, {'sel': '.lead-board', 'left': 302, 'right': 1330, 'width': 1028, 'scroll': 2164, 'client': 1028, 'x': 'auto', 'y': 'auto'}, {'sel': '.lead-board-filters', 'left': 302, 'right': 1330, 'width': 1028, 'scroll': 1028, 'client': 1028, 'x': 'visible', 'y': 'visible'}, {'sel': '.lead-list-card', 'left': 302, 'right': 1330, 'width': 1028, 'scroll': 1026, 'client': 1026, 'x': 'visible', 'y': 'visible'}]
+
+----------------------------------------------------------------------
+Ran 1 test in 6.645s
+
+FAILED (failures=2)

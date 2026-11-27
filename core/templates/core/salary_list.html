@@ -1,0 +1,105 @@
+{% extends 'core/base.html' %}
+{% load custom_filters %}
+{% block title %}Oyliklar{% endblock %}
+{% block content %}
+<div class="page-header">
+    {% if not own_salary %}<a href="{% url 'period_payroll' %}" class="btn btn-primary">Sana oralig'i bo'yicha hisoblash</a>{% endif %}
+    <div>
+        <h1><i class="fas fa-wallet"></i> Oyliklar</h1>
+        <p>{% if own_salary %}Oylik hisob-kitoblaringiz{% else %}O'qituvchilarning oylik maoshlarini hisoblang va boshqaring{% endif %}</p>
+    </div>
+    {% if can_manage_salaries %}
+    <a href="{% url 'calculate_salaries' %}" class="btn btn-success">
+        <i class="fas fa-calculator"></i> Oylik hisoblash
+    </a>
+    {% endif %}
+</div>
+
+<p class="form-text">Har bir to'lov, jumladan qisman to'lov ham, kelib tushgan summasi bo'yicha oylikka avtomatik qo'shiladi. Qaytarilgan pul hisobdan ayriladi. Oldindan to'lov dars oyida, kechikkan to'lov pul tushgan oyda hisoblanadi. Ulush har bir to'lovda saqlangan foiz bilan hisoblanadi; jadvaldagi foiz oylik hisoblangan paytdagi asosiy stavkadir.</p>
+
+<div class="card">
+    <div class="card-header"><h3><i class="fas fa-sliders"></i> Filtr</h3></div>
+    <div class="card-body">
+        <form method="get">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label><i class="fas fa-calendar"></i> Oy</label>
+                    <input type="month" name="month" class="form-control js-auto-submit" value="{{ request.GET.month }}">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3><i class="fas fa-list"></i> Oyliklar ro'yxati</h3>
+        <div class="summary-stats">
+            <div class="summary-stat">
+                <span>Jami to'lov:</span>
+                <strong class="text-success">{{ salaries|sum_attribute:'salary_amount'|format_number }} so'm</strong>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th><th>O'qituvchi</th><th>Oy</th>
+                        <th>Hisobga olingan to'lovlar</th><th>Asosiy foiz</th><th>Oylik</th>
+                        <th>Holat</th>{% if can_manage_salaries %}<th>Amal</th>{% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for salary in salaries %}
+                    <tr>
+                        <td style="color:var(--text-muted);font-size:0.8rem">{{ forloop.counter }}</td>
+                        <td>
+                            <div class="teacher-name-cell">
+                                <i class="fas fa-chalkboard-user" style="color:var(--accent)"></i>
+                                <strong>{{ salary.teacher.name }}</strong>
+                            </div>
+                        </td>
+                        <td style="font-size:0.82rem;color:var(--text-secondary)">{{ salary.month|date:"F Y" }}</td>
+                        <td style="font-family:var(--font-mono);font-size:0.85rem">{{ salary.total_income|format_number }}</td>
+                        <td><span class="subject-badge">{{ salary.percent }}%</span></td>
+                        <td>
+                            <span style="font-family:var(--font-mono);font-weight:700;color:var(--green)">
+                                {{ salary.salary_amount|format_number }} so'm
+                            </span>
+                        </td>
+                        <td>
+                            <span class="status-badge {% if salary.is_paid %}paid{% else %}unpaid{% endif %}">
+                                <i class="fas {% if salary.is_paid %}fa-circle-check{% else %}fa-clock{% endif %}"></i>
+                                {% if salary.is_paid %}To'langan{% else %}Kutilmoqda{% endif %}
+                            </span>
+                        </td>
+                        {% if can_manage_salaries %}<td>
+                            <form action="{% url 'update_salary_status' salary.id %}" method="post" style="display:inline;" onsubmit="return confirm('Oylik holatini o\'zgartirmoqchimisiz?');">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-{% if salary.is_paid %}secondary{% else %}success{% endif %}" title="{% if salary.is_paid %}Qaytarish{% else %}To'langan deb belgilash{% endif %}">
+                                    <i class="fas {% if salary.is_paid %}fa-rotate-left{% else %}fa-check{% endif %}"></i>
+                                </button>
+                            </form>
+                        </td>{% endif %}
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="{% if can_manage_salaries %}8{% else %}7{% endif %}" class="text-center empty-row">
+                            <i class="fas fa-calculator"></i>
+                            <p>Oyliklar hisoblanmagan</p>
+                            {% if can_manage_salaries %}
+                            <a href="{% url 'calculate_salaries' %}" class="btn btn-sm btn-success">
+                                <i class="fas fa-calculator"></i> Hisoblash
+                            </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

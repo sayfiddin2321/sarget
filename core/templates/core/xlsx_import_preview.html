@@ -1,0 +1,9 @@
+{% extends 'core/base.html' %}
+{% block title %}Importni tasdiqlash{% endblock %}
+{% block content %}<div class="page-header"><h1>Importni tekshirish</h1></div>
+<p>{{ row_count }} ta satr. {% if batch.status == 'confirmed' %}Import bajarilgan.{% else %}Hali hech qanday o'quvchi/davomat/baho yozuvi o'zgarmagan.{% endif %}</p>
+{% if batch.errors %}<div class="alert alert-danger">Xatolarni faylda tuzatib, qayta yuklang. Xatoli fayl to'liq bloklanadi.</div><div class="table-wrapper"><table><thead><tr><th>Satr</th><th>Ustun</th><th>Sabab</th></tr></thead><tbody>{% for error in batch.errors %}<tr><td>{{ error.line }}</td><td>{{ error.column }}</td><td>{{ error.reason }}</td></tr>{% endfor %}</tbody></table></div>{% endif %}
+<div class="card"><div class="table-wrapper"><table><thead><tr><th>Satr</th><th>Amal</th><th>Ma'lumot</th><th>Ogohlantirish</th></tr></thead><tbody>{% for row in rows %}<tr><td>{{ row.line }}</td><td>{{ row.action }}</td><td>{% for key,value in row.data.items %}<div>{{ key }}: {{ value }}</div>{% endfor %}</td><td>{{ row.warning }}</td></tr>{% endfor %}</tbody></table></div></div><p>Oldindan ko'rishda dastlabki 100 satr ko'rsatiladi.</p>
+{% if not batch.errors and batch.status == 'preview' %}<form method="post" action="{% url 'xlsx_import_confirm' batch.public_id %}">{% csrf_token %}<button class="btn btn-primary">Tekshirilgan importni tasdiqlash</button></form>{% endif %}
+<a href="{% url 'xlsx_import' %}?kind={{ batch.kind }}{% if batch.student_id %}&amp;student={{ batch.student_id }}{% endif %}">Yangi fayl tekshirish</a>
+{% endblock %}

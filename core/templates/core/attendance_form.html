@@ -1,0 +1,568 @@
+{% extends 'core/base.html' %}
+{% load custom_filters %}
+{% block title %}Davomat olish — {{ group.name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ── Attendance Form Pro ─────────────────────────────────── */
+.att-page-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.att-meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+.att-meta-pill i { color: var(--accent); }
+
+/* ── Layout ─────────────────────────────────────────────── */
+.att-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .att-layout { grid-template-columns: 1fr; }
+}
+
+/* ── Search bar ─────────────────────────────────────────── */
+.att-search-bar {
+  position: relative;
+  margin-bottom: 14px;
+}
+.att-search-bar i {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+.att-search-input {
+  width: 100%;
+  padding: 11px 13px 11px 38px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.att-search-input:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 4px var(--accent-dim);
+}
+.att-search-input::placeholder { color: var(--text-muted); }
+
+/* ── Student rows ─────────────────────────────────────────*/
+.att-student-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.att-student-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+.att-student-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-sm);
+}
+.att-student-card.marked-present {
+  border-color: color-mix(in srgb, var(--green) 35%, transparent);
+  background: color-mix(in srgb, var(--green-dim) 50%, var(--bg-surface));
+}
+.att-student-card.marked-late {
+  border-color: color-mix(in srgb, var(--orange) 35%, transparent);
+  background: color-mix(in srgb, var(--orange-dim) 50%, var(--bg-surface));
+}
+.att-student-card.marked-absent {
+  border-color: color-mix(in srgb, var(--red) 35%, transparent);
+  background: color-mix(in srgb, var(--red-dim) 50%, var(--bg-surface));
+}
+.att-student-card.marked-excused {
+  border-color: color-mix(in srgb, var(--blue) 35%, transparent);
+  background: color-mix(in srgb, var(--blue-dim) 50%, var(--bg-surface));
+}
+
+.att-avatar {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 2px solid transparent;
+  transition: border-color 0.15s;
+}
+.att-student-card.marked-present .att-avatar { color: var(--green); background: var(--green-dim); border-color: color-mix(in srgb, var(--green) 30%, transparent); }
+.att-student-card.marked-late .att-avatar    { color: var(--orange); background: var(--orange-dim); border-color: color-mix(in srgb, var(--orange) 30%, transparent); }
+.att-student-card.marked-absent .att-avatar  { color: var(--red); background: var(--red-dim); border-color: color-mix(in srgb, var(--red) 30%, transparent); }
+.att-student-card.marked-excused .att-avatar { color: var(--blue); background: var(--blue-dim); border-color: color-mix(in srgb, var(--blue) 30%, transparent); }
+
+.att-student-info { flex: 1; min-width: 0; }
+.att-student-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.att-student-phone {
+  margin-top: 2px;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+/* ── Segmented Status Controls ────────────────────────────*/
+.att-status-group {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.att-status-btn {
+  position: relative;
+  cursor: pointer;
+}
+.att-status-btn input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.att-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 11px;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  user-select: none;
+}
+.att-status-btn:hover .att-status-pill {
+  border-color: var(--border-strong);
+  color: var(--text-secondary);
+}
+/* Checked states */
+.att-status-btn.s-present input:checked ~ .att-status-pill {
+  color: var(--green);
+  background: var(--green-dim);
+  border-color: color-mix(in srgb, var(--green) 40%, transparent);
+}
+.att-status-btn.s-late input:checked ~ .att-status-pill {
+  color: var(--orange);
+  background: var(--orange-dim);
+  border-color: color-mix(in srgb, var(--orange) 40%, transparent);
+}
+.att-status-btn.s-absent input:checked ~ .att-status-pill {
+  color: var(--red);
+  background: var(--red-dim);
+  border-color: color-mix(in srgb, var(--red) 40%, transparent);
+}
+.att-status-btn.s-excused input:checked ~ .att-status-pill {
+  color: var(--blue);
+  background: var(--blue-dim);
+  border-color: color-mix(in srgb, var(--blue) 40%, transparent);
+}
+
+@media (max-width: 640px) {
+  .att-student-card { flex-wrap: wrap; gap: 10px; }
+  .att-status-group { width: 100%; justify-content: flex-start; }
+  .att-status-pill { padding: 5px 9px; font-size: 0.73rem; }
+}
+
+/* ── Sidebar stats ─────────────────────────────────────── */
+.att-stats-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: sticky;
+  top: 20px;
+}
+.att-stats-header {
+  padding: 14px 16px;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.att-stats-header i { color: var(--accent); }
+.att-stat-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.att-stat-row:last-child { border-bottom: none; }
+.att-stat-count {
+  min-width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+.att-stat-count.present { color: var(--green); background: var(--green-dim); }
+.att-stat-count.late    { color: var(--orange); background: var(--orange-dim); }
+.att-stat-count.absent  { color: var(--red); background: var(--red-dim); }
+.att-stat-count.excused { color: var(--blue); background: var(--blue-dim); }
+.att-stat-label { font-size: 0.86rem; font-weight: 600; color: var(--text-secondary); }
+.att-stat-sub   { font-size: 0.72rem; color: var(--text-muted); margin-top: 1px; }
+
+.att-progress-wrap {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.att-progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.att-progress-bar-bg {
+  height: 8px;
+  background: var(--bg-elevated);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.att-progress-bar-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--green), var(--cyan));
+  transition: width 0.4s ease;
+}
+
+/* ── Quick actions ──────────────────────────────────────── */
+.att-quick-actions {
+  display: flex;
+  gap: 6px;
+  padding: 12px 16px;
+  flex-wrap: wrap;
+}
+.att-quick-actions .btn { flex: 1; min-width: 80px; font-size: 0.76rem; }
+
+/* ── Empty / hidden rows ────────────────────────────────── */
+.att-student-card.hidden { display: none !important; }
+.att-empty-state {
+  display: none;
+  padding: 30px 16px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+.att-empty-state i { font-size: 1.8rem; display: block; margin-bottom: 8px; opacity: 0.5; }
+.att-student-card.with-grades { flex-wrap: wrap; }
+.with-grades .att-avatar { order: 0; }
+.with-grades .att-student-info { order: 1; }
+.with-grades .att-status-group { order: 3; width: 100%; padding-left: 56px; flex-wrap: wrap; }
+.att-score-field { order: 2; width: 110px; flex-shrink: 0; }
+.att-score-field label { display: block; margin-bottom: 5px; color: var(--text-secondary); font-size: 0.74rem; font-weight: 700; }
+.att-score-field .form-control { width: 100%; min-height: 42px; }
+.att-score-field [aria-invalid="true"] { border-color: var(--red); }
+.att-score-error { display: block; margin-top: 5px; color: var(--red); font-size: 0.72rem; line-height: 1.5; }
+.att-grade-help { margin: 16px 0; padding: 13px 16px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--accent-soft); color: var(--text-secondary); font-size: 0.84rem; line-height: 1.7; }
+.att-status-btn input:focus-visible ~ .att-status-pill { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 640px) {
+  .att-score-field { width: 90px; }
+  .with-grades .att-status-group { padding-left: 0; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-pen-to-square"></i> {% if can_grade %}Davomat va baholash{% else %}Davomat olish{% endif %}</h1>
+    <div class="att-page-meta">
+      <span class="att-meta-pill"><i class="fas fa-layer-group"></i> {{ group.name }}</span>
+      <span class="att-meta-pill"><i class="fas fa-calendar-day"></i> {{ today|date:"d F Y" }}</span>
+      <span class="att-meta-pill"><i class="fas fa-users"></i> {{ students|length }} o'quvchi</span>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <a href="{% url 'attendance_list' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Orqaga</a>
+  </div>
+</div>
+
+<form method="post" id="attendanceForm">
+  {% csrf_token %}
+  {% if can_grade %}<p class="att-grade-help" id="attendanceGradeHelp"><i class="fas fa-star" aria-hidden="true"></i> Davomat bilan birga <strong>darsdagi faollik bahosini</strong> ham kiriting (1–100 ball). Baho ixtiyoriy: bo‘sh qoldirilsa, mavjud baho o‘zgarmaydi. Ikkalasi bitta tugma bilan saqlanadi.</p>{% endif %}
+  {% if form_errors %}<div class="alert alert-error" role="alert"><div>{% for error in form_errors %}<p>{{ error }}</p>{% endfor %}</div></div>{% endif %}
+  <div class="att-layout">
+
+    <!-- ── Left Panel: Students ──────────────────────────── -->
+    <div>
+      {% if students %}
+      <!-- Search -->
+      <div class="att-search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" id="attSearch" class="att-search-input"
+               placeholder="Ism, telefon yoki guruh bo'yicha qidirish..." autocomplete="off">
+      </div>
+
+      <div class="att-student-list" id="studentList">
+        {% for student in students %}
+        <div class="att-student-card {% if can_grade %}with-grades{% endif %} {% if existing|get_item:student.id %}marked-{{ existing|get_item:student.id }}{% else %}marked-present{% endif %}"
+             id="card-{{ student.id }}"
+             data-name="{{ student.name|lower }} {{ student.phone|lower }} {{ student.parent_phone|default:''|lower }} {% if student.group %}{{ student.group.name|lower }}{% endif %}">
+          <div class="att-avatar">{% include 'core/includes/student_avatar.html' with student=student %}</div>
+          <div class="att-student-info">
+            <div class="att-student-name">{{ student.name }}</div>
+            <div class="att-student-phone"><i class="fas fa-phone" style="font-size:0.65rem;margin-right:3px"></i>{{ student.phone }}</div>
+          </div>
+          {% if can_grade %}
+          <div class="att-score-field">
+            <label for="score-{{ student.pk }}">Baho <span class="sr-only">— {{ student.name }}</span> (1–100)</label>
+            <input type="number" name="score_{{ student.pk }}" id="score-{{ student.pk }}" class="form-control" min="1" max="100" step="1" inputmode="numeric" placeholder="Ixtiyoriy" value="{{ scores|get_item:student.pk|default_if_none:'' }}" aria-describedby="attendanceGradeHelp{% if grade_errors|get_item:student.pk %} score-error-{{ student.pk }}{% endif %}" {% if grade_errors|get_item:student.pk %}aria-invalid="true"{% endif %}>
+            {% if grade_errors|get_item:student.pk %}<span class="att-score-error" id="score-error-{{ student.pk }}">{{ grade_errors|get_item:student.pk }}</span>{% endif %}
+          </div>
+          {% endif %}
+          <div class="att-status-group">
+            <label class="att-status-btn s-present">
+              <input type="radio" name="attendance_{{ student.id }}" value="present"
+                {% if existing|get_item:student.id == 'present' or not existing|get_item:student.id %}checked{% endif %}>
+              <span class="att-status-pill">
+                <i class="fas fa-circle-check"></i>
+                <span class="pill-text">Keldi</span>
+              </span>
+            </label>
+            <label class="att-status-btn s-late">
+              <input type="radio" name="attendance_{{ student.id }}" value="late"
+                {% if existing|get_item:student.id == 'late' %}checked{% endif %}>
+              <span class="att-status-pill">
+                <i class="fas fa-clock"></i>
+                <span class="pill-text">Kechikdi</span>
+              </span>
+            </label>
+            <label class="att-status-btn s-absent">
+              <input type="radio" name="attendance_{{ student.id }}" value="absent"
+                {% if existing|get_item:student.id == 'absent' %}checked{% endif %}>
+              <span class="att-status-pill">
+                <i class="fas fa-circle-xmark"></i>
+                <span class="pill-text">Kelmadi</span>
+              </span>
+            </label>
+            <label class="att-status-btn s-excused">
+              <input type="radio" name="attendance_{{ student.id }}" value="excused"
+                {% if existing|get_item:student.id == 'excused' %}checked{% endif %}>
+              <span class="att-status-pill">
+                <i class="fas fa-file-shield"></i>
+                <span class="pill-text">Sababli</span>
+              </span>
+            </label>
+          </div>
+        </div>
+        {% endfor %}
+        <div class="att-empty-state" id="noResults">
+          <i class="fas fa-magnifying-glass"></i>
+          O'quvchi topilmadi
+        </div>
+      </div>
+
+      <!-- Save button -->
+      <div style="margin-top:18px;display:flex;gap:10px;justify-content:flex-end">
+        <a href="{% url 'attendance_list' %}" class="btn btn-secondary"><i class="fas fa-xmark"></i> Bekor</a>
+        <button type="submit" class="btn btn-primary btn-lg">
+          <i class="fas fa-floppy-disk"></i> {% if can_grade %}Davomat va baholarni saqlash{% else %}Davomatni saqlash{% endif %}
+        </button>
+      </div>
+
+      {% else %}
+      <div class="empty-state">
+        <i class="fas fa-users-slash"></i>
+        <p>Guruhda aktiv o'quvchilar yo'q</p>
+        <a href="{% url 'student_create' %}" class="btn btn-primary btn-sm" style="margin-top:12px">
+          <i class="fas fa-user-plus"></i> O'quvchi qo'shish
+        </a>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- ── Right Panel: Live Stats ───────────────────────── -->
+    {% if students %}
+    <aside>
+      <div class="att-stats-card">
+        <div class="att-stats-header"><i class="fas fa-chart-pie"></i> Joriy holat</div>
+
+        <div class="att-stat-row">
+          <div class="att-stat-count present" id="statPresent">0</div>
+          <div>
+            <div class="att-stat-label">Keldi</div>
+            <div class="att-stat-sub">Present</div>
+          </div>
+        </div>
+        <div class="att-stat-row">
+          <div class="att-stat-count late" id="statLate">0</div>
+          <div>
+            <div class="att-stat-label">Kechikdi</div>
+            <div class="att-stat-sub">Late</div>
+          </div>
+        </div>
+        <div class="att-stat-row">
+          <div class="att-stat-count absent" id="statAbsent">0</div>
+          <div>
+            <div class="att-stat-label">Kelmadi</div>
+            <div class="att-stat-sub">Absent</div>
+          </div>
+        </div>
+        <div class="att-stat-row">
+          <div class="att-stat-count excused" id="statExcused">0</div>
+          <div>
+            <div class="att-stat-label">Sababli</div>
+            <div class="att-stat-sub">Excused</div>
+          </div>
+        </div>
+
+        <div class="att-progress-wrap">
+          <div class="att-progress-label">
+            <span>Davomat foizi</span>
+            <span id="progressPct">0%</span>
+          </div>
+          <div class="att-progress-bar-bg">
+            <div class="att-progress-bar-fill" id="progressBar" style="width:0%"></div>
+          </div>
+        </div>
+
+        <!-- Quick actions -->
+        <div class="att-quick-actions">
+          <button type="button" class="btn btn-success btn-sm" id="markAllPresent">
+            <i class="fas fa-check-double"></i> Barchasi keldi
+          </button>
+          <button type="button" class="btn btn-danger btn-sm" id="markAllAbsent">
+            <i class="fas fa-xmark"></i> Barchasi kelmadi
+          </button>
+        </div>
+      </div>
+    </aside>
+    {% endif %}
+
+  </div>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+  const total = {{ students|length }};
+
+  /* ── Card state updater ──────────────────────────────────── */
+  function updateCard(card, status) {
+    card.className = card.className
+      .replace(/\bmarked-\S+/g, '')
+      .trim();
+    if (status) card.classList.add('marked-' + status);
+  }
+
+  /* ── Live Counters ───────────────────────────────────────── */
+  function updateCounts() {
+    let p = 0, l = 0, a = 0, e = 0;
+    document.querySelectorAll('.att-student-card').forEach(card => {
+      const checked = card.querySelector('input[type="radio"]:checked');
+      if (checked) {
+        if (checked.value === 'present') p++;
+        else if (checked.value === 'late') l++;
+        else if (checked.value === 'absent') a++;
+        else if (checked.value === 'excused') e++;
+        updateCard(card, checked.value);
+      }
+    });
+    document.getElementById('statPresent').textContent = p;
+    document.getElementById('statLate').textContent = l;
+    document.getElementById('statAbsent').textContent = a;
+    document.getElementById('statExcused').textContent = e;
+
+    const attendedPct = total > 0 ? Math.round(((p + l + e) / total) * 100) : 0;
+    const bar = document.getElementById('progressBar');
+    const pct = document.getElementById('progressPct');
+    if (bar) bar.style.width = attendedPct + '%';
+    if (pct) pct.textContent = attendedPct + '%';
+  }
+
+  /* ── Listen to radio changes ─────────────────────────────── */
+  document.querySelectorAll('.att-student-card input[type="radio"]').forEach(r => {
+    r.addEventListener('change', updateCounts);
+  });
+  updateCounts();
+
+  /* ── Quick bulk actions ──────────────────────────────────── */
+  function markAll(status) {
+    document.querySelectorAll('.att-student-card:not(.hidden)').forEach(card => {
+      const radio = card.querySelector(`input[value="${status}"]`);
+      if (radio) {
+        radio.checked = true;
+        radio.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    });
+    updateCounts();
+  }
+
+  const btnPresent = document.getElementById('markAllPresent');
+  const btnAbsent  = document.getElementById('markAllAbsent');
+  if (btnPresent) btnPresent.addEventListener('click', () => markAll('present'));
+  if (btnAbsent)  btnAbsent.addEventListener('click',  () => markAll('absent'));
+
+  /* ── Search/Filter ───────────────────────────────────────── */
+  const searchInput = document.getElementById('attSearch');
+  const noResults   = document.getElementById('noResults');
+  if (searchInput) {
+    searchInput.addEventListener('input', function () {
+      const q = this.value.toLowerCase().trim();
+      let visible = 0;
+      document.querySelectorAll('.att-student-card').forEach(card => {
+        const name = card.dataset.name || '';
+        if (!q || name.includes(q)) {
+          card.classList.remove('hidden');
+          visible++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      if (noResults) noResults.style.display = visible === 0 ? 'block' : 'none';
+    });
+    /* Auto-focus search on page load */
+    searchInput.focus();
+  }
+})();
+</script>
+{% endblock %}

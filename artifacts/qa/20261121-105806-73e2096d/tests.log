@@ -1,0 +1,6 @@
+test_login_select_student_pay_receipt_dashboard_refresh_and_relogin (core.test_financial_browser_qa.FinancialBrowserQATests.test_login_select_student_pay_receipt_dashboard_refresh_and_relogin) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 5.646s
+
+OK

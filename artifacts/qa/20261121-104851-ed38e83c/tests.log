@@ -1,0 +1,40 @@
+test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) ... 
+  test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) (width=1360, theme='light') ... FAIL
+  test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) (width=1360, theme='dark') ... FAIL
+
+======================================================================
+FAIL: test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) (width=1360, theme='light')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_mobile_rosters.py", line 85, in test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking
+    self.assertLessEqual(page.evaluate('document.documentElement.scrollWidth'), width,
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        page.evaluate("""() => [...document.querySelectorAll('body *')]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+            .filter(el => el.right > innerWidth + 1 && el.width > 100)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            .slice(0, 12)"""))
+            ^^^^^^^^^^^^^^^^^^
+AssertionError: 2118 not less than or equal to 1360 : [{'tag': 'SECTION', 'cls': 'lead-column lead-column-arrived', 'right': 1378, 'width': 260}, {'tag': 'HEADER', 'cls': 'lead-column-header', 'right': 1377, 'width': 258}, {'tag': 'DIV', 'cls': 'lead-column-body', 'right': 1377, 'width': 258}, {'tag': 'P', 'cls': 'lead-column-empty', 'right': 1367, 'width': 238}, {'tag': 'SECTION', 'cls': 'lead-column lead-column-enrolled', 'right': 1650, 'width': 260}, {'tag': 'HEADER', 'cls': 'lead-column-header', 'right': 1649, 'width': 258}, {'tag': 'H3', 'cls': '', 'right': 1513.8125, 'width': 112.8125}, {'tag': 'DIV', 'cls': 'lead-column-body', 'right': 1649, 'width': 258}, {'tag': 'P', 'cls': 'lead-column-empty', 'right': 1639, 'width': 238}, {'tag': 'I', 'cls': 'fas fa-inbox', 'right': 1629, 'width': 218}, {'tag': 'SECTION', 'cls': 'lead-column lead-column-not_interested', 'right': 1922, 'width': 260}, {'tag': 'HEADER', 'cls': 'lead-column-header', 'right': 1921, 'width': 258}]
+
+======================================================================
+FAIL: test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) (width=1360, theme='dark')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_mobile_rosters.py", line 85, in test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking
+    self.assertLessEqual(page.evaluate('document.documentElement.scrollWidth'), width,
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        page.evaluate("""() => [...document.querySelectorAll('body *')]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+            .filter(el => el.right > innerWidth + 1 && el.width > 100)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            .slice(0, 12)"""))
+            ^^^^^^^^^^^^^^^^^^
+AssertionError: 2118 not less than or equal to 1360 : [{'tag': 'SECTION', 'cls': 'lead-column lead-column-arrived', 'right': 1378, 'width': 260}, {'tag': 'HEADER', 'cls': 'lead-column-header', 'right': 1377, 'width': 258}, {'tag': 'DIV', 'cls': 'lead-column-body', 'right': 1377, 'width': 258}, {'tag': 'P', 'cls': 'lead-column-empty', 'right': 1367, 'width': 238}, {'tag': 'SECTION', 'cls': 'lead-column lead-column-enrolled', 'right': 1650, 'width': 260}, {'tag': 'HEADER', 'cls': 'lead-column-header', 'right': 1649, 'width': 258}, {'tag': 'H3', 'cls': '', 'right': 1513.8125, 'width': 112.8125}, {'tag': 'DIV', 'cls': 'lead-column-body', 'right': 1649, 'width': 258}, {'tag': 'P', 'cls': 'lead-column-empty', 'right': 1639, 'width': 238}, {'tag': 'I', 'cls': 'fas fa-inbox', 'right': 1629, 'width': 218}, {'tag': 'SECTION', 'cls': 'lead-column lead-column-not_interested', 'right': 1922, 'width': 260}, {'tag': 'HEADER', 'cls': 'lead-column-header', 'right': 1921, 'width': 258}]
+
+----------------------------------------------------------------------
+Ran 1 test in 6.202s
+
+FAILED (failures=2)

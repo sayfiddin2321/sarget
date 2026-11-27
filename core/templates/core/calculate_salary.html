@@ -1,0 +1,48 @@
+{% extends 'core/base.html' %}
+{% block title %}Oylik hisoblash{% endblock %}
+{% block content %}
+<p><a class="btn btn-primary" href="{% url 'period_payroll' %}">10-sanadan 10-sanagacha: sana oralig'i bo'yicha hisoblash</a></p>
+<div class="page-header">
+    <div>
+        <h1><i class="fas fa-calculator"></i> Oylik hisoblash</h1>
+        <p>O'qituvchilarning oylik maoshlarini avtomatik hisoblang</p>
+    </div>
+    <a href="{% url 'salary_list' %}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Orqaga
+    </a>
+</div>
+
+<div class="card" style="max-width:520px;margin:0 auto">
+    <div class="card-header"><h3><i class="fas fa-calendar-calculator"></i> Oy tanlash</h3></div>
+    <div class="card-body">
+        <form method="post" class="calculate-form">
+            {% csrf_token %}
+            <div class="form-group" style="text-align:center;margin-bottom:0">
+                <label style="justify-content:center;font-size:0.9rem;margin-bottom:12px">
+                    <i class="fas fa-calendar-alt"></i> Hisoblash uchun oyni tanlang
+                </label>
+                <input type="month" name="month" class="form-control narrow-control"
+                       value="{{ current_month|date:'Y-m' }}" required>
+                <small class="form-text" style="margin-top:8px;display:block;text-align:center">
+                    Tanlangan oy uchun barcha o'qituvchilarning oyliklari hisoblanadi
+                </small>
+            </div>
+
+            <div class="info-box" style="margin-top:20px">
+                <i class="fas fa-circle-info"></i>
+                <div>
+                    <strong>Hisoblash qanday ishlaydi?</strong>
+                    <p>Oldindan to'lov dars oyiga, kechikkan to'lov pul tushgan oyga kiradi. Masalan, oktabrda noyabr uchun to'langan pul noyabrga; sentyabr uchun oktabrda to'langan pul oktabrga kiradi. Faqat to'langan summa va to'lovda saqlangan foiz hisoblanadi. To'langan oyliklar qayta yozilmaydi.</p>
+                    <div class="formula">Oylik = Jami tushum × (Foiz ÷ 100)</div>
+                </div>
+            </div>
+
+            <div class="form-actions" style="justify-content:center;margin-top:24px">
+                <button type="submit" class="btn btn-success btn-lg">
+                    <i class="fas fa-calculator"></i> Hisoblash
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

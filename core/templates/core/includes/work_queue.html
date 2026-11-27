@@ -1,0 +1,17 @@
+<section class="work-section" aria-labelledby="work-title">
+  <div class="page-header"><div><h2 id="work-title">Bugungi ishlar</h2><p>O'zingizga biriktirilgan va mas'ulsiz arizalar. Har bo'limda eng oldingi 10 ta ish.</p></div></div>
+  <div class="work-grid">
+    <div class="card">
+      <div class="card-header"><h3>Muddati kelgan: {{ work_due_count }}</h3><a href="{% url 'lead_list' %}?scope=work&amp;due=1">Barchasi</a></div>
+      <div class="card-body">{% for lead in work_due %}{% include 'core/includes/work_lead.html' %}{% empty %}<p class="text-muted">Muddati kelgan qo'ng'iroq yo'q.</p>{% endfor %}</div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Yangi arizalar: {{ work_new_count }}</h3><a href="{% url 'lead_list' %}?scope=work&amp;status=new">Barchasi</a></div>
+      <div class="card-body">{% for lead in work_new %}{% include 'core/includes/work_lead.html' %}{% empty %}<p class="text-muted">Yangi ariza yo'q.</p>{% endfor %}</div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Bugunga rejalashtirilgan: {{ work_upcoming_count }}</h3><a href="{% url 'lead_list' %}?scope=work&amp;due=today">Barchasi</a></div>
+      <div class="card-body">{% for lead in work_upcoming %}{% include 'core/includes/work_lead.html' %}{% empty %}<p class="text-muted">Bugun keyingi qo'ng'iroq rejalashtirilmagan.</p>{% endfor %}</div>
+    </div>
+  </div>
+</section>

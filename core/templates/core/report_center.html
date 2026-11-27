@@ -1,0 +1,89 @@
+{% extends 'core/base.html' %}
+{% load custom_filters %}
+{% block title %}Hisobotlar markazi{% endblock %}
+{% block content %}
+<div class="page-header report-page-header">
+  <div><span class="report-eyebrow">NATIJALAR VA TAHLIL</span><h1>Hisobotlar markazi</h1><p>Hisobot turini va davrni tanlang. Natijani ko‘ring yoki fayl qilib yuklab oling.</p></div>
+  {% if capabilities.reports_export %}<a href="{% url 'report_jobs' %}" class="btn btn-secondary"><i class="fas fa-folder-open"></i> Tayyor fayllarim</a>{% endif %}
+</div>
+<form method="get" class="report-builder" id="reportBuilder">
+  <section class="card report-type-card">
+    <div class="card-header"><h2><span class="report-step">1</span> Qaysi hisobot kerak?</h2></div>
+    <div class="card-body">
+      <label for="kind" class="report-field-label">Hisobot turi</label>
+      <select id="kind" name="kind" class="form-select">
+        {% for category in report_options %}<optgroup label="{{ category.label }}">{% for option in category.items %}<option value="{{ option.key }}" data-description="{{ option.description }}" {% if kind == option.key %}selected{% endif %}>{{ option.label }}</option>{% endfor %}</optgroup>{% endfor %}
+      </select>
+      <div class="report-guide"><i class="fas {{ report_icon }}" aria-hidden="true"></i><p id="reportDescription">{{ report_description }}</p></div>
+      {% if capabilities.payments_view %}<div class="report-tip"><i class="fas fa-lightbulb" aria-hidden="true"></i><p>Qarzdorlarni topish uchun <strong>“Qarzdorlik va to‘lov holati”</strong> hisobotini tanlang. Qo‘shimcha filtrlarda to‘lov holatini belgilang.</p></div>{% else %}<div class="report-tip"><i class="fas fa-lightbulb" aria-hidden="true"></i><p>Bitta guruh natijalarini ko‘rish uchun “Guruh” filtridan kerakli guruhni tanlang.</p></div>{% endif %}
+    </div>
+  </section>
+  <section class="card report-scope-card">
+    <div class="card-header"><h2><span class="report-step">2</span> Davr va bo‘limni belgilang</h2></div>
+    <div class="card-body">
+      {% if filter_form.errors %}<div class="alert alert-error" role="alert"><i class="fas fa-circle-exclamation"></i><div>Filtrlardagi xatolarni to‘g‘rilang. {{ filter_form.non_field_errors }}</div></div>{% endif %}
+      <div class="report-presets" aria-label="Tezkor davr tanlash">{% for preset in period_presets %}<a href="{{ preset.url }}" class="report-preset {% if preset.active %}active{% endif %}" {% if preset.active %}aria-current="true"{% endif %}>{{ preset.label }}</a>{% endfor %}</div>
+      <div class="report-filter-grid">{% for field in primary_fields %}<div class="report-field">{{ field.label_tag }}{{ field }}{{ field.errors }}</div>{% endfor %}</div>
+      <p class="report-help">Bo‘limni tanlamasangiz, sizga ruxsat berilgan barcha ma’lumotlar ko‘rsatiladi. Aniq sanalar uchun “Davr”dan “Sana oralig‘i”ni tanlang.</p>
+      <details class="report-advanced" {% if filter_form.errors %}open{% endif %}>
+        <summary><i class="fas fa-sliders" aria-hidden="true"></i> Qo‘shimcha filtrlar <span>O‘quvchi, to‘lov holati va boshqa shartlar</span></summary>
+        {% for section in advanced_filter_sections %}<fieldset class="report-filter-section" data-kinds="{{ section.kinds }}" {% if section.has_errors %}data-has-errors="true"{% endif %} {% if not section.visible %}hidden{% endif %}>
+          <legend>{{ section.title }}</legend><div class="report-filter-grid">{% for field in section.fields %}<div class="report-field">{{ field.label_tag }}{{ field }}{{ field.errors }}</div>{% endfor %}</div>
+        </fieldset>{% endfor %}
+      </details>
+      <div class="report-filter-actions"><button class="btn btn-primary" type="submit"><i class="fas fa-magnifying-glass-chart"></i> Hisobotni ko‘rsatish</button><a href="{% url 'report_center' %}?kind={{ kind|urlencode }}" class="btn btn-secondary"><i class="fas fa-arrow-rotate-left"></i> Filtrlarni tozalash</a></div>
+    </div>
+  </section>
+</form>
+{% if report %}
+<section class="report-result" aria-label="Hisobot natijasi">
+  <div class="report-result-heading"><div><span class="report-eyebrow">3 · NATIJA</span><h2>{{ report_heading }}</h2><p><i class="fas fa-calendar-days" aria-hidden="true"></i> {{ report.start|date:'d.m.Y' }} — {{ report.end|date:'d.m.Y' }}{% if kind == 'accounts' or kind == 'advances' %} <span>· Qarz holati: {{ report.as_of|date:'d.m.Y' }}</span>{% endif %}</p></div><span class="report-preview-badge">{% if truncated %}Dastlabki 50 qator{% else %}{{ preview_rows|length }} qator{% endif %}</span></div>
+  {% if kind == 'students' or kind == 'attendance' or kind == 'grades' or kind == 'groups' %}
+  <div class="report-metrics">
+    <article class="report-metric"><span class="report-metric-icon"><i class="fas fa-user-graduate"></i></span><div><span>Faol o‘quvchilar</span><strong>{{ summary.active_students }}</strong><small>{{ report.as_of|date:'d.m.Y' }} holatiga</small></div></article>
+    <article class="report-metric"><span class="report-metric-icon"><i class="fas fa-layer-group"></i></span><div><span>Faol kursga yozilishlar</span><strong>{{ summary.active_enrollments }}</strong><small>Bir o‘quvchi bir nechta kursda bo‘lishi mumkin</small></div></article>
+    <article class="report-metric"><span class="report-metric-icon"><i class="fas fa-user-plus"></i></span><div><span>Yangi o‘quvchilar</span><strong>{{ summary.new_students }}</strong><small>Davr ichida ilk bor kursga yozilganlar</small></div></article>
+  </div>
+  {% endif %}
+  {% if kind == 'payments' or kind == 'accounts' or kind == 'advances' or kind == 'refunds' %}{% if capabilities.payments_view %}
+  <div class="report-metrics">
+    <article class="report-metric"><span class="report-metric-icon"><i class="fas fa-money-bill-wave"></i></span><div><span>Qabul qilingan pul</span><strong>{{ summary.gross|format_number }} <small>so‘m</small></strong><small>Tanlangan davrdagi jami to‘lovlar</small></div></article>
+    <article class="report-metric"><span class="report-metric-icon"><i class="fas fa-arrow-rotate-left"></i></span><div><span>Qaytarilgan pul</span><strong>{{ summary.refunds|format_number }} <small>so‘m</small></strong><small>Bekor qilingan to‘lovlar: {{ summary.cancellations|format_number }} so‘m</small></div></article>
+    <article class="report-metric report-metric-accent"><span class="report-metric-icon"><i class="fas fa-wallet"></i></span><div><span>Sof tushum</span><strong>{{ summary.net_cash|format_number }} <small>so‘m</small></strong><small>Qaytarilgan va bekor qilingan pullar ayirilgan</small></div></article>
+  </div>
+  <div class="report-balances"><span>Muddati o‘tgan qarz <strong>{{ summary.overdue|format_number }} so‘m</strong></span><span>Shu sanada to‘lanishi kerak <strong>{{ summary.due_today|format_number }} so‘m</strong></span><span>Oldindan to‘langan <strong>{{ summary.advance|format_number }} so‘m</strong></span><small>Hisoblangan sana: {{ report.as_of|date:'d.m.Y' }}</small></div>
+  {% endif %}{% endif %}
+  {% if cohort %}
+  <div class="report-metrics">
+    <article class="report-metric"><span class="report-metric-icon"><i class="fas fa-phone-volume"></i></span><div><span>Haqiqiy murojaatlar</span><strong>{{ cohort.valid }}</strong><small>Test va noto‘g‘ri arizalar hisobga olinmagan</small></div></article>
+    <article class="report-metric"><span class="report-metric-icon"><i class="fas fa-user-check"></i></span><div><span>To‘lov qilganlar</span><strong>{{ cohort.paid }}</strong><small>Tanlangan davrda murojaat qilganlar orasida</small></div></article>
+    <article class="report-metric report-metric-accent"><span class="report-metric-icon"><i class="fas fa-chart-line"></i></span><div><span>To‘lovga aylanish darajasi</span><strong>{{ cohort.conversion }}%</strong><small>Natijalar {{ report.observation_end|date:'d.m.Y' }} gacha kuzatilgan</small></div></article>
+  </div>
+  <details class="card report-source-details"><summary>Reklama manbalari bo‘yicha natijalar <i class="fas fa-chevron-down" aria-hidden="true"></i></summary><div class="card-body"><p class="report-help">Test arizalar: {{ cohort.test }} · Noto‘g‘ri arizalar: {{ cohort.invalid }}. Foiz haqiqiy murojaatlar orasidagi to‘lov qilganlar ulushini bildiradi.</p><div class="table-wrapper"><table><thead><tr><th>Aloqa kanali</th><th>Reklama manbasi</th><th>Haqiqiy murojaatlar</th><th>To‘lov qilganlar</th><th>Murojaat holatlari</th></tr></thead><tbody>{% for source in cohort.sources %}<tr><td>{{ source.channel }}</td><td>{{ source.source }}</td><td>{{ source.valid }}</td><td>{{ source.paid }}</td><td>{% for stage,count in source.stages.items %}{{ stage }}: {{ count }}{% if not forloop.last %} · {% endif %}{% endfor %}</td></tr>{% empty %}<tr><td colspan="5" class="empty-row">Bu davrda murojaatlar topilmadi.</td></tr>{% endfor %}</tbody></table></div></div></details>
+  {% endif %}
+  <div class="card report-preview-card">
+    <div class="card-header"><div><h3>Hisobot jadvali</h3><p class="report-help">{% if truncated %}Dastlabki 50 qator. Yuklab olingan faylda barcha mos yozuvlar bo‘ladi.{% else %}Tanlangan filtrlar bo‘yicha topilgan ma’lumotlar.{% endif %}</p></div>
+      {% if capabilities.reports_export %}<form method="post" action="{% url 'report_export' %}" class="report-download">{% csrf_token %}{% include 'core/includes/report_hidden.html' %}<label for="reportFormat" class="sr-only">Fayl formati</label><select id="reportFormat" name="format" class="form-select"><option value="xlsx">Excel (.xlsx)</option>{% if kind == 'students' or kind == 'attendance' or kind == 'grades' or kind == 'payments' %}<option value="docx">Word (.docx)</option>{% endif %}</select><button class="btn btn-primary" type="submit"><i class="fas fa-download"></i> Yuklab olish</button></form>{% endif %}
+    </div>
+    <div class="table-wrapper"><table><thead><tr>{% for header in headers %}<th>{{ header }}</th>{% endfor %}</tr></thead><tbody>{% for row in preview_rows %}<tr>{% for cell in row %}<td>{{ cell|default_if_none:'—' }}</td>{% endfor %}</tr>{% empty %}<tr><td colspan="{{ headers|length }}"><div class="empty-state"><i class="fas fa-magnifying-glass"></i><p>Bu shartlarga mos ma’lumot topilmadi.</p><span>Davrni kengaytiring yoki ortiqcha filtrlarni olib tashlang.</span></div></td></tr>{% endfor %}</tbody></table></div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}
+{% block extra_js %}
+<script>
+(() => {
+  const kind = document.getElementById('kind');
+  const description = document.getElementById('reportDescription');
+  function updateFields() {
+    description.textContent = kind.selectedOptions[0]?.dataset.description || '';
+    document.querySelectorAll('.report-filter-section').forEach(section => {
+      const filled = [...section.querySelectorAll('input, select')].some(input => input.value !== '');
+      section.hidden = !section.dataset.kinds.split(' ').includes(kind.value) && !filled && !section.dataset.hasErrors;
+    });
+  }
+  kind.addEventListener('change', updateFields);
+  updateFields();
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'core/base.html' %}
+{% block title %}Xarajatlar{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div><h1><i class="fas fa-file-invoice-dollar"></i> Xarajatlar</h1><p>Markaz xarajatlari hisobi</p></div>
+  {% if capabilities.expenses_create %}<a href="{% url 'expense_create' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Xarajat qo'shish</a>{% endif %}
+</div>
+<div class="filter-bar">
+  <form method="get" style="display:contents">
+    <div class="form-group">
+      <label>Oy</label>
+      <input type="month" name="month" value="{{ selected_month }}" class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Kategoriya</label>
+      <select name="category" class="form-select">
+        <option value="">Barchasi</option>
+        {% for val,label in category_choices %}<option value="{{ val }}" {% if selected_category == val %}selected{% endif %}>{{ label }}</option>{% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary" style="align-self:flex-end"><i class="fas fa-filter"></i></button>
+    <a href="{% url 'expense_list' %}" class="btn btn-secondary" style="align-self:flex-end"><i class="fas fa-xmark"></i></a>
+  </form>
+</div>
+{% if total %}
+<div style="background:var(--red-dim);border:1px solid rgba(239,68,68,0.2);border-radius:var(--radius-sm);padding:12px 20px;margin-bottom:16px;display:flex;align-items:center;gap:12px">
+  <i class="fas fa-arrow-trend-down" style="color:var(--red)"></i>
+  <span style="font-size:0.875rem;color:var(--text-secondary)">Jami xarajat:</span>
+  <span style="font-weight:700;color:var(--red);font-family:var(--font-mono)">{{ total|floatformat:0 }} so'm</span>
+</div>
+{% endif %}
+<div class="card">
+  <div class="table-wrapper">
+    <table>
+      <thead><tr><th>#</th><th>Nomi</th><th>Kategoriya</th><th>Summa</th><th>Sana</th><th>Izoh</th><th>Qo'shdi</th><th>Amal</th></tr></thead>
+      <tbody>
+        {% for e in expenses %}
+        <tr>
+          <td style="color:var(--text-muted)">{{ forloop.counter }}</td>
+          <td><span style="font-weight:600">{{ e.title }}</span></td>
+          <td><span style="background:var(--orange-dim);color:var(--orange);padding:3px 8px;border-radius:6px;font-size:0.75rem;font-weight:600">{{ e.get_category_display }}</span></td>
+          <td><span class="amount amount-red" style="font-weight:700">{{ e.amount|floatformat:0 }} so'm</span></td>
+          <td style="font-size:0.85rem;color:var(--text-secondary)">{{ e.date|date:"d.m.Y" }}</td>
+          <td style="font-size:0.8rem;color:var(--text-muted)">{{ e.description|default:"—"|truncatechars:30 }}</td>
+          <td style="font-size:0.8rem;color:var(--text-muted)">{{ e.added_by.username|default:"—" }}</td>
+          <td>{% if capabilities.expenses_delete %}<a href="{% url 'expense_delete' e.pk %}" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>{% endif %}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8"><div class="empty-state"><i class="fas fa-receipt"></i><p>Xarajatlar yo'q</p></div></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

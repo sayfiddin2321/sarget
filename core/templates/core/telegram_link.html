@@ -1,0 +1,19 @@
+{% extends 'core/base.html' %}
+{% block title %}Telegram hisobini ulash{% endblock %}
+{% block content %}
+<div class="page-header"><div><h1>Telegram hisobini ulash</h1><p>Hisob egasiga bir martalik kodni shaxsan bering.</p></div></div>
+<div class="card"><div class="card-body">
+  <form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">10 daqiqalik kod yaratish</button>
+    <button type="submit" name="action" value="disconnect" class="btn btn-secondary">Ulanishni uzish</button>
+  </form>
+  {% if code %}
+  <div class="alert alert-success" style="margin-top:20px;display:block">
+    <p>Hisob egasi botning shaxsiy chatiga quyidagi buyruqni yuborsin:</p>
+    <code style="overflow-wrap:anywhere;user-select:all">/link {{ code }}</code>
+    <p>Kod bir marta ishlaydi va 10 daqiqadan keyin tugaydi. Yangi kod oldingi kodni bekor qiladi.</p>
+  </div>
+  {% endif %}
+</div></div>
+{% endblock %}

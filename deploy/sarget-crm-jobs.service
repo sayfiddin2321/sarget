@@ -1,0 +1,26 @@
+[Unit]
+Description=Sarget CRM — Background Jobs Worker (Hisobotlar va Telegram)
+After=sarget-crm.service
+Requires=sarget-crm.service
+
+[Service]
+User=crmuser
+Group=crmuser
+WorkingDirectory=/opt/sargetcrm
+EnvironmentFile=/opt/sargetcrm/.env
+# Har 2 soniyada hisobotlar va Telegram navbatini qayta ishlash
+ExecStart=/opt/sargetcrm/venv/bin/python manage.py process_crm_jobs --loop --with-reminders
+Restart=always
+RestartSec=10
+
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/sargetcrm
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=sarget-crm-jobs
+
+[Install]
+WantedBy=multi-user.target

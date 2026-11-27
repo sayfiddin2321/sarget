@@ -1,0 +1,27 @@
+[Unit]
+Description=Sarget CRM — Django (Waitress WSGI)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=crmuser
+Group=crmuser
+WorkingDirectory=/opt/sargetcrm
+EnvironmentFile=/opt/sargetcrm/.env
+# Waitress orqali ishga tushirish
+ExecStart=/opt/sargetcrm/venv/bin/python manage.py serve --host 127.0.0.1 --port 8000 --without-bot --without-jobs
+Restart=always
+RestartSec=5
+
+# Xavfsizlik
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/sargetcrm
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=sarget-crm
+
+[Install]
+WantedBy=multi-user.target

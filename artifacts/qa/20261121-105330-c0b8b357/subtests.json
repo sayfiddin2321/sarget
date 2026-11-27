@@ -1,0 +1,404 @@
+[
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_create_lead', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_create_lead', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_create_lead', method='put')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_create_lead', method='patch')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_create_lead', method='delete')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_create_lead', body='{')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_create_lead', body='[]')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_create_lead', body='null')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_create_lead', body='42')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_create_lead', body='\"text\"')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_auth_user', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_auth_user', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_auth_user', method='put')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_auth_user', method='patch')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_auth_user', method='delete')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_auth_user', body='{')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_auth_user', body='[]')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_auth_user', body='null')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_auth_user', body='42')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_auth_user', body='\"text\"')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_lead_message', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_lead_message', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_lead_message', method='put')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_lead_message', method='patch')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_lead_message', method='delete')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_lead_message', body='{')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_lead_message', body='[]')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_lead_message', body='null')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_lead_message', body='42')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_lead_message', body='\"text\"')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_courses_list', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_courses_list', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_courses_list', method='put')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_courses_list', method='patch')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_courses_list', method='delete')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_student_info', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_student_info', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_student_info', method='put')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_student_info', method='patch')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_student_info', method='delete')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_staff_summary', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_staff_summary', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_staff_summary', method='put')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_staff_summary', method='patch')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_staff_summary', method='delete')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_account', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_account', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_account', method='put')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_account', method='patch')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_account', method='delete')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow",
+    "case": "test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) (amount='NaN')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow",
+    "case": "test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) (amount='Infinity')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow",
+    "case": "test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) (amount='-Infinity')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow",
+    "case": "test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) (amount='10000000000')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow",
+    "case": "test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) (amount='0.001')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow",
+    "case": "test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) (amount='0')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow",
+    "case": "test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) (amount='-1')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls",
+    "case": "test_percentage_rounding_matches_independent_controls (core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls) (amount='0.03', rate='50')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls",
+    "case": "test_percentage_rounding_matches_independent_controls (core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls) (amount='123.45', rate='12.5')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls",
+    "case": "test_percentage_rounding_matches_independent_controls (core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls) (amount='9999999.99', rate='40')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls",
+    "case": "test_percentage_rounding_matches_independent_controls (core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls) (amount='100', rate='0')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+    "case": "test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='10000000000')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+    "case": "test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='1e1000')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+    "case": "test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='0.001')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+    "case": "test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='-1')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+    "case": "test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='NaN')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+    "case": "test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='Infinity')",
+    "status": "PASS",
+    "detail": ""
+  }
+]

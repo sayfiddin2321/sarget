@@ -1,0 +1,20 @@
+[Unit]
+Description=Sarget CRM, Telegram bot and background jobs
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=sargetcrm
+Group=sargetcrm
+WorkingDirectory=/srv/sargetcrm
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/srv/sargetcrm/venv/bin/python manage.py serve --host 127.0.0.1 --port 8000
+Restart=on-failure
+RestartSec=5
+KillSignal=SIGINT
+TimeoutStopSec=45
+UMask=0022
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,27 @@
+{
+  "backend": "django.db.backends.sqlite3",
+  "isolated_database": ":memory:",
+  "application_database_accessed": false,
+  "labels": [
+    "core.test_mobile_rosters"
+  ],
+  "seconds": 8.871,
+  "failure_count": 2,
+  "passed": 0,
+  "failed": 2,
+  "skipped": 0,
+  "tests": [
+    {
+      "test": "core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (width=1360, theme='light')",
+      "status": "FAIL",
+      "detail": "Traceback (most recent call last):\n  File \"C:\\Users\\User\\Desktop\\sargetcrm_CRM\\core\\test_mobile_rosters.py\", line 85, in test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking\n    self.assertLessEqual(page.evaluate('document.documentElement.scrollWidth'), width,\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        page.evaluate(\"\"\"() => [...document.querySelectorAll('body *')]\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n            .filter(el => el.right > innerWidth + 1 && el.width > 100)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            .slice(0, 12)\"\"\"))\n            ^^^^^^^^^^^^^^^^^^\nAssertionError: 2118 not less than or equal to 1360 : []\n",
+      "seconds": 5.7439
+    },
+    {
+      "test": "core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (width=1360, theme='dark')",
+      "status": "FAIL",
+      "detail": "Traceback (most recent call last):\n  File \"C:\\Users\\User\\Desktop\\sargetcrm_CRM\\core\\test_mobile_rosters.py\", line 85, in test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking\n    self.assertLessEqual(page.evaluate('document.documentElement.scrollWidth'), width,\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        page.evaluate(\"\"\"() => [...document.querySelectorAll('body *')]\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n            .filter(el => el.right > innerWidth + 1 && el.width > 100)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            .slice(0, 12)\"\"\"))\n            ^^^^^^^^^^^^^^^^^^\nAssertionError: 2118 not less than or equal to 1360 : []\n",
+      "seconds": 6.1192
+    }
+  ]
+}

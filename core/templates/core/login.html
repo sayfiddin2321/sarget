@@ -1,0 +1,188 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Kirish{% endblock %}
+
+{% block extra_css %}
+<style>
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(184,134,15,0.10) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(212,169,67,0.08) 0%, transparent 55%),
+    var(--bg-base);
+}
+html:not(.pre-light) body:not(.light-mode) .login-page {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(227,187,95,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(212,169,67,0.08) 0%, transparent 55%),
+    linear-gradient(180deg, #0a0c12, #0e111a);
+}
+.login-wrap {
+  width: min(100%, 440px);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.login-box {
+  padding: 40px 36px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(12px);
+}
+.login-logo {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.login-logo img {
+  width: 104px;
+  height: 104px;
+  object-fit: contain;
+  margin: 0 auto 14px;
+  display: block;
+  filter: drop-shadow(0 10px 26px rgba(184, 134, 15, 0.38));
+}
+.login-logo h1 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  background: linear-gradient(135deg, var(--gold-1), var(--gold-4));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.login-logo p {
+  margin-top: 6px;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.login-form { display: flex; flex-direction: column; gap: 18px; }
+.login-field { display: flex; flex-direction: column; gap: 7px; }
+.login-field label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.login-field label i { color: var(--accent); width: 14px; }
+.login-input-wrap { position: relative; }
+.login-input-wrap i {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  pointer-events: none;
+}
+.login-input-wrap input {
+  width: 100%;
+  padding: 11px 13px 11px 38px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-size: 0.92rem;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.login-input-wrap input:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 4px var(--accent-dim);
+}
+.login-input-wrap input::placeholder { color: var(--text-muted); }
+.login-submit {
+  width: 100%;
+  min-height: 46px;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  margin-top: 4px;
+}
+.login-footer {
+  margin-top: 20px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+.login-footer span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-page">
+  <div class="login-wrap">
+    <div class="login-box">
+      <div class="login-logo">
+        <img src="{% static 'img/logo.png' %}" alt="Sarget IT Academy">
+        <h1>Sarget CRM</h1>
+        <p>O'quv markazini boshqarish tizimi</p>
+      </div>
+
+      {% if messages %}
+      <div style="margin-bottom:16px">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          <i class="fas {% if message.tags == 'success' %}fa-circle-check{% elif message.tags == 'danger' %}fa-circle-exclamation{% else %}fa-circle-info{% endif %}"></i>
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <form method="post" class="login-form" id="loginForm">
+        {% csrf_token %}
+        <div class="login-field">
+          <label><i class="fas fa-user"></i> Foydalanuvchi nomi</label>
+          <div class="login-input-wrap">
+            <i class="fas fa-at"></i>
+            <input type="text" name="username" id="id_username"
+                   placeholder="admin" required autofocus
+                   autocomplete="username"
+                   value="{{ request.POST.username }}">
+          </div>
+        </div>
+        <div class="login-field">
+          <label><i class="fas fa-lock"></i> Parol</label>
+          <div class="login-input-wrap">
+            <i class="fas fa-lock"></i>
+            <input type="password" name="password" id="id_password"
+                   placeholder="••••••••" required
+                   autocomplete="current-password">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary login-submit" id="loginBtn">
+          <i class="fas fa-right-to-bracket"></i> Kirish
+        </button>
+      </form>
+    </div>
+    <div class="login-footer">
+      <span><i class="fas fa-shield-halved" style="color:var(--accent)"></i> © 2026 Sarget IT Academy — Barcha huquqlar himoyalangan</span>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('loginForm').addEventListener('submit', function() {
+  const btn = document.getElementById('loginBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Kirish...';
+});
+</script>
+{% endblock %}

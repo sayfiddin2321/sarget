@@ -1,0 +1,167 @@
+{% extends 'core/base.html' %}
+{% block title %}O'quvchilar{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-user-graduate"></i> O'quvchilar</h1>
+    <p>Barcha o'quvchilar ro'yxati</p>
+  </div>
+  <div class="page-header-actions">
+    {% if capabilities.students_create %}<a href="{% url 'student_create' %}" class="btn btn-primary">O'quvchi qo'shish</a>{% endif %}
+    {% if capabilities.imports_students %}<a href="{% url 'xlsx_import' %}" class="btn btn-secondary">XLSX import</a>{% endif %}
+    {% if capabilities.reports_export %}<a href="{% url 'report_center' %}?{{ report_query }}" class="btn btn-secondary">Excel / Word eksport</a>{% endif %}
+  </div>
+</div>
+
+<div class="student-status-summary" aria-label="O'quvchilar holati bo'yicha jami">
+  <a href="{% url 'student_list' %}" class="student-status-count {% if not selected_status %}selected{% endif %}"><span>Barcha o'quvchilar</span><strong>{{ count_all }}</strong></a>
+  <a href="{% url 'student_list' %}?status=active" class="student-status-count {% if selected_status == 'active' %}selected{% endif %}"><span>O'qiyapti</span><strong>{{ count_active }}</strong></a>
+  <a href="{% url 'student_list' %}?status=graduated" class="student-status-count {% if selected_status == 'graduated' %}selected{% endif %}"><span>Bitirgan</span><strong>{{ count_graduated }}</strong></a>
+  <a href="{% url 'student_list' %}?status=inactive" class="student-status-count {% if selected_status == 'inactive' %}selected{% endif %}"><span>Kelmay qo'ygan</span><strong>{{ count_inactive }}</strong></a>
+  <a href="{% url 'student_list' %}?status=pending" class="student-status-count {% if selected_status == 'pending' %}selected{% endif %}"><span>Kutilmoqda</span><strong>{{ count_pending }}</strong></a>
+</div>
+
+<div class="filter-bar">
+  <form method="get" style="display:contents">
+    <div class="form-group search-group">
+      <label>Qidirish</label>
+      <i class="fas fa-search"></i>
+      <input type="text" name="q" value="{{ q }}" class="form-control" placeholder="Ism, telefon, guruh...">
+    </div>
+    <div class="form-group">
+      <label>O'qituvchi</label>
+      <select name="teacher" class="form-select">
+        <option value="">Barchasi</option>
+        {% for t in teachers %}<option value="{{ t.pk }}" {% if selected_teacher == t.pk|stringformat:"s" %}selected{% endif %}>{{ t.name }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Guruh</label>
+      <select name="group" class="form-select">
+        <option value="">Barchasi</option>
+        {% for g in groups %}<option value="{{ g.pk }}" {% if selected_group == g.pk|stringformat:"s" %}selected{% endif %}>{{ g.name }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Holat</label>
+      <select name="status" class="form-select">
+        <option value="">Barchasi</option>
+        {% for val,label in status_choices %}<option value="{{ val }}" {% if selected_status == val %}selected{% endif %}>{{ label }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Manba</label>
+      <select name="source" class="form-select">
+        <option value="">Barchasi</option>
+        {% for val,label in source_choices %}<option value="{{ val }}" {% if selected_source == val %}selected{% endif %}>{{ label }}</option>{% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary" style="align-self:flex-end"><i class="fas fa-filter"></i> Filter</button>
+    <a href="{% url 'student_list' %}" class="btn btn-secondary" style="align-self:flex-end"><i class="fas fa-xmark"></i></a>
+  </form>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h3><i class="fas fa-list"></i> Ro'yxat</h3>
+    <span style="font-size:0.8rem;color:var(--text-muted)">Jami: {{ students.paginator.count }} ta</span>
+  </div>
+  <div class="table-wrapper">
+    <table class="student-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>O'quvchi</th>
+          <th>Telefon</th>
+          <th>O'qituvchi</th>
+          <th>Guruh</th>
+          <th>Qabul qilgan</th>
+          <th>Holat</th>
+          <th>Ro'yxat sanasi</th>
+          <th>Qarz</th>
+          <th>Amallar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in students %}
+        <tr>
+          <td data-label="#" style="color:var(--text-muted);font-size:0.8rem">{% if students.start_index %}{{ students.start_index|add:forloop.counter0 }}{% else %}{{ forloop.counter }}{% endif %}</td>
+          <td data-label="O'quvchi">
+            <div class="entity-cell">
+              <div class="entity-avatar">{% include 'core/includes/student_avatar.html' with student=student %}</div>
+              <div>
+                <div class="entity-name">{{ student.name }}</div>
+                {% if student.parent_phone %}<div class="entity-sub"><i class="fas fa-phone" style="font-size:0.65rem"></i> {{ student.parent_phone }}</div>{% endif %}
+              </div>
+            </div>
+          </td>
+          <td data-label="Telefon">
+            <a href="tel:{{ student.phone }}" style="color:var(--text-secondary);font-size:0.85rem">
+              <i class="fas fa-phone" style="font-size:0.7rem;margin-right:4px;color:var(--text-muted)"></i>{{ student.phone }}
+            </a>
+          </td>
+          <td data-label="O'qituvchi">
+            {% if student.teacher %}
+            <div class="entity-cell">
+              <div class="entity-avatar teacher" style="width:28px;height:28px;font-size:0.7rem">{{ student.teacher.name|first }}</div>
+              <span class="entity-value">{{ student.teacher.name }}</span>
+            </div>
+            {% else %}<span style="color:var(--text-muted)">—</span>{% endif %}
+          </td>
+          <td data-label="Guruh">
+            {% if student.group %}
+            <span class="student-group-name" style="background:var(--purple-dim);color:var(--purple);padding:3px 8px;border-radius:6px;font-weight:600">{{ student.group.name }}</span>
+            {% else %}<span style="color:var(--text-muted)">—</span>{% endif %}
+          </td>
+          <td data-label="Qabul qilgan">
+            {% if student.receptionist %}
+            <div class="entity-cell">
+              <div class="entity-avatar receptionist" style="width:28px;height:28px;font-size:0.7rem">{{ student.receptionist.name|first }}</div>
+              <span class="entity-value">{{ student.receptionist.name }}</span>
+            </div>
+            {% else %}<span style="color:var(--text-muted);font-size:0.8rem">—</span>{% endif %}
+          </td>
+          <td data-label="Holat">
+            <span class="badge badge-{{ student.status }}">{{ student.get_status_display }}</span>
+          </td>
+          <td data-label="Ro'yxat sanasi" style="font-size:0.8rem;color:var(--text-muted)">{{ student.registration_date|date:"d.m.Y" }}</td>
+          <td data-label="Qarz">
+            {% if capabilities.payments_view %}{% with debt=student.get_debt_amount months=student.get_debt_months %}
+            {% if debt > 0 %}
+              <div style="line-height:1.2">
+                <span style="color:var(--red);font-size:0.8rem">To'lanmagan</span>
+                <span style="background:var(--red-dim);color:var(--red);padding:2px 6px;border-radius:4px;font-size:0.75rem;font-weight:700">{{ months }} oy</span>
+                <div style="font-size:0.72rem;color:var(--red);font-weight:700;margin-top:2px">{{ debt|floatformat:0 }} so'm</div>
+              </div>
+            {% elif student.payment_status == 'paid' %}
+              <span style="color:var(--green);font-size:0.8rem" title="Qarzi yo'q"><i class="fas fa-check"></i> To'langan</span>
+            {% else %}
+              <span style="color:var(--red);font-size:0.8rem">To'lanmagan</span>
+            {% endif %}
+            {% endwith %}{% else %}?{% endif %}
+          </td>
+          <td data-label="Amallar">
+            <div class="student-actions" style="display:flex;gap:6px">
+              {% if capabilities.reports_view %}<a href="{% url 'student_report' student.pk %}" class="btn btn-secondary btn-xs" title="Oylik hisobot"><i class="fas fa-file-lines"></i></a>{% endif %}
+              <a href="{% url 'student_detail' student.pk %}" class="btn btn-info btn-xs" title="Ko'rish"><i class="fas fa-eye"></i></a>
+              {% if capabilities.students_edit %}<a href="{% url 'student_edit' student.pk %}" class="btn btn-secondary btn-xs" title="Tahrirlash"><i class="fas fa-pen"></i></a>{% endif %}
+              {% if capabilities.payments_accept %}
+              <a href="{% url 'payment_create' %}?student={{ student.pk }}" class="btn btn-success btn-xs" title="To'lov"><i class="fas fa-plus"></i></a>
+              {% endif %}
+              {% if student.group %}{% if capabilities.grades_write %}
+              <a href="{% url 'take_grades' student.group_id %}" class="btn btn-secondary btn-xs" title="Baholash"><i class="fas fa-star"></i></a>
+              {% endif %}{% endif %}
+              {% if capabilities.students_archive %}<a href="{% url 'student_delete' student.pk %}" class="btn btn-danger btn-xs" title="Arxivlash"><i class="fas fa-box-archive"></i></a>{% endif %}
+              {% if request.user.is_superuser %}<a href="{% url 'student_remove' student.pk %}" class="btn btn-danger btn-xs" title="O'chirish"><i class="fas fa-trash"></i></a>{% endif %}
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="10"><div class="empty-state"><i class="fas fa-user-slash"></i><p>O'quvchilar topilmadi</p></div></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% include 'core/includes/pagination.html' with page_obj=students %}
+{% endblock %}

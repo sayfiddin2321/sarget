@@ -1,0 +1,76 @@
+{% extends 'core/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-user-gear"></i> {{ title }}</h1>
+    <p>Shaxsiy ma’lumotlar va hisob sozlamalari</p>
+  </div>
+</div>
+
+<div class="profile-layout">
+  <section class="card">
+    <div class="card-header"><h3><i class="fas fa-address-card"></i> Profil ma’lumotlari</h3></div>
+    <div class="card-body">
+      {% if profile and profile.photo %}
+      <div class="profile-photo-preview">
+        <img src="{{ profile.photo.url }}" alt="Profil rasmi">
+      </div>
+      {% endif %}
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="form_type" value="profile">
+        {% if form.non_field_errors %}<div class="alert alert-error">{{ form.non_field_errors }}</div>{% endif %}
+        {% for field in form %}
+        <div class="form-group">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.help_text %}<div class="text-muted">{{ field.help_text }}</div>{% endif %}
+          {% for error in field.errors %}<div class="alert alert-error">{{ error }}</div>{% endfor %}
+        </div>
+        {% endfor %}
+        <button class="btn btn-primary" type="submit"><i class="fas fa-floppy-disk"></i> Ma’lumotlarni saqlash</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-header"><h3><i class="fas fa-briefcase"></i> Ish ma’lumotlari</h3></div>
+    <div class="card-body">
+      {% if work_details %}
+      {% for label, value in work_details %}
+      <div class="profile-work-row">
+        <div class="profile-work-label">{{ label }}</div>
+        <div class="profile-work-value">{{ value|default:'—' }}</div>
+      </div>
+      {% endfor %}
+      <p class="text-muted">Lavozim va ish haqi/komissiya shartlarini faqat vakolatli boshliq o‘zgartiradi.</p>
+      {% elif is_admin_account %}
+      <p class="text-muted">Boshliq hisobi. CRM bo‘limlariga kirish huquqi o‘zgarishsiz qoladi.</p>
+      {% else %}
+      <p class="text-muted">Ish profili biriktirilmagan.</p>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-header"><h3><i class="fas fa-key"></i> Parolni almashtirish</h3></div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="form_type" value="password">
+        {% if password_form.non_field_errors %}<div class="alert alert-error">{{ password_form.non_field_errors }}</div>{% endif %}
+        {% for field in password_form %}
+        <div class="form-group">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.help_text %}<div class="text-muted">{{ field.help_text|safe }}</div>{% endif %}
+          {% for error in field.errors %}<div class="alert alert-error">{{ error }}</div>{% endfor %}
+        </div>
+        {% endfor %}
+        <button class="btn btn-secondary" type="submit"><i class="fas fa-lock"></i> Parolni yangilash</button>
+      </form>
+    </div>
+  </section>
+</div>
+{% endblock %}

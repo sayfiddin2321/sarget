@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+{% block title %}Moliyaviy tarix{% endblock %}
+{% block content %}
+<div class="page-header"><div><h1>Moliyaviy tarix</h1><p>To'lov, komissiya, maosh va xarajatlardagi o'zgarishlar.</p></div></div>
+<form method="get" class="filter-bar">
+  <div class="form-group"><label for="entity">Yozuv turi</label><select id="entity" name="entity" class="form-select">
+    <option value="">Barchasi</option>
+    <option value="payment" {% if selected_entity == 'payment' %}selected{% endif %}>To'lov</option>
+    <option value="expense" {% if selected_entity == 'expense' %}selected{% endif %}>Xarajat</option>
+    <option value="salary" {% if selected_entity == 'salary' %}selected{% endif %}>O'qituvchi maoshi</option>
+    <option value="receptionistsalary" {% if selected_entity == 'receptionistsalary' %}selected{% endif %}>Retsepshen maoshi</option>
+    <option value="receptionistcommission" {% if selected_entity == 'receptionistcommission' %}selected{% endif %}>Komissiya</option>
+    <option value="studenttariff" {% if selected_entity == 'studenttariff' %}selected{% endif %}>Tarif</option>
+  </select></div>
+  <div class="form-group"><label for="object_id">Yozuv raqami</label><input id="object_id" type="number" name="object_id" value="{{ request.GET.object_id }}" class="form-control" min="1"></div>
+  <button class="btn btn-primary" type="submit">Filtrlash</button>
+</form>
+<div class="card"><div class="table-wrapper"><table>
+  <thead><tr><th>Vaqt</th><th>Xodim</th><th>Yozuv</th><th>Amal</th><th>O'zgarishlar</th></tr></thead>
+  <tbody>{% for event in events %}<tr>
+    <td>{{ event.created_at|date:'d.m.Y H:i:s' }}</td><td>{{ event.actor_name }}</td>
+    <td>{% if event.entity == 'payment' %}<a href="{% url 'payment_receipt' event.object_id %}">{{ event.entity_label }} #{{ event.object_id }}</a>{% else %}{{ event.entity_label }} #{{ event.object_id }}{% endif %}</td><td>{{ event.action_label }}</td>
+    <td><details><summary>Oldingi va yangi qiymatlar</summary><dl>{% for change in event.changes %}<dt>{{ change.label }}</dt><dd style="overflow-wrap:anywhere">{{ change.before|default_if_none:'—' }} → {{ change.after|default_if_none:'—' }}</dd>{% endfor %}</dl></details></td>
+  </tr>{% empty %}<tr><td colspan="5">Hozircha o'zgarishlar yo'q.</td></tr>{% endfor %}</tbody>
+</table></div></div>
+{% include 'core/includes/pagination.html' with page_obj=events %}
+{% endblock %}

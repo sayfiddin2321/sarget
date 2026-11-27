@@ -1,0 +1,165 @@
+{% extends 'core/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-award"></i> {{ title }}</h1>
+    <p>O'quvchiga rasmiy tasdiqlangan, betakror QR kodli sertifikat biriktirish</p>
+  </div>
+  <a href="{% url 'certificate_list' %}" class="btn btn-secondary">
+    <i class="fas fa-arrow-left"></i> Orqaga
+  </a>
+</div>
+
+<div class="card" style="max-width:760px;margin:0 auto">
+  <div class="card-header">
+    <h3><i class="fas fa-certificate"></i> Sertifikat ma'lumotlari</h3>
+    {% if cert %}
+    <span class="badge badge-info" style="font-family:monospace">{{ cert.certificate_number }}</span>
+    {% endif %}
+  </div>
+  <div class="card-body">
+    <form method="post" id="certificateForm">
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+      <div class="alert alert-danger" style="margin-bottom:16px">
+        {% for err in form.non_field_errors %}{{ err }}{% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="form-row">
+        <div class="form-group" style="grid-column:1/-1">
+          <label><i class="fas fa-user-graduate"></i> O'quvchi *</label>
+          {{ form.student }}
+          {% if form.student.errors %}
+          <div style="color:var(--red);font-size:0.8rem;margin-top:4px">{{ form.student.errors.0 }}</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label><i class="fas fa-hashtag"></i> Betakror sertifikat raqami *</label>
+          {{ form.certificate_number }}
+          {% if form.certificate_number.errors %}
+          <div style="color:var(--red);font-size:0.8rem;margin-top:4px">{{ form.certificate_number.errors.0 }}</div>
+          {% endif %}
+          <div class="form-text" style="font-size:0.75rem;color:var(--text-muted);margin-top:4px">
+            <i class="fas fa-shield-halved"></i> Har bir sertifikat raqami butun markaz bo'yicha yagona va takrorlanmas bo'lishi shart.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label><i class="fas fa-calendar-day"></i> Berilgan sana *</label>
+          {{ form.issue_date }}
+          {% if form.issue_date.errors %}
+          <div style="color:var(--red);font-size:0.8rem;margin-top:4px">{{ form.issue_date.errors.0 }}</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- O'qish davri (Qachondan qachongacha o'qigani) -->
+      <div class="form-row">
+        <div class="form-group">
+          <label><i class="fas fa-calendar-plus"></i> O'qish boshlangan sana (Dan)</label>
+          {{ form.start_date }}
+          {% if form.start_date.errors %}
+          <div style="color:var(--red);font-size:0.8rem;margin-top:4px">{{ form.start_date.errors.0 }}</div>
+          {% endif %}
+          <div class="form-text" style="font-size:0.75rem;color:var(--text-muted);margin-top:4px">
+            Masalan: darslarni boshlagan sanasi
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label><i class="fas fa-calendar-check"></i> O'qish tugagan sana (Gacha)</label>
+          {{ form.end_date }}
+          {% if form.end_date.errors %}
+          <div style="color:var(--red);font-size:0.8rem;margin-top:4px">{{ form.end_date.errors.0 }}</div>
+          {% endif %}
+          <div class="form-text" style="font-size:0.75rem;color:var(--text-muted);margin-top:4px">
+            Kursni tamomlagan sanasi
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label><i class="fas fa-book-open"></i> Kurs / Yo'nalish nomi *</label>
+          {{ form.course_name }}
+          {% if form.course_name.errors %}
+          <div style="color:var(--red);font-size:0.8rem;margin-top:4px">{{ form.course_name.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          <label><i class="fas fa-layer-group"></i> O'qigan guruhi (ixtiyoriy)</label>
+          {{ form.group }}
+          {% if form.group.errors %}
+          <div style="color:var(--red);font-size:0.8rem;margin-top:4px">{{ form.group.errors.0 }}</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label><i class="fas fa-chalkboard-user"></i> O'qituvchi / Ustoz</label>
+          {{ form.teacher_name }}
+          {% if form.teacher_name.errors %}
+          <div style="color:var(--red);font-size:0.8rem;margin-top:4px">{{ form.teacher_name.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          <label><i class="fas fa-star"></i> Natija / Baho</label>
+          {{ form.grade_text }}
+          {% if form.grade_text.errors %}
+          <div style="color:var(--red);font-size:0.8rem;margin-top:4px">{{ form.grade_text.errors.0 }}</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label><i class="fas fa-toggle-on"></i> Holat</label>
+          {{ form.status }}
+          {% if form.status.errors %}
+          <div style="color:var(--red);font-size:0.8rem;margin-top:4px">{{ form.status.errors.0 }}</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label><i class="fas fa-align-left"></i> Qo'shimcha tavsif / Bilimlar (ixtiyoriy)</label>
+        {{ form.description }}
+        {% if form.description.errors %}
+        <div style="color:var(--red);font-size:0.8rem;margin-top:4px">{{ form.description.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div class="form-actions" style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border)">
+        <button type="submit" class="btn btn-primary" style="padding:10px 24px">
+          <i class="fas fa-floppy-disk"></i> Saqlash va sertifikatni ko'rish
+        </button>
+        <a href="{% url 'certificate_list' %}" class="btn btn-secondary">
+          <i class="fas fa-xmark"></i> Bekor qilish
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  if (typeof $ !== 'undefined' && $.fn.select2) {
+    $('.select2').select2({
+      width: '100%',
+      allowClear: true
+    });
+  }
+});
+</script>
+{% endblock %}

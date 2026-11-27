@@ -1,0 +1,91 @@
+{% extends 'core/base.html' %}
+{% block title %}Qabul arizalari{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-phone-volume"></i> Qabul arizalari</h1>
+    <p>Arizalar holati bo‘yicha guruhlangan. Yangi kelganlar alohida ustunda turadi.</p>
+  </div>
+  <div class="page-header-actions">
+    <a class="btn btn-primary" href="{% url 'lead_create' %}"><i class="fas fa-plus"></i> Ariza qo‘shish</a>
+    {% if capabilities.leads_archive %}<a class="btn btn-secondary" href="{% url 'lead_list' %}{% if not is_archived %}?archived=1{% endif %}">{% if is_archived %}Faol arizalar{% else %}Arxiv{% endif %}</a>{% endif %}
+    {% if capabilities.reports_view %}<a class="btn btn-secondary" href="{% url 'report_center' %}?{{ report_query }}"><i class="fas fa-chart-line"></i> Hisobot</a>{% endif %}
+    {% if capabilities.reports_export %}<a class="btn btn-secondary" href="{% url 'lead_export' %}?{{ request.GET.urlencode }}"><i class="fas fa-download"></i> CSV eksport</a>{% endif %}
+  </div>
+</div>
+
+<div class="stats-grid lead-stats">
+  <div class="stat-card">
+    <div class="stat-icon blue"><i class="fas fa-address-card"></i></div>
+    <div class="stat-info"><div class="stat-label">Jami arizalar</div><div class="stat-value">{{ total }}</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon accent"><i class="fas fa-inbox"></i></div>
+    <div class="stat-info"><div class="stat-label">Yangi</div><div class="stat-value">{{ pending }}</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon orange"><i class="fas fa-phone"></i></div>
+    <div class="stat-info"><div class="stat-label">Qayta aloqa muddati kelgan</div><div class="stat-value">{{ due }}</div></div>
+  </div>
+</div>
+
+    <details class="lead-board-filters" {% if term or current_status or current_scope or current_due %}open{% endif %}><summary><i class="fas fa-filter" aria-hidden="true"></i> Qidiruv va filtrlar</summary>
+    <form method="get" class="filter-bar lead-filter">
+      {% if is_archived %}<input type="hidden" name="archived" value="1">{% endif %}
+      <div class="form-group lead-search">
+        <label for="lead-search">Qidirish</label>
+        <input id="lead-search" class="form-control" type="search" name="q" value="{{ term }}" placeholder="Ism, telefon yoki kurs">
+      </div>
+      <div class="form-group lead-status-filter">
+        <label for="lead-status">Holati</label>
+        <select id="lead-status" class="form-select" name="status">
+          <option value="">Barcha holatlar</option>
+          {% for value,label in statuses %}<option value="{{ value }}" {% if current_status == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="lead-scope">Mas'ul</label>
+        <select class="form-select" id="lead-scope" name="scope">
+          <option value="">Barcha arizalar</option>
+          <option value="mine" {% if current_scope == 'mine' %}selected{% endif %}>Mening arizalarim</option>
+          <option value="unassigned" {% if current_scope == 'unassigned' %}selected{% endif %}>Biriktirilmagan</option>
+          <option value="work" {% if current_scope == 'work' %}selected{% endif %}>Mening navbatim</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="lead-due">Qayta aloqa muddati</label>
+        <select class="form-select" id="lead-due" name="due">
+          <option value="">Barchasi</option>
+          <option value="1" {% if current_due == '1' %}selected{% endif %}>Muddati kelgan</option>
+          <option value="today" {% if current_due == 'today' %}selected{% endif %}>Bugunga rejalashtirilgan</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" type="submit"><i class="fas fa-magnifying-glass"></i> Qidirish</button>
+      {% if term or current_status or current_scope or current_due %}<a class="btn btn-secondary" href="{% url 'lead_list' %}"><i class="fas fa-xmark"></i> Tozalash</a>{% endif %}
+    </form>
+    </details>
+
+<div class="lead-board-heading"><div><h2>Holatlar bo'yicha</h2><p>{{ board_total }} ta ariza</p></div><a href="#all-leads" class="btn btn-secondary btn-sm">To'liq ro'yxat <i class="fas fa-arrow-down" aria-hidden="true"></i></a></div>
+    <p class="lead-board-hint"><i class="fas fa-arrows-left-right" aria-hidden="true"></i> Ustunlarni chap-o'ngga suring. Har bir guruh ichini alohida scroll qilish mumkin.</p>
+    <div class="lead-board" role="region" aria-label="Arizalar holatlar bo'yicha" tabindex="0">
+      {% for column in lead_columns %}
+      <section class="lead-column lead-column-{{ column.key }}" id="lead-column-{{ column.key }}" aria-labelledby="lead-heading-{{ column.key }}">
+        <header class="lead-column-header"><h3 id="lead-heading-{{ column.key }}">{{ column.label }}</h3><span>{{ column.page.paginator.count }}</span></header>
+        <div class="lead-column-body">
+          {% for lead in column.page %}{% include 'core/includes/lead_card.html' %}{% empty %}<p class="lead-column-empty"><i class="fas fa-inbox" aria-hidden="true"></i>Bu holatda ariza yo'q.</p>{% endfor %}
+        </div>
+        {% if column.page.paginator.num_pages > 1 %}<nav class="lead-column-pagination" aria-label="{{ column.label }} sahifalari">
+          {% if column.previous_url %}<a href="{{ column.previous_url }}" class="btn btn-secondary btn-xs" aria-label="{{ column.label }}: oldingi sahifa">Oldingi</a>{% endif %}
+          <span>{{ column.page.number }} / {{ column.page.paginator.num_pages }}</span>
+          {% if column.next_url %}<a href="{{ column.next_url }}" class="btn btn-secondary btn-xs" aria-label="{{ column.label }}: keyingi sahifa">Keyingi</a>{% endif %}
+        </nav>{% endif %}
+      </section>
+      {% endfor %}
+    </div>
+
+<div class="card lead-list-card lead-full-list" id="all-leads">
+  <div class="card-header"><h3><i class="fas fa-list"></i> Barcha arizalar</h3><span class="lead-list-count">{{ leads.start_index }}-{{ leads.end_index }} / {{ leads.paginator.count }} ta</span></div>
+  <div class="card-body">{% include 'core/includes/lead_table.html' %}</div>
+</div>
+{% include 'core/includes/pagination.html' with page_obj=leads %}
+{% endblock %}

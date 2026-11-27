@@ -1,0 +1,98 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Bildirishnomalar tarixi{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/notifications.css' %}">{% endblock %}
+{% block content %}
+<div class="page-header notification-history-header">
+  <div>
+    <h1><i class="fas fa-bell"></i> Bildirishnomalar</h1>
+    <p>Sizga kelgan barcha bildirishnomalar tarixi. O'qilgan xabarlar ham saqlanadi.</p>
+  </div>
+  <a class="btn btn-secondary" href="{{ request.get_full_path }}"><i class="fas fa-rotate"></i> Yangilash</a>
+</div>
+
+<div class="notification-history-summary">
+  <div class="card"><span>Jami tarixda</span><strong>{{ history_count }} ta</strong></div>
+  <div class="card"><span>O'qilmagan</span><strong>{{ history_unread_count }} ta</strong></div>
+  <div class="card"><span>Tanlangan filtrda</span><strong>{{ notifications.paginator.count }} ta</strong></div>
+</div>
+
+<div class="card notification-history-filter">
+  <div class="card-body">
+    <form method="get">
+      {% if filter_form.non_field_errors %}<div class="alert alert-error" role="alert">{{ filter_form.non_field_errors }}</div>{% endif %}
+      <div class="notification-filter-fields">
+        {% for field in filter_form %}
+        <div class="form-group">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}<div class="text-danger" role="alert">{{ field.errors }}</div>{% endif %}
+        </div>
+        {% endfor %}
+      </div>
+      <div class="notification-filter-actions">
+        <button class="btn btn-primary" type="submit"><i class="fas fa-filter"></i> Ko'rsatish</button>
+        <a class="btn btn-secondary" href="{% url 'notification_list' %}">Barcha tarix</a>
+      </div>
+    </form>
+    <p class="form-text">Ikkala sana ham hisobga kiradi. Sanalar tanlanmasa, barcha kunlardagi bildirishnomalar ko'rinadi.</p>
+  </div>
+</div>
+
+<div class="notification-history-heading">
+  <h2>Bildirishnomalar tarixi</h2>
+  {% if notifications %}
+  <form method="post" action="{% url 'notification_read_all' %}">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+    {% for field in filter_form %}<input type="hidden" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">{% endfor %}
+    <button class="btn btn-secondary btn-sm" type="submit"><i class="fas fa-check-double"></i> Tanlanganlarni o'qilgan qilish</button>
+  </form>
+  {% endif %}
+</div>
+
+{% regroup notifications by created_at|date:"d.m.Y" as notification_days %}
+{% for day in notification_days %}
+<section class="notification-history-day" aria-label="{{ day.grouper }} bildirishnomalari">
+  <h3><i class="fas fa-calendar-day"></i> {{ day.grouper }}</h3>
+  <div class="card">
+    {% for item in day.list %}
+    <article class="notification-history-item {% if not item.is_read %}is-unread{% endif %}">
+      <div class="notification-history-content">
+        <div class="notification-history-meta">
+          <time datetime="{{ item.created_at|date:'c' }}">{{ item.created_at|date:'d.m.Y H:i' }}</time>
+          <span class="badge">{{ item.get_type_display }}</span>
+          {% if item.is_read %}<span class="badge">O'qilgan</span>{% else %}<span class="badge badge-pending">O'qilmagan</span>{% endif %}
+        </div>
+        <h4>{{ item.title }}</h4>
+        <p>{{ item.message }}</p>
+      </div>
+      <div class="notification-history-actions">
+        {% if item.target_url %}
+        <form method="post" action="{% url 'notification_open' item.pk %}">
+          {% csrf_token %}
+          <button class="btn btn-primary btn-sm" type="submit">{% if item.lead_id %}Arizani ochish{% else %}O'quvchini ochish{% endif %}</button>
+        </form>
+        {% endif %}
+        {% if not item.is_read %}
+        <form method="post" action="{% url 'notification_open' item.pk %}">
+          {% csrf_token %}
+          <input type="hidden" name="history" value="1">
+          <input type="hidden" name="next" value="{{ request.get_full_path }}">
+          <button class="btn btn-secondary btn-sm" type="submit"><i class="fas fa-check"></i> O'qildi deb belgilash</button>
+        </form>
+        {% endif %}
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% empty %}
+<div class="card"><div class="empty-state">
+  <i class="fas fa-bell-slash"></i>
+  <p>{% if filter_form.errors %}Filtrdagi xatolarni to'g'rilab, qayta ko'rsating.{% else %}Tanlangan filtr bo'yicha bildirishnoma topilmadi.{% endif %}</p>
+  <a class="btn btn-secondary btn-sm" href="{% url 'notification_list' %}">Barcha tarixni ko'rish</a>
+</div></div>
+{% endfor %}
+{% include 'core/includes/pagination.html' with page_obj=notifications %}
+{% endblock %}

@@ -1,0 +1,541 @@
+[
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_admin_cannot_create_negative_expense",
+    "method": "POST",
+    "path": "/admin/core/expense/add/",
+    "route": "admin:core_expense_add",
+    "status": 200
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "GET",
+    "path": "/api/bot/leads/",
+    "route": "api_bot_create_lead",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/leads/",
+    "route": "api_bot_create_lead",
+    "status": 401
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "PUT",
+    "path": "/api/bot/leads/",
+    "route": "api_bot_create_lead",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "PATCH",
+    "path": "/api/bot/leads/",
+    "route": "api_bot_create_lead",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "DELETE",
+    "path": "/api/bot/leads/",
+    "route": "api_bot_create_lead",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/leads/",
+    "route": "api_bot_create_lead",
+    "status": 400
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/leads/",
+    "route": "api_bot_create_lead",
+    "status": 400
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/leads/",
+    "route": "api_bot_create_lead",
+    "status": 400
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/leads/",
+    "route": "api_bot_create_lead",
+    "status": 400
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/leads/",
+    "route": "api_bot_create_lead",
+    "status": 400
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "GET",
+    "path": "/api/bot/auth/",
+    "route": "api_bot_auth_user",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/auth/",
+    "route": "api_bot_auth_user",
+    "status": 401
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "PUT",
+    "path": "/api/bot/auth/",
+    "route": "api_bot_auth_user",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "PATCH",
+    "path": "/api/bot/auth/",
+    "route": "api_bot_auth_user",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "DELETE",
+    "path": "/api/bot/auth/",
+    "route": "api_bot_auth_user",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/auth/",
+    "route": "api_bot_auth_user",
+    "status": 400
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/auth/",
+    "route": "api_bot_auth_user",
+    "status": 400
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/auth/",
+    "route": "api_bot_auth_user",
+    "status": 400
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/auth/",
+    "route": "api_bot_auth_user",
+    "status": 400
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/auth/",
+    "route": "api_bot_auth_user",
+    "status": 400
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "GET",
+    "path": "/api/bot/lead-message/",
+    "route": "api_bot_lead_message",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/lead-message/",
+    "route": "api_bot_lead_message",
+    "status": 401
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "PUT",
+    "path": "/api/bot/lead-message/",
+    "route": "api_bot_lead_message",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "PATCH",
+    "path": "/api/bot/lead-message/",
+    "route": "api_bot_lead_message",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "DELETE",
+    "path": "/api/bot/lead-message/",
+    "route": "api_bot_lead_message",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/lead-message/",
+    "route": "api_bot_lead_message",
+    "status": 400
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/lead-message/",
+    "route": "api_bot_lead_message",
+    "status": 400
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/lead-message/",
+    "route": "api_bot_lead_message",
+    "status": 400
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/lead-message/",
+    "route": "api_bot_lead_message",
+    "status": 400
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/lead-message/",
+    "route": "api_bot_lead_message",
+    "status": 400
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "GET",
+    "path": "/api/bot/courses/",
+    "route": "api_bot_courses_list",
+    "status": 401
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/courses/",
+    "route": "api_bot_courses_list",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "PUT",
+    "path": "/api/bot/courses/",
+    "route": "api_bot_courses_list",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "PATCH",
+    "path": "/api/bot/courses/",
+    "route": "api_bot_courses_list",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "DELETE",
+    "path": "/api/bot/courses/",
+    "route": "api_bot_courses_list",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "GET",
+    "path": "/api/bot/student-info/",
+    "route": "api_bot_student_info",
+    "status": 401
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/student-info/",
+    "route": "api_bot_student_info",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "PUT",
+    "path": "/api/bot/student-info/",
+    "route": "api_bot_student_info",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "PATCH",
+    "path": "/api/bot/student-info/",
+    "route": "api_bot_student_info",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "DELETE",
+    "path": "/api/bot/student-info/",
+    "route": "api_bot_student_info",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "GET",
+    "path": "/api/bot/staff-summary/",
+    "route": "api_bot_staff_summary",
+    "status": 401
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/staff-summary/",
+    "route": "api_bot_staff_summary",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "PUT",
+    "path": "/api/bot/staff-summary/",
+    "route": "api_bot_staff_summary",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "PATCH",
+    "path": "/api/bot/staff-summary/",
+    "route": "api_bot_staff_summary",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "DELETE",
+    "path": "/api/bot/staff-summary/",
+    "route": "api_bot_staff_summary",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "GET",
+    "path": "/api/bot/account/",
+    "route": "api_bot_account",
+    "status": 401
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "POST",
+    "path": "/api/bot/account/",
+    "route": "api_bot_account",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "PUT",
+    "path": "/api/bot/account/",
+    "route": "api_bot_account",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "PATCH",
+    "path": "/api/bot/account/",
+    "route": "api_bot_account",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "method": "DELETE",
+    "path": "/api/bot/account/",
+    "route": "api_bot_account",
+    "status": 405
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_attendance_overlong_note_is_rejected_without_partial_save",
+    "method": "POST",
+    "path": "/attendance/take/3/",
+    "route": "take_attendance",
+    "status": 200
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_distinct_payment_submissions_allow_legitimate_same_amount",
+    "method": "POST",
+    "path": "/payments/create/",
+    "route": "payment_create",
+    "status": 302
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_distinct_payment_submissions_allow_legitimate_same_amount",
+    "method": "POST",
+    "path": "/payments/create/",
+    "route": "payment_create",
+    "status": 302
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_full_financial_user_journey_preserves_data_after_relogin",
+    "method": "POST",
+    "path": "/payments/create/",
+    "route": "payment_create",
+    "status": 302
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_full_financial_user_journey_preserves_data_after_relogin",
+    "method": "POST",
+    "path": "/payments/create/",
+    "route": "payment_create",
+    "status": 302
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_full_financial_user_journey_preserves_data_after_relogin",
+    "method": "POST",
+    "path": "/expenses/create/",
+    "route": "expense_create",
+    "status": 302
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_full_financial_user_journey_preserves_data_after_relogin",
+    "method": "POST",
+    "path": "/receptionists/salaries/calculate/",
+    "route": "calculate_receptionist_salaries",
+    "status": 302
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_full_financial_user_journey_preserves_data_after_relogin",
+    "method": "POST",
+    "path": "/payments/4/refund/",
+    "route": "refund_create",
+    "status": 302
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_full_financial_user_journey_preserves_data_after_relogin",
+    "method": "GET",
+    "path": "/",
+    "route": "dashboard",
+    "status": 200
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_full_financial_user_journey_preserves_data_after_relogin",
+    "method": "GET",
+    "path": "/",
+    "route": "dashboard",
+    "status": 200
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_full_financial_user_journey_preserves_data_after_relogin",
+    "method": "POST",
+    "path": "/payments/4/delete/",
+    "route": "payment_delete",
+    "status": 302
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_full_financial_user_journey_preserves_data_after_relogin",
+    "method": "GET",
+    "path": "/",
+    "route": "dashboard",
+    "status": 200
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_payment_form_supplies_a_unique_submission_key",
+    "method": "GET",
+    "path": "/payments/create/",
+    "route": "payment_create",
+    "status": 200
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_payment_form_supplies_a_unique_submission_key",
+    "method": "GET",
+    "path": "/payments/create/",
+    "route": "payment_create",
+    "status": 200
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_payment_submission_key_cannot_be_reused_for_different_amount",
+    "method": "POST",
+    "path": "/payments/create/",
+    "route": "payment_create",
+    "status": 302
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_payment_submission_key_cannot_be_reused_for_different_amount",
+    "method": "POST",
+    "path": "/payments/create/",
+    "route": "payment_create",
+    "status": 200
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_protected_course_delete_returns_message_instead_of_500",
+    "method": "POST",
+    "path": "/courses/11/delete/",
+    "route": "course_delete",
+    "status": 302
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+    "method": "POST",
+    "path": "/receptionists/salaries/calculate/",
+    "route": "calculate_receptionist_salaries",
+    "status": 302
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+    "method": "POST",
+    "path": "/receptionists/salaries/calculate/",
+    "route": "calculate_receptionist_salaries",
+    "status": 302
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+    "method": "POST",
+    "path": "/receptionists/salaries/calculate/",
+    "route": "calculate_receptionist_salaries",
+    "status": 302
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+    "method": "POST",
+    "path": "/receptionists/salaries/calculate/",
+    "route": "calculate_receptionist_salaries",
+    "status": 302
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+    "method": "POST",
+    "path": "/receptionists/salaries/calculate/",
+    "route": "calculate_receptionist_salaries",
+    "status": 302
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+    "method": "POST",
+    "path": "/receptionists/salaries/calculate/",
+    "route": "calculate_receptionist_salaries",
+    "status": 302
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_replayed_payment_submission_creates_one_payment",
+    "method": "POST",
+    "path": "/payments/create/",
+    "route": "payment_create",
+    "status": 302
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_replayed_payment_submission_creates_one_payment",
+    "method": "POST",
+    "path": "/payments/create/",
+    "route": "payment_create",
+    "status": 302
+  },
+  {
+    "test": "core.test_project_qa.ConcurrentFinancialQATests.test_payment_and_salary_paid_status_keep_the_same_total",
+    "method": "POST",
+    "path": "/salaries/8/toggle/",
+    "route": "update_salary_status",
+    "status": 302
+  }
+]

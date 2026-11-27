@@ -1,0 +1,7 @@
+{% extends 'core/base.html' %}
+{% block title %}O'quvchini o'chirish{% endblock %}
+{% block content %}
+<div class="card"><div class="card-body"><h1>O'quvchini o'chirish</h1>
+<p><strong>{{ student.name }}</strong> ro'yxatlardan olib tashlanadi. To'lovlar va moliyaviy tarix saqlanadi. Telegram ulanishi va rejalashtirilgan hisobotlar to'xtatiladi.</p>
+<form method="post">{% csrf_token %}<button class="btn btn-danger" type="submit">O'chirish</button> <a href="{% url 'student_detail' student.pk %}" class="btn btn-secondary">Bekor qilish</a></form></div></div>
+{% endblock %}

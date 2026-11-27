@@ -1,0 +1,8 @@
+{% if center_tabs %}
+<nav class="center-navigation" aria-label="{{ center_label }} bo‘limlari">
+  <a class="center-navigation-title" href="{{ center_tabs.0.url }}"><i class="fas {{ center_icon }}" aria-hidden="true"></i>{{ center_label }}</a>
+  <div class="center-tabs">
+    {% for tab in center_tabs %}<a href="{{ tab.url }}" class="center-tab {% if tab.active %}active{% endif %}" {% if tab.active %}aria-current="page"{% endif %}>{{ tab.label }}</a>{% endfor %}
+  </div>
+</nav>
+{% endif %}

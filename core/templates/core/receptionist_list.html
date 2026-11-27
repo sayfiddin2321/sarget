@@ -1,0 +1,76 @@
+{% extends 'core/base.html' %}
+{% block title %}Retsepshenlar{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-headset"></i> Retsepshenlar</h1>
+    <p>Qabul xodimlari va ularning komissiyalari</p>
+  </div>
+  <div class="page-header-actions">
+    {% if capabilities.salary_receptionist_view or capabilities.salary_receptionist_self_view %}<a href="{% url 'receptionist_salary_list' %}" class="btn btn-secondary"><i class="fas fa-wallet"></i> Oyliklar</a>{% endif %}
+    {% if capabilities.receptionists_create %}<a href="{% url 'receptionist_create' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Qo'shish</a>{% endif %}
+  </div>
+</div>
+
+<div class="card">
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Xodim</th>
+          <th>Telefon</th>
+          <th>Komissiya %</th>
+          <th>Yozgan o'quvchilar</th>
+          <th>Bu oy komissiya</th>
+          <th>Holat</th>
+          <th>Amallar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for rec in receptionists %}
+        <tr>
+          <td style="color:var(--text-muted)">{{ forloop.counter }}</td>
+          <td>
+            <div class="entity-cell">
+              <div class="entity-avatar receptionist">{{ rec.name|first|upper }}</div>
+              <div>
+                <div class="entity-name">{{ rec.name }}</div>
+                <div class="entity-sub">Retsepshen</div>
+              </div>
+            </div>
+          </td>
+          <td><a href="tel:{{ rec.phone }}" style="color:var(--text-secondary);font-size:0.85rem">{{ rec.phone }}</a></td>
+          <td>
+            <span style="background:var(--accent-dim);color:var(--accent);padding:4px 10px;border-radius:6px;font-weight:700;font-size:0.875rem">{{ rec.commission_percent }}%</span>
+          </td>
+          <td>
+            <span style="font-weight:600;color:var(--blue)">{{ rec.student_count }}</span>
+            <span style="color:var(--text-muted);font-size:0.8rem"> ta faol</span>
+          </td>
+          <td>
+            {% if capabilities.salary_receptionist_view %}<span class="amount amount-green">{{ rec.get_this_month_commission|floatformat:0 }} so'm</span>{% else %}—{% endif %}
+          </td>
+          <td>
+            {% if rec.is_active %}
+            <span class="badge badge-active">Aktiv</span>
+            {% else %}
+            <span class="badge badge-inactive">Arxiv</span>
+            {% endif %}
+          </td>
+          <td>
+            <div style="display:flex;gap:6px">
+              {% if capabilities.salary_receptionist_view %}<a href="{% url 'receptionist_commissions' rec.pk %}" class="btn btn-info btn-xs" title="Komissiyalar"><i class="fas fa-chart-bar"></i></a>{% endif %}
+              {% if capabilities.receptionists_edit %}<a href="{% url 'receptionist_edit' rec.pk %}" class="btn btn-secondary btn-xs"><i class="fas fa-pen"></i></a>{% endif %}
+              {% if capabilities.receptionists_archive %}<a href="{% url 'receptionist_delete' rec.pk %}" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>{% endif %}
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8"><div class="empty-state"><i class="fas fa-headset"></i><p>Retsepshenlar yo'q</p></div></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

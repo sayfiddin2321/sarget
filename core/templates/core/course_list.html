@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+{% block title %}Kurslar{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-book-open"></i> Kurslar</h1>
+    <p>Kurs — ta’lim yo‘nalishi. O‘qituvchi, jadval va narxni belgilash uchun “Guruhlar” bo‘limida guruh yarating.</p>
+  </div>
+  {% if capabilities.courses_create %}<a class="btn btn-primary" href="{% url 'course_create' %}"><i class="fas fa-plus"></i> Kurs qo‘shish</a>{% endif %}
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h3><i class="fas fa-list"></i> Kurslar ro‘yxati</h3>
+    <span class="lead-list-count">{{ courses|length }} ta</span>
+  </div>
+  <div class="table-wrapper">
+    <table>
+      <thead><tr><th>Kurs nomi</th><th>Izoh</th><th>Holati</th><th>Qo‘shilgan sana</th><th>Amallar</th></tr></thead>
+      <tbody>
+        {% for course in courses %}
+        <tr>
+          <td><strong>{{ course.name }}</strong></td>
+          <td>{{ course.description|default:'—'|truncatechars:100 }}</td>
+          <td><span class="badge {% if course.is_active %}badge-active{% else %}badge-inactive{% endif %}">{% if course.is_active %}Faol · botda ko‘rinadi{% else %}Faol emas{% endif %}</span></td>
+          <td>{{ course.created_at|date:'d.m.Y' }}</td>
+          <td>
+            <div class="lead-actions">
+              {% if capabilities.courses_edit %}<a class="btn btn-secondary btn-sm" href="{% url 'course_edit' course.pk %}"><i class="fas fa-pen"></i> Tahrirlash</a>{% endif %}
+              {% if capabilities.courses_delete %}<form method="post" action="{% url 'course_delete' course.pk %}" onsubmit="return confirm('“{{ course.name }}” kursini o‘chirasizmi?')">
+                {% csrf_token %}
+                <button class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i> O‘chirish</button>
+              </form>{% endif %}
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td class="empty-row" colspan="5"><i class="fas fa-book-open"></i>Hozircha kurs qo‘shilmagan. Telegram botda kurs tanlovi chiqishi uchun avval kurs qo‘shing.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

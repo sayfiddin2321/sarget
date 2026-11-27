@@ -1,0 +1,301 @@
+{% extends 'core/base.html' %}
+{% load custom_filters %}
+{% block title %}Baholar{% endblock %}
+
+{% block extra_css %}
+<style>
+.grade-summary-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.grade-summary-card {
+  flex: 1;
+  min-width: 140px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+}
+.grade-summary-card.avg     { background: var(--accent-dim); border-color: color-mix(in srgb, var(--accent) 25%, transparent); }
+.grade-summary-card.hw      { background: var(--blue-dim); border-color: color-mix(in srgb, var(--blue) 25%, transparent); }
+.grade-summary-card.cw      { background: var(--green-dim); border-color: color-mix(in srgb, var(--green) 25%, transparent); }
+.grade-summary-card.exam    { background: var(--purple-dim); border-color: color-mix(in srgb, var(--purple) 25%, transparent); }
+.grade-summary-card.total   { background: var(--bg-elevated); border-color: var(--border-strong); }
+
+.grade-summary-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.avg .grade-summary-icon   { color: var(--accent); background: color-mix(in srgb, var(--accent) 20%, transparent); }
+.hw .grade-summary-icon    { color: var(--blue); background: color-mix(in srgb, var(--blue) 20%, transparent); }
+.cw .grade-summary-icon    { color: var(--green); background: color-mix(in srgb, var(--green) 20%, transparent); }
+.exam .grade-summary-icon  { color: var(--purple); background: color-mix(in srgb, var(--purple) 20%, transparent); }
+.total .grade-summary-icon { color: var(--text-primary); background: var(--bg-surface); }
+
+.grade-summary-num {
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.avg .grade-summary-num   { color: var(--accent); }
+.hw .grade-summary-num    { color: var(--blue); }
+.cw .grade-summary-num    { color: var(--green); }
+.exam .grade-summary-num  { color: var(--purple); }
+.total .grade-summary-num { color: var(--text-primary); }
+
+.grade-summary-text {
+  font-size: 0.74rem;
+  font-weight: 700;
+  margin-top: 2px;
+  opacity: 0.8;
+}
+
+.score-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+.score-high   { background: var(--green-dim); color: var(--green); border: 1px solid color-mix(in srgb, var(--green) 30%, transparent); }
+.score-medium { background: var(--orange-dim); color: var(--orange); border: 1px solid color-mix(in srgb, var(--orange) 30%, transparent); }
+.score-low    { background: var(--red-dim); color: var(--red); border: 1px solid color-mix(in srgb, var(--red) 30%, transparent); }
+
+.type-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+.type-classwork { background: var(--green-dim); color: var(--green); }
+.type-homework  { background: var(--blue-dim); color: var(--blue); }
+.type-exam      { background: var(--purple-dim); color: var(--purple); }
+.type-monthly   { background: var(--orange-dim); color: var(--orange); }
+
+.filter-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+.filter-group { flex: 1; min-width: 160px; display: flex; flex-direction: column; gap: 6px; }
+.filter-group label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-star"></i> O'quvchilar baholari</h1>
+    <p>Darsdagi faollik, uy vazifasi va imtihon natijalari</p>
+  </div>
+  <div class="header-actions" style="display:flex;gap:8px">
+    {% if selected_group %}
+    {% if capabilities.grades_write %}<a href="{% url 'take_grades' selected_group %}" class="btn btn-primary">
+      <i class="fas fa-pen-to-square"></i> Baho qo'yish
+    </a>{% endif %}
+    {% if capabilities.grades_write %}<a href="{% url 'take_grades_select' %}" class="btn btn-secondary">
+      <i class="fas fa-layer-group"></i> Boshqa guruh
+    </a>{% endif %}
+    {% else %}
+    {% if capabilities.grades_write %}<a href="{% url 'take_grades_select' %}" class="btn btn-primary">
+      <i class="fas fa-pen-to-square"></i> Guruh tanlab baho qo'yish
+    </a>{% endif %}
+    {% endif %}
+    <a href="{% url 'grade_list' %}" class="btn btn-secondary">
+      <i class="fas fa-rotate"></i> Yangilash
+    </a>
+  </div>
+</div>
+
+<!-- Summary cards -->
+<div class="grade-summary-bar">
+  <div class="grade-summary-card avg">
+    <div class="grade-summary-icon"><i class="fas fa-chart-line"></i></div>
+    <div>
+      <div class="grade-summary-num">{{ avg_score|default:"—" }}</div>
+      <div class="grade-summary-text">O'rtacha ball</div>
+    </div>
+  </div>
+  <div class="grade-summary-card cw">
+    <div class="grade-summary-icon"><i class="fas fa-book-open"></i></div>
+    <div>
+      <div class="grade-summary-num">{{ classwork_count }}</div>
+      <div class="grade-summary-text">Dars faolligi</div>
+    </div>
+  </div>
+  <div class="grade-summary-card hw">
+    <div class="grade-summary-icon"><i class="fas fa-pencil"></i></div>
+    <div>
+      <div class="grade-summary-num">{{ homework_count }}</div>
+      <div class="grade-summary-text">Uy vazifasi</div>
+    </div>
+  </div>
+  <div class="grade-summary-card exam">
+    <div class="grade-summary-icon"><i class="fas fa-award"></i></div>
+    <div>
+      <div class="grade-summary-num">{{ exam_count }}</div>
+      <div class="grade-summary-text">Imtihon / Test</div>
+    </div>
+  </div>
+  <div class="grade-summary-card total">
+    <div class="grade-summary-icon"><i class="fas fa-list-check"></i></div>
+    <div>
+      <div class="grade-summary-num">{{ total_count }}</div>
+      <div class="grade-summary-text">Jami baholar</div>
+    </div>
+  </div>
+</div>
+
+<!-- Filters -->
+<div class="card" style="margin-bottom:18px">
+  <div class="card-header"><h3><i class="fas fa-sliders"></i> Filtrlar</h3></div>
+  <div class="card-body">
+    <form method="get">
+      <div class="filter-row">
+        <div class="filter-group">
+          <label><i class="fas fa-calendar-day"></i> Sana</label>
+          <input type="date" name="date" class="form-control" value="{{ selected_date }}">
+        </div>
+        <div class="filter-group">
+          <label><i class="fas fa-layer-group"></i> Guruh</label>
+          <select name="group" class="form-select select2" data-placeholder="Barcha guruhlar">
+            <option value="">Barcha guruhlar</option>
+            {% for group in groups %}
+            <option value="{{ group.id }}" {% if selected_group == group.id|stringformat:"s" %}selected{% endif %}>
+              {{ group.name }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="filter-group">
+          <label><i class="fas fa-tags"></i> Baho turi</label>
+          <select name="grade_type" class="form-select select2">
+            <option value="">Barcha turlar</option>
+            {% for type_code, type_name in grade_types %}
+            <option value="{{ type_code }}" {% if selected_grade_type == type_code %}selected{% endif %}>
+              {{ type_name }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="filter-group" style="flex:0;align-self:flex-end">
+          <button type="submit" class="btn btn-primary"><i class="fas fa-filter"></i> Filtrlash</button>
+        </div>
+        {% if selected_group or selected_date or selected_grade_type %}
+        <div class="filter-group" style="flex:0;align-self:flex-end">
+          <a href="{% url 'grade_list' %}" class="btn btn-secondary"><i class="fas fa-xmark"></i> Tozalash</a>
+        </div>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Grades Table -->
+<div class="card">
+  <div class="card-header">
+    <h3><i class="fas fa-table-list"></i> Baholar jurnali ({{ grades|length }})</h3>
+  </div>
+  {% if grades %}
+  <div class="table-wrapper">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>O'quvchi</th>
+          <th>Guruh</th>
+          <th>Sana</th>
+          <th>Baho turi</th>
+          <th style="text-align:center">Ball</th>
+          <th>Izoh</th>
+          <th>Baholagan</th>
+          <th style="text-align:right">Amallar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for g in grades %}
+        <tr>
+          <td>
+            <a href="{% url 'student_detail' g.student.pk %}" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit">
+              <span class="avatar-cell">{% include 'core/includes/student_avatar.html' with student=g.student %}</span>
+              <strong>{{ g.student.name }}</strong>
+            </a>
+          </td>
+          <td>
+            <span class="badge" style="background:var(--bg-elevated);color:var(--text-primary);border:1px solid var(--border)">
+              {{ g.group.name }}
+            </span>
+          </td>
+          <td style="color:var(--text-muted);font-weight:600">{{ g.date|date:"d.m.Y" }}</td>
+          <td>
+            <span class="type-pill type-{{ g.grade_type }}">
+              {% if g.grade_type == 'homework' %}<i class="fas fa-pencil"></i>
+              {% elif g.grade_type == 'exam' %}<i class="fas fa-award"></i>
+              {% elif g.grade_type == 'monthly' %}<i class="fas fa-calendar-check"></i>
+              {% else %}<i class="fas fa-book-open"></i>{% endif %}
+              {{ g.get_grade_type_display }}
+            </span>
+          </td>
+          <td style="text-align:center">
+            <span class="score-badge {% if g.score >= 80 or g.score == 5 %}score-high{% elif g.score >= 60 or g.score == 4 or g.score == 3 %}score-medium{% else %}score-low{% endif %}">
+              {{ g.score }}
+            </span>
+          </td>
+          <td style="color:var(--text-muted);font-size:0.85rem">
+            {{ g.note|default:"—" }}
+          </td>
+          <td style="font-size:0.8rem;color:var(--text-muted)">
+            {% if g.graded_by %}{{ g.graded_by.get_full_name|default:g.graded_by.username }}{% else %}—{% endif %}
+          </td>
+          <td style="text-align:right">
+            {% if capabilities.grades_delete %}
+            <form action="{% url 'grade_delete' g.pk %}" method="post" style="display:inline" onsubmit="return confirm('Haqiqatan ham bu bahoni o\'chirmoqchimisiz?');">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-sm btn-danger" title="O'chirish" style="padding:4px 8px">
+                <i class="fas fa-trash"></i>
+              </button>
+            </form>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty-state" style="padding:48px 20px">
+    <i class="fas fa-star" style="font-size:2.5rem;color:var(--text-muted);opacity:0.4;margin-bottom:12px"></i>
+    <p>Baholar topilmadi</p>
+    {% if capabilities.grades_write %}<a href="{% url 'take_grades_select' %}" class="btn btn-primary" style="margin-top:12px">
+      <i class="fas fa-plus"></i> Yangi baho qo'yish
+    </a>{% endif %}
+  </div>
+  {% endif %}
+</div>
+{% include 'core/includes/pagination.html' with page_obj=grades %}
+{% endblock %}
+

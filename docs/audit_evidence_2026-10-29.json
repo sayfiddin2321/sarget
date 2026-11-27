@@ -1,0 +1,177 @@
+{
+  "audit_date": "2026-10-29",
+  "database": ":memory:",
+  "django": "6.1.2",
+  "scope": "Synthetic data only; HTTP and template probes, no real browser or load test.",
+  "results": [
+    {
+      "id": "P01_unknown_dashboard",
+      "observed": 200,
+      "role": "unknown",
+      "exposes_finance_labels": true
+    },
+    {
+      "id": "P02_unknown_payment_create",
+      "observed": 302,
+      "payment_created": true
+    },
+    {
+      "id": "P03_teacher_other_group_api",
+      "observed": 200,
+      "students": {
+        "students": [
+          {
+            "id": 1,
+            "name": "Audit Student"
+          }
+        ]
+      }
+    },
+    {
+      "id": "P04_reception_card_scope",
+      "observed": 200,
+      "detail_status": 302,
+      "exposes_other_student": true
+    },
+    {
+      "id": "P05_grade_delete_get",
+      "observed": 302,
+      "deleted": true,
+      "actor": "receptionist"
+    },
+    {
+      "id": "P06_reception_attendance_invalid",
+      "observed": 302,
+      "saved_status": "unrecognised-status"
+    },
+    {
+      "id": "P07_login_redirect",
+      "observed": 302,
+      "location": "https://example.invalid/audit"
+    },
+    {
+      "id": "P08_partial_debt",
+      "observed": 0,
+      "monthly_fee": "500000.00",
+      "paid": "1",
+      "registration_date": "2026-08-01"
+    },
+    {
+      "id": "P09_negative_expense",
+      "observed": true,
+      "errors": {}
+    },
+    {
+      "id": "P10_group_teacher_capacity",
+      "observed": true,
+      "group_is_full": true,
+      "teacher_matches_group": false
+    },
+    {
+      "id": "P11_duplicate_grade",
+      "observed": 2
+    },
+    {
+      "id": "P12_teacher_empty_password",
+      "observed": true,
+      "save_error": "AttributeError: 'UserManager' object has no attribute 'make_random_password'"
+    },
+    {
+      "id": "P13_commission_reassignment",
+      "observed": "IntegrityError"
+    },
+    {
+      "id": "P14_chart_dashboard",
+      "observed": 200,
+      "charts": [
+        {
+          "id": "incomeChart",
+          "raw": "[{",
+          "valid_json": false
+        }
+      ]
+    },
+    {
+      "id": "P14_chart_reports",
+      "observed": 200,
+      "charts": [
+        {
+          "id": "reportChart",
+          "raw": "[{",
+          "valid_json": false
+        }
+      ]
+    },
+    {
+      "id": "P15_month_series",
+      "observed": [
+        "2025-04-01",
+        "2025-05-01",
+        "2025-06-01",
+        "2025-07-01",
+        "2025-08-01",
+        "2025-09-01",
+        "2025-10-01",
+        "2025-11-01",
+        "2025-12-01",
+        "2025-12-01",
+        "2026-01-01",
+        "2026-03-01"
+      ],
+      "unique_count": 11
+    },
+    {
+      "id": "P16_attendance_reopen",
+      "observed": 200,
+      "absent_radio_checked": false,
+      "model_object_used_as_css_class": true
+    },
+    {
+      "id": "P17_enroll_handoff",
+      "observed": 302,
+      "student_receptionist": null,
+      "status": "enrolled",
+      "target": "/students/3/edit/",
+      "target_status": 302,
+      "next_target": "/students/",
+      "visible_in_reception_list": false
+    },
+    {
+      "id": "P18_paid_salary_recalculation",
+      "observed": "4400.00",
+      "still_paid": true,
+      "original_salary": "4000"
+    },
+    {
+      "id": "P19_student_delete_finance",
+      "observed": false,
+      "meaning": "whether original payment survives student deletion"
+    },
+    {
+      "id": "P20_callback_reschedule",
+      "observed": 0,
+      "initial_notifications": 2,
+      "meaning": "notifications for the second callback on the same calendar day"
+    },
+    {
+      "id": "P21_inactive_profile",
+      "observed": 200,
+      "role": "teacher",
+      "user_active": true
+    },
+    {
+      "id": "P22_malformed_filter",
+      "observed": 500
+    },
+    {
+      "id": "P23_invalid_salary_month",
+      "observed": 500
+    },
+    {
+      "id": "P24_reception_list_query_growth",
+      "observed": 20,
+      "previous_queries": 10,
+      "added_receptionists": 10
+    }
+  ]
+}

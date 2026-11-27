@@ -1,0 +1,26 @@
+test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) ... 
+  test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) (width=1360, theme='light') ... FAIL
+  test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) (width=1360, theme='dark') ... FAIL
+
+======================================================================
+FAIL: test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) (width=1360, theme='light')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_mobile_rosters.py", line 85, in test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking
+    self.assertLessEqual(page.evaluate('document.documentElement.scrollWidth'), width)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2118 not less than or equal to 1360
+
+======================================================================
+FAIL: test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) (width=1360, theme='dark')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\sargetcrm_CRM\core\test_mobile_rosters.py", line 85, in test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking
+    self.assertLessEqual(page.evaluate('document.documentElement.scrollWidth'), width)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2118 not less than or equal to 1360
+
+----------------------------------------------------------------------
+Ran 1 test in 6.839s
+
+FAILED (failures=2)

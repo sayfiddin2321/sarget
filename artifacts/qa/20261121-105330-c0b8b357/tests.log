@@ -1,0 +1,14 @@
+test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) ... ok
+test_attendance_overlong_note_is_rejected_without_partial_save (core.test_project_qa.ProjectQATests.test_attendance_overlong_note_is_rejected_without_partial_save) ... ok
+test_full_financial_user_journey_preserves_data_after_relogin (core.test_project_qa.ProjectQATests.test_full_financial_user_journey_preserves_data_after_relogin) ... ok
+test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) ... ok
+test_payment_submission_key_cannot_be_reused_for_different_amount (core.test_project_qa.ProjectQATests.test_payment_submission_key_cannot_be_reused_for_different_amount) ... ok
+test_percentage_rounding_matches_independent_controls (core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls) ... ok
+test_protected_course_delete_returns_message_instead_of_500 (core.test_project_qa.ProjectQATests.test_protected_course_delete_returns_message_instead_of_500) ... ok
+test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) ... ok
+test_replayed_payment_submission_creates_one_payment (core.test_project_qa.ProjectQATests.test_replayed_payment_submission_creates_one_payment) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.607s
+
+OK

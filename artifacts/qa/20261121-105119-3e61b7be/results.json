@@ -1,0 +1,27 @@
+{
+  "backend": "django.db.backends.sqlite3",
+  "isolated_database": ":memory:",
+  "application_database_accessed": false,
+  "labels": [
+    "core.test_mobile_rosters"
+  ],
+  "seconds": 9.298,
+  "failure_count": 2,
+  "passed": 0,
+  "failed": 2,
+  "skipped": 0,
+  "tests": [
+    {
+      "test": "core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (width=1360, theme='light')",
+      "status": "FAIL",
+      "detail": "Traceback (most recent call last):\n  File \"C:\\Users\\User\\Desktop\\sargetcrm_CRM\\core\\test_mobile_rosters.py\", line 87, in test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking\n    self.assertLessEqual(page.evaluate('document.documentElement.scrollWidth'), width,\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        page.evaluate(\"\"\"() => { let r={before:document.documentElement.scrollWidth};\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<2 lines>...\n                r[sel]=document.documentElement.scrollWidth;el.style[key]=old;\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            } return r; }\"\"\"))\n            ^^^^^^^^^^^^^^^^^^\nAssertionError: 2118 not less than or equal to 1360 : {'before': 2118, 'html': 2118, '.lead-board': 2118, '.lead-list-card': 2118}\n",
+      "seconds": 5.7881
+    },
+    {
+      "test": "core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (width=1360, theme='dark')",
+      "status": "FAIL",
+      "detail": "Traceback (most recent call last):\n  File \"C:\\Users\\User\\Desktop\\sargetcrm_CRM\\core\\test_mobile_rosters.py\", line 87, in test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking\n    self.assertLessEqual(page.evaluate('document.documentElement.scrollWidth'), width,\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        page.evaluate(\"\"\"() => { let r={before:document.documentElement.scrollWidth};\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<2 lines>...\n                r[sel]=document.documentElement.scrollWidth;el.style[key]=old;\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            } return r; }\"\"\"))\n            ^^^^^^^^^^^^^^^^^^\nAssertionError: 2118 not less than or equal to 1360 : {'before': 2118, 'html': 2118, '.lead-board': 2118, '.lead-list-card': 2118}\n",
+      "seconds": 6.4845
+    }
+  ]
+}

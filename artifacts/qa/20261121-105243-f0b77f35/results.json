@@ -1,0 +1,79 @@
+{
+  "backend": "django.db.backends.sqlite3",
+  "isolated_database": ":memory:",
+  "application_database_accessed": false,
+  "labels": [
+    "core.test_mobile_rosters",
+    "core.test_project_qa.ProjectQATests"
+  ],
+  "seconds": 9.868,
+  "failure_count": 1,
+  "passed": 9,
+  "failed": 1,
+  "skipped": 0,
+  "tests": [
+    {
+      "test": "core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 7.1832
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.0277
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_attendance_overlong_note_is_rejected_without_partial_save",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.0185
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_full_financial_user_journey_preserves_data_after_relogin",
+      "status": "FAIL",
+      "detail": "Traceback (most recent call last):\n  File \"C:\\Users\\User\\Desktop\\sargetcrm_CRM\\core\\test_project_qa.py\", line 141, in test_full_financial_user_journey_preserves_data_after_relogin\n    self.assertEqual(self.student.get_debt_amount(), 100000)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Decimal('0') != 100000\n",
+      "seconds": 0.1105
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.0119
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_payment_submission_key_cannot_be_reused_for_different_amount",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.0495
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.0102
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_protected_course_delete_returns_message_instead_of_500",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.015
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.023
+    },
+    {
+      "test": "core.test_project_qa.ProjectQATests.test_replayed_payment_submission_creates_one_payment",
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.0283
+    }
+  ],
+  "test_methods": 10,
+  "subtests_passed": 75,
+  "subtests_failed": 0
+}

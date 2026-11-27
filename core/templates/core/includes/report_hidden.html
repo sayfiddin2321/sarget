@@ -1,0 +1,2 @@
+{% for key,value in report.form.serialized.items %}<input type="hidden" name="{{ key }}" value="{{ value }}">{% endfor %}
+<input type="hidden" name="kind" value="{{ report.kind }}">

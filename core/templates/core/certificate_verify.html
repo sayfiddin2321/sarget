@@ -1,0 +1,363 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if found %}Sertifikat tasdiqlangan: {{ cert.student.name }}{% else %}Sertifikat topilmadi{% endif %} — {{ settings.academy_name|default:"Sarget IT Academy" }}</title>
+  <link rel="icon" type="image/png" href="{% static 'img/favicon-32.png' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --bg: #0b1329;
+      --card-bg: #131e3d;
+      --card-border: #1e2e5c;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --green: #22c55e;
+      --green-glow: rgba(34, 197, 94, 0.2);
+      --red: #ef4444;
+      --gold: #f59e0b;
+      --gold-glow: rgba(245, 158, 11, 0.2);
+      --accent: #3b82f6;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      line-height: 1.5;
+    }
+    .verify-box {
+      width: 100%;
+      max-width: 620px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 32px 28px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      position: relative;
+      overflow: hidden;
+    }
+    .top-badge-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 18px;
+      border-radius: 30px;
+      margin-bottom: 24px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+    }
+    .top-badge-banner.success {
+      background: rgba(34, 197, 94, 0.15);
+      color: var(--green);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+    }
+    .top-badge-banner.danger {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--red);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+
+    .academy-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 24px;
+    }
+    .academy-logo {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+    }
+    .academy-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+    .academy-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* Student Profile in Verification */
+    .student-showcase {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+    }
+    .student-avatar-big {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      box-shadow: 0 0 15px var(--gold-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #ffffff;
+      background: #1e293b;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .student-avatar-big img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .student-title-label {
+      font-size: 0.75rem;
+      color: var(--gold);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .student-full-name {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.2;
+      margin: 2px 0 4px;
+    }
+    .student-phone-masked {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Verification Grid */
+    .verify-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .grid-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 12px 16px;
+    }
+    .grid-card.full {
+      grid-column: 1 / -1;
+    }
+    .g-lbl {
+      display: block;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .g-val {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .g-val.mono {
+      font-family: monospace;
+      color: var(--gold);
+      font-size: 1.1rem;
+    }
+    .g-val.course {
+      color: #60a5fa;
+      font-size: 1.15rem;
+    }
+
+    .verification-seal-banner {
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+    .verification-seal-banner i {
+      color: var(--green);
+      font-size: 1.5rem;
+      margin-top: 2px;
+    }
+
+    .verify-footer {
+      text-align: center;
+      margin-top: 26px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .verify-footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .verify-footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 500px) {
+      .verify-grid {
+        grid-template-columns: 1fr;
+      }
+      .student-showcase {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="verify-box">
+  {% if found %}
+    <!-- Verification Status Banner -->
+    <div class="top-badge-banner {% if cert.is_valid %}success{% else %}danger{% endif %}">
+      {% if cert.is_valid %}
+      <i class="fas fa-certificate"></i> RASMIY SERTIFIKAT TASDIQLANDI (HAQIQIY)
+      {% else %}
+      <i class="fas fa-ban"></i> SERTIFIKAT BEKOR QILINGAN
+      {% endif %}
+    </div>
+
+    <!-- Academy Info -->
+    <div class="academy-header">
+      <img src="{% static 'img/logo_icon_tight.png' %}" alt="Sarget Logo" class="academy-logo">
+      <div>
+        <div class="academy-name">{{ settings.academy_name|default:"SARGET IT ACADEMY" }}</div>
+        <div class="academy-sub">{{ settings.academy_subtitle|default:"Rasmiy sertifikatlar elektron reestri • O'zbekiston" }}</div>
+      </div>
+    </div>
+
+    <!-- Student Card -->
+    <div class="student-showcase">
+      <div class="student-avatar-big">
+        {% if cert.student.photo %}
+        <img src="{{ cert.student.photo.url }}" alt="{{ cert.student.name }}">
+        {% else %}
+        <span>{{ cert.student.name|slice:":1" }}</span>
+        {% endif %}
+      </div>
+      <div>
+        <div class="student-title-label">Sertifikat Egasi (O'quvchi)</div>
+        <div class="student-full-name">{{ cert.student.name }}</div>
+        {% if cert.student.phone %}
+        <div class="student-phone-masked">
+          <i class="fas fa-phone-alt"></i> {{ cert.student.phone }}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Details Grid -->
+    <div class="verify-grid">
+      <div class="grid-card full">
+        <span class="g-lbl">Tamomlagan kursi / Dasturi</span>
+        <span class="g-val course">{{ cert.course_name }}</span>
+      </div>
+
+      <div class="grid-card">
+        <span class="g-lbl">Sertifikat raqami</span>
+        <span class="g-val mono">{{ cert.certificate_number }}</span>
+      </div>
+
+      <div class="grid-card">
+        <span class="g-lbl">Berilgan sana</span>
+        <span class="g-val">{{ cert.issue_date|date:"d.m.Y" }}</span>
+      </div>
+
+      <!-- O'qish davri (Qachondan qachongacha) -->
+      {% if cert.study_period_display %}
+      <div class="grid-card full">
+        <span class="g-lbl"><i class="fas fa-calendar-alt"></i> O'qish davri (Qachondan qachongacha o'qigan)</span>
+        <span class="g-val" style="color:#38bdf8;font-size:1.05rem">{{ cert.study_period_display }}</span>
+      </div>
+      {% endif %}
+
+      {% if cert.teacher_name %}
+      <div class="grid-card">
+        <span class="g-lbl">Ustoz / O'qituvchi</span>
+        <span class="g-val">{{ cert.teacher_name }}</span>
+      </div>
+      {% endif %}
+
+      <div class="grid-card">
+        <span class="g-lbl">Natija / O'zlashtirish</span>
+        <span class="g-val" style="color:var(--green)">{{ cert.grade_text|default:"Muvaffaqiyatli tamomladi" }}</span>
+      </div>
+
+      {% if cert.description %}
+      <div class="grid-card full">
+        <span class="g-lbl">Egallangan bilim va ko'nikmalar</span>
+        <span class="g-val" style="font-size:0.9rem;font-weight:400;color:#e2e8f0">{{ cert.description }}</span>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Security validity statement -->
+    <div class="verification-seal-banner">
+      <i class="fas fa-shield-check"></i>
+      <div>
+        <strong>Haqiqiylik kafolati:</strong> Ushbu sertifikat ma'lumotlari <strong>{{ settings.academy_name|default:"Sarget IT Academy" }}</strong> o'quv markazining rasmiy bazasida mavjud va haqiqiy ekanligi to'liq tasdiqlandi. Qog'ozdagi sertifikat va ushbu sahifadagi ma'lumotlar aynan bir xil bo'lishi lozim.
+      </div>
+    </div>
+
+  {% else %}
+    <!-- Not Found Card -->
+    <div class="top-badge-banner danger">
+      <i class="fas fa-triangle-exclamation"></i> SERTIFIKAT TOPILMADI
+    </div>
+
+    <div class="academy-header">
+      <img src="{% static 'img/logo_icon_tight.png' %}" alt="Sarget Logo" class="academy-logo">
+      <div>
+        <div class="academy-name">{{ settings.academy_name|default:"SARGET IT ACADEMY" }}</div>
+        <div class="academy-sub">Rasmiy sertifikatlar elektron reestri</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:20px 10px">
+      <i class="fas fa-circle-xmark" style="font-size:4rem;color:var(--red);margin-bottom:16px"></i>
+      <h3 style="font-size:1.3rem;margin-bottom:10px">Sertifikat ma'lumotlari topilmadi</h3>
+      <p style="color:var(--text-muted);font-size:0.92rem;max-width:440px;margin:0 auto 16px">
+        Qidirilgan identifikator: <strong style="color:var(--gold);font-family: monospace">{{ lookup }}</strong>
+      </p>
+      <div style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:10px;padding:14px;color:#fca5a5;font-size:0.85rem;line-height:1.4">
+        Diqqat! {{ settings.academy_name|default:"Sarget IT Academy" }} o'quv markazi ma'lumotlar bazasida bunday raqamli sertifikat ro'yxatga olinmagan yoki bekor qilingan bo'lishi mumkin. Iltimos, sertifikat raqamini tekshirib ko'ring yoki ma'muriyat bilan bog'laning.
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="verify-footer">
+    <p>© {{ settings.academy_name|default:"Sarget IT Academy" }} • Zamonaviy kasblar markazi</p>
+    <p style="margin-top:4px">Tekshirilgan vaqt: {{ verified_at|date:"d.m.Y H:i:s" }}</p>
+  </div>
+</div>
+
+</body>
+</html>

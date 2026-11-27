@@ -1,0 +1,162 @@
+{% extends 'core/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-{% if payment %}pen{% else %}plus-circle{% endif %}"></i> {{ title }}</h1>
+    <p>To'lov ma'lumotlarini kiriting</p>
+  </div>
+  <a href="{% url 'payment_list' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Orqaga</a>
+</div>
+
+<div class="card" style="max-width:660px">
+  <div class="card-header">
+    <h3><i class="fas fa-money-bill-wave"></i> To'lov ma'lumotlari</h3>
+  </div>
+  <div class="card-body">
+    <form method="post" id="paymentForm">
+      {% csrf_token %}
+      {% for hidden in form.hidden_fields %}{{ hidden }}{{ hidden.errors }}{% endfor %}
+      {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
+      <div class="form-group"><label>Kursga yozilish (bo'sh bo'lsa asosiy kurs)</label>{{ form.enrollment }}{{ form.enrollment.errors }}</div>
+      <div class="form-row">
+        <div class="form-group" style="grid-column:1/-1">
+          <label><i class="fas fa-user-graduate"></i> O'quvchi *</label>
+          {{ form.student }}
+          {% if form.student.errors %}<div style="color:var(--red);font-size:0.78rem;margin-top:4px">{{ form.student.errors.0 }}</div>{% endif %}
+          <div id="studentInfo" style="display:none;margin-top:10px;align-items:center;gap:12px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:12px"></div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label><i class="fas fa-sack-dollar"></i> Summa (so'm) *</label>
+          {{ form.amount }}
+          {% if form.amount.errors %}<div style="color:var(--red);font-size:0.78rem;margin-top:4px">{{ form.amount.errors.0 }}</div>{% endif %}
+        </div>
+        <div class="form-group">
+          <label for="id_month"><i class="fas fa-calendar"></i> Qaysi oy darslari uchun *</label>
+          {{ form.month }}
+          <small class="form-text">Shu oyning birinchi kunidan oxirgi kunigacha bo'lgan darslar uchun.</small>
+          {% if form.month.errors %}<div style="color:var(--red);font-size:0.78rem;margin-top:4px">{{ form.month.errors.0 }}</div>{% endif %}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="id_paid_date">Pul tushgan sana va vaqt *</label>
+        {{ form.paid_date }}{{ form.paid_date.errors }}
+        <small class="form-text">Pul haqiqatda qabul qilingan vaqtni kiriting.</small>
+      </div>
+      <div class="info-box" style="margin-bottom:16px">
+        <div>Oldindan to'lov dars oyida, kechikkan to'lov pul tushgan oyda oylikka qo'shiladi.
+          <strong id="payrollMonthPreview" aria-live="polite"></strong>
+          Bir necha oy uchun pul olinsa, har bir oyga tegishli summani alohida kiriting.
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label><i class="fas fa-credit-card"></i> To'lov turi</label>
+          {{ form.payment_type }}
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-percent"></i> Chegirma</label>
+          <input type="text" class="form-control" id="discountDisplay" readonly placeholder="O'quvchi tanlanmagan" style="color:var(--text-muted)">
+        </div>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-comment"></i> Izoh</label>
+        {{ form.comment }}
+      </div>
+      <div class="form-actions">
+        <a href="{% url 'payment_list' %}" class="btn btn-secondary"><i class="fas fa-xmark"></i> Bekor</a>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-floppy-disk"></i> Saqlash</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function(){
+  // Student data map
+  const studentData = {
+    {% for s in form.fields.student.queryset %}
+    {{ s.pk }}: {
+      name: "{{ s.name|escapejs }}",
+      group: "{% if s.group %}{{ s.group.name|escapejs }}{% endif %}",
+      phone: "{{ s.phone|escapejs }}",
+      parent_phone: "{{ s.parent_phone|escapejs }}",
+      fee: "{{ s.get_effective_fee }}",
+      discount: "{{ s.discount_percent }}",
+      photo: "{% if s.photo %}{{ s.photo.url|escapejs }}{% endif %}"
+    },
+    {% endfor %}
+  };
+
+  $('select[name="student"]').select2({
+    placeholder: "Ism, guruh yoki telefon bo'yicha qidiring...",
+    allowClear: true,
+    width: '100%',
+    language: { noResults: ()=>"Topilmadi", searching: ()=>"Qidirilmoqda..." }
+  }).on('change', function(){
+    const id = $(this).val();
+    const info = studentData[id];
+    const infoEl = document.getElementById('studentInfo');
+    const discountEl = document.getElementById('discountDisplay');
+    const amountEl = document.querySelector('input[name="amount"]');
+    if(info){
+      infoEl.style.display = 'flex';
+      const avatar = document.createElement('div');
+      avatar.className = 'entity-avatar';
+      if (info.photo) {
+        const photo = document.createElement('img');
+        photo.src = info.photo;
+        photo.alt = info.name;
+        photo.className = 'avatar-image';
+        avatar.append(photo);
+      } else avatar.textContent = info.name.charAt(0).toUpperCase();
+      const details = document.createElement('div');
+      const lines = [info.name, `${info.group || 'Guruhsiz'} | ${info.phone}`];
+      if (info.parent_phone) lines.push(`Ota-ona: ${info.parent_phone}`);
+      lines.push(`Oylik: ${Number(info.fee || 0).toLocaleString()} so'm`);
+      lines.forEach(text => {
+        const line = document.createElement('div');
+        line.textContent = text;
+        details.append(line);
+      });
+      infoEl.replaceChildren(avatar, details);
+      discountEl.value = info.discount + '%';
+      if(info.fee && !amountEl.value) amountEl.value = info.fee;
+    } else {
+      infoEl.style.display = 'none';
+      infoEl.replaceChildren();
+      discountEl.value = '';
+    }
+  });
+
+  // Set current month by default
+  const monthInput = document.querySelector('input[name="month"]');
+  if(monthInput && !monthInput.value){
+    const now = new Date();
+    monthInput.value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  }
+  const paidInput = document.getElementById('id_paid_date');
+  const payrollPreview = document.getElementById('payrollMonthPreview');
+  function updatePayrollPreview(){
+    const serviceMonth = monthInput.value;
+    const paidMonth = paidInput.value.slice(0, 7);
+    payrollPreview.textContent = serviceMonth && paidMonth
+      ? ` Hisob oyi: ${serviceMonth > paidMonth ? serviceMonth : paidMonth}.`
+      : '';
+  }
+  monthInput.addEventListener('input', updatePayrollPreview);
+  paidInput.addEventListener('input', updatePayrollPreview);
+  updatePayrollPreview();
+
+  // Show preselected student info when arriving from student list/detail
+  const selectedStudent = $('select[name="student"]').val();
+  if(selectedStudent){
+    $('select[name="student"]').trigger('change');
+  }
+});
+</script>
+{% endblock %}

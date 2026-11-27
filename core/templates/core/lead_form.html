@@ -1,0 +1,82 @@
+{% extends 'core/base.html' %}
+{% block title %}{% if lead.pk %}Tahrirlash{% else %}Yangi ariza{% endif %} — Qabul{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-{% if lead.pk %}pen-to-square{% else %}user-plus{% endif %}"></i> {% if lead.pk %}Arizani tahrirlash{% else %}Yangi qabul arizasi{% endif %}</h1>
+    <p>Ariza ma’lumotlari va keyingi aloqa vaqtini kiriting.</p>
+  </div>
+  <a class="btn btn-secondary" href="{% url 'lead_list' %}"><i class="fas fa-arrow-left"></i> Ro‘yxatga qaytish</a>
+</div>
+
+<div class="card lead-form-card">
+  <div class="card-header"><h3><i class="fas fa-address-card"></i> Ariza ma’lumotlari</h3></div>
+  <div class="card-body">
+    <form method="post" class="lead-form">
+      {% csrf_token %}
+      <div class="form-row">
+        <div class="form-group">
+          <label for="lead-name">Ism familiya <span class="required-mark">*</span></label>
+          <input class="form-control" id="lead-name" type="text" name="name" value="{{ lead.name }}" maxlength="200" autocomplete="name" required>
+        </div>
+        <div class="form-group">
+          <label for="lead-phone">Telefon</label>
+          <input class="form-control" id="lead-phone" type="tel" name="phone" value="{{ lead.phone }}" maxlength="30" autocomplete="tel" placeholder="+998 90 123 45 67">
+        </div>
+        <div class="form-group">
+          <label for="lead-course">Qiziqqan kurs <span class="required-mark">*</span></label>
+          <input class="form-control" id="lead-course" type="text" name="course" value="{{ lead.course }}" maxlength="150" required>
+        </div>
+        <div class="form-group">
+          <label for="lead-source">Manba</label>
+          <select class="form-select" id="lead-source" name="source">
+            {% for value,label in sources %}<option value="{{ value }}" {% if lead.source == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="lead-status">Holati</label>
+          <select class="form-select" id="lead-status" name="status">
+            {% for value,label in statuses %}<option value="{{ value }}" {% if lead.status == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="lead-follow-up">Keyingi qo‘ng‘iroq vaqti</label>
+          <input class="form-control" id="lead-follow-up" type="datetime-local" name="follow_up_at" value="{{ lead.follow_up_at|date:'Y-m-d\\TH:i' }}">
+          <small class="form-text">Eslatma uchun holatni “Qayta qo‘ng‘iroq” qilib, sana va vaqtni belgilang.</small>
+        </div>
+        <div class="form-group lead-form-full">
+          <label for="lead-notes">Izohlar</label>
+          <textarea class="form-control" id="lead-notes" name="notes" rows="3" placeholder="Ariza bo‘yicha qo‘shimcha ma’lumot">{{ lead.notes }}</textarea>
+        </div>
+        <div class="form-group lead-form-full">
+          <label for="lead-activity">Aloqa natijasi / harakat izohi</label>
+          <textarea class="form-control" id="lead-activity" name="activity_note" rows="2" placeholder="Masalan: telefon qildi, ertaga qayta qo‘ng‘iroq qilish kerak">{{ activity_note }}</textarea>
+          <small class="form-text">Holatni o'zgartirganda aloqa natijasini yozish majburiy. Retsepshen mas'ulsiz arizani o'ziga olishi yoki birinchi saqlashda biriktirishi mumkin.</small>
+        </div>
+      </div>
+      <div class="form-group"><label>Filial</label><select name="branch" class="form-select"><option value="">Noma'lum / tanlanmagan</option>{% for branch in lead_branches %}<option value="{{ branch.pk }}" {% if lead.branch_id == branch.pk %}selected{% endif %}>{{ branch.name }}</option>{% endfor %}</select></div>
+      <div class="form-row"><div class="form-group"><label>Kanal</label><select name="channel" class="form-select"><option value="">Noma'lum</option><option value="telegram" {% if lead.channel == 'telegram' %}selected{% endif %}>Telegram</option><option value="phone" {% if lead.channel == 'phone' %}selected{% endif %}>Telefon</option><option value="walk_in" {% if lead.channel == 'walk_in' %}selected{% endif %}>O'zi kelgan</option><option value="website" {% if lead.channel == 'website' %}selected{% endif %}>Veb-sayt</option></select></div><div class="form-group"><label>Reklama manbasi</label><input name="advertising_source" value="{{ lead.advertising_source }}" maxlength="150" class="form-control"></div></div>
+      {% if is_admin_role %}<p><label><input type="checkbox" name="is_test" {% if lead.is_test %}checked{% endif %}> Test ariza (konversiyaga kirmaydi)</label></p>{% endif %}
+      {% if lead.pk and lead.telegram_chat_id and capabilities.messages_send %}<p><a class="btn btn-secondary" href="{% url 'lead_message' lead.pk %}">Murojaat egasiga Telegram xabari</a></p>{% endif %}
+      <div class="form-actions lead-form-actions">
+        <button class="btn btn-primary" type="submit"><i class="fas fa-floppy-disk"></i> Saqlash</button>
+        <a class="btn btn-secondary" href="{% url 'lead_list' %}">Bekor qilish</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% if lead.pk %}
+<div class="card lead-history-card">
+  <div class="card-header"><h3><i class="fas fa-clock-rotate-left"></i> Harakatlar tarixi</h3></div>
+  <div class="card-body">
+    {% for item in lead.activities.all %}
+    <div class="lead-history-item">
+      <div><strong>{{ item.get_status_display|default:item.status }}</strong>{% if item.note %}<p>{{ item.note }}</p>{% endif %}</div>
+      <time>{{ item.created_at|date:'d.m.Y H:i' }}{% if item.user %} · {{ item.user.username }}{% endif %}</time>
+    </div>
+    {% empty %}<p class="text-muted">Hozircha harakatlar tarixi yo‘q.</p>{% endfor %}
+  </div>
+</div>
+{% endif %}
+{% endblock %}

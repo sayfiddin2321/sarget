@@ -1,0 +1,101 @@
+{% extends 'core/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div><h1><i class="fas fa-{% if 'edit' in request.path %}pen{% else %}plus-circle{% endif %}"></i> {{ title }}</h1><p>Guruh ma'lumotlarini kiriting</p></div>
+    <a href="{% url 'group_list' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Orqaga</a>
+</div>
+<div class="card" style="max-width:640px">
+    <div class="card-header"><h3><i class="fas fa-layer-group"></i> Guruh ma'lumotlari</h3></div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger">{% for e in form.non_field_errors %}{{ e }}{% endfor %}</div>
+            {% endif %}
+            {% if form.conflict_warnings %}
+            <div class="alert alert-error" style="margin-bottom:16px">
+                <strong><i class="fas fa-triangle-exclamation"></i> Diqqat, jadvalda to'qnashuv:</strong>
+                {% for warning in form.conflict_warnings %}<div>{{ warning }}</div>{% endfor %}
+                <div style="font-size:0.8rem;margin-top:4px">Guruh saqlanadi, lekin Dars jadvali sahifasida qizil belgi bilan ko'rsatiladi.</div>
+            </div>
+            {% endif %}
+            <div class="form-row"><div class="form-group"><label>Kurs</label>{{ form.course }}{{ form.course.errors }}</div><div class="form-group"><label>Filial</label>{{ form.branch }}{{ form.branch.errors }}</div></div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> Guruh nomi *</label>
+                    {{ form.name }}
+                    {% if form.name.errors %}<div class="form-text" style="color:var(--red)">{{ form.name.errors.0 }}</div>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-chalkboard-user"></i> O'qituvchi</label>
+                    {{ form.teacher }}
+                    {% if form.teacher.errors %}<div class="form-text" style="color:var(--red)">{{ form.teacher.errors.0 }}</div>{% endif %}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fas fa-door-open"></i> Xona</label>
+                    {{ form.room }}
+                    {% if form.room.errors %}<div class="form-text" style="color:var(--red)">{{ form.room.errors.0 }}</div>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-calendar-week"></i> Dars kunlari *</label>
+                    {{ form.days }}
+                    {% if form.days.errors %}<div class="form-text" style="color:var(--red)">{{ form.days.errors.0 }}</div>{% endif %}
+                </div>
+            </div>
+            <div class="form-group" id="custom_days_wrap" style="display:none">
+                <label><i class="fas fa-pencil"></i> Qo'lda kunlarni kiriting</label>
+                {{ form.custom_days }}
+                {% if form.custom_days.errors %}<div class="form-text" style="color:var(--red)">{{ form.custom_days.errors.0 }}</div>{% endif %}
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fas fa-clock"></i> Boshlanish vaqti *</label>
+                    {{ form.start_time }}
+                    {% if form.start_time.errors %}<div class="form-text" style="color:var(--red)">{{ form.start_time.errors.0 }}</div>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-clock"></i> Tugash vaqti *</label>
+                    {{ form.end_time }}
+                    {% if form.end_time.errors %}<div class="form-text" style="color:var(--red)">{{ form.end_time.errors.0 }}</div>{% endif %}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fas fa-sack-dollar"></i> Oylik to'lov (so'm)</label>
+                    {{ form.monthly_fee }}
+                    {% if form.monthly_fee.errors %}<div class="form-text" style="color:var(--red)">{{ form.monthly_fee.errors.0 }}</div>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-users"></i> Maksimal o'quvchilar</label>
+                    {{ form.max_students }}
+                    {% if form.max_students.errors %}<div class="form-text" style="color:var(--red)">{{ form.max_students.errors.0 }}</div>{% endif %}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="checkbox-label">{{ form.is_active }}<i class="fas fa-circle-check" style="color:var(--green)"></i> Faol guruh</label>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-align-left"></i> Izoh</label>
+                {{ form.description }}
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-floppy-disk"></i> Saqlash</button>
+                <a href="{% url 'group_list' %}" class="btn btn-secondary"><i class="fas fa-xmark"></i> Bekor qilish</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+(function(){
+    var sel = document.getElementById('id_days');
+    var wrap = document.getElementById('custom_days_wrap');
+    function toggle(){ wrap.style.display = sel.value === 'custom' ? '' : 'none'; }
+    if(sel){ sel.addEventListener('change', toggle); toggle(); }
+})();
+</script>
+{% endblock %}

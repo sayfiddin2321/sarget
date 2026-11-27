@@ -1,0 +1,154 @@
+{% extends 'core/base.html' %}
+{% block title %}{{ student.name }} — oylik hisobot{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>{{ student.name }}</h1>
+    <p>{{ student.student_number }} · o'quvchining davomat, baho va to'lov hisoboti</p>
+  </div>
+  <a href="{% url 'student_detail' student.pk %}" class="btn btn-secondary"><i class="fas fa-user"></i> Shaxs kartasi</a>
+</div>
+
+{% if filter_form.non_field_errors %}
+  <div class="alert alert-danger">{{ filter_form.non_field_errors }}</div>
+{% endif %}
+
+<div class="card">
+  <div class="card-header"><h2><i class="fas fa-calendar"></i> Hisobot davri</h2></div>
+  <div class="card-body">
+    <form method="get" class="student-report-period">
+      <div class="form-group">
+        <label for="{{ filter_form.date_from.id_for_label }}">Boshlanish sanasi</label>
+        {{ filter_form.date_from }}
+        {{ filter_form.date_from.errors }}
+      </div>
+      <div class="form-group">
+        <label for="{{ filter_form.date_to.id_for_label }}">Tugash sanasi</label>
+        {{ filter_form.date_to }}
+        {{ filter_form.date_to.errors }}
+      </div>
+      <button class="btn btn-primary" type="submit"><i class="fas fa-filter"></i> Hisobotni ko'rsatish</button>
+    </form>
+  </div>
+</div>
+
+{% if report %}
+<p class="student-report-range">Hisobot davri: <strong>{{ report.start|date:'d.m.Y' }} – {{ report.end|date:'d.m.Y' }}</strong></p>
+
+<div class="card">
+  <div class="card-header"><h2><i class="fas fa-chart-line"></i> Qisqa natija</h2></div>
+  <div class="card-body">
+    {% if capabilities.attendance_view %}
+    <p>Davomat: {{ academic_summary.marked }} ta belgi · Keldi: {{ academic_summary.present }} · Kechikdi: {{ academic_summary.late }} · Kelmadi: {{ academic_summary.absent }} · Sababli: {{ academic_summary.excused }} · Foiz: {{ academic_summary.attendance_percent|default_if_none:'—' }}%</p>
+    {% endif %}
+    {% if capabilities.grades_view %}
+    <p>Baholar: {{ academic_summary.grades_count }} ta · O'rtacha ball: {{ academic_summary.average_score|floatformat:2|default:'—' }}</p>
+    {% endif %}
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header"><h2><i class="fas fa-file-arrow-down"></i> Hisobot fayli</h2></div>
+  <div class="card-body">
+    <form method="post" action="{% url 'report_export' %}" class="student-report-download">
+      {% csrf_token %}
+      {% include 'core/includes/report_hidden.html' %}
+      <select name="format" class="form-select" aria-label="Hisobot formati">
+        <option value="xlsx">Excel (.xlsx)</option>
+        <option value="docx">Word (.docx)</option>
+      </select>
+      <button class="btn btn-primary" type="submit"><i class="fas fa-download"></i> Faylni yuklab olish</button>
+    </form>
+  </div>
+</div>
+
+{% if capabilities.messages_send %}
+<div class="card">
+  <div class="card-header"><h2><i class="fab fa-telegram"></i> Telegramga yuborish</h2></div>
+  <div class="card-body">
+    {% if recipients %}
+    <form method="post" action="{% url 'student_report_send' student.pk %}" class="student-report-send">
+      {% csrf_token %}
+      {% include 'core/includes/report_hidden.html' %}
+      <label for="report-recipient">Qabul qiluvchi</label>
+      <select id="report-recipient" name="recipient" class="form-select" required>
+        {% for recipient in recipients %}<option value="{{ recipient.key }}">{{ recipient.label }}</option>{% endfor %}
+      </select>
+      <input type="hidden" name="format" value="xlsx">
+      <button class="btn btn-primary" type="submit"><i class="fas fa-paper-plane"></i> Excel hisobotni yuborish</button>
+    </form>
+    {% else %}
+    <div class="alert" style="background:var(--blue-dim);color:var(--text-primary)">
+      <i class="fas fa-circle-info"></i> Hisobot yuborish uchun o'quvchi yoki ota-onaning Telegram akkauntini avval ulang.
+    </div>
+    {% endif %}
+
+    <details class="student-report-link">
+      <summary><i class="fas fa-link"></i> Telegramni ulash yoki qayta ulash</summary>
+      {% if link_code %}
+      <div class="alert alert-success">
+        <strong>{% if link_code.role == 'guardian' %}Ota-ona/vasiy{% else %}O'quvchi{% endif %} uchun bir martalik kod:</strong>
+        <div class="student-report-link-code"><code>/start link_{{ link_code.code }}</code></div>
+        <p>Qabul qiluvchi shu buyruqni CRM Telegram botiga yuborsin. Kod 10 daqiqada tugaydi va bir marta ishlaydi. Ulanganidan keyin sahifani yangilang.</p>
+      </div>
+      {% endif %}
+      <p>Kimning Telegramini ulashni tanlang. Qabul qiluvchi botga <code>/start</code> yuborib, keyin ko'rsatilgan buyruqni yuboradi.</p>
+      <div class="student-report-link-actions">
+        <form method="post" action="{% url 'student_report_link' student.pk %}">
+          {% csrf_token %}
+          <input type="hidden" name="role" value="student">
+          <input type="hidden" name="date_from" value="{{ report.start|date:'Y-m-d' }}">
+          <input type="hidden" name="date_to" value="{{ report.end|date:'Y-m-d' }}">
+          <button type="submit" class="btn btn-secondary"><i class="fas fa-user"></i> O'quvchi Telegramini ulash</button>
+        </form>
+        <form method="post" action="{% url 'student_report_link' student.pk %}">
+          {% csrf_token %}
+          <input type="hidden" name="role" value="guardian">
+          <input type="hidden" name="date_from" value="{{ report.start|date:'Y-m-d' }}">
+          <input type="hidden" name="date_to" value="{{ report.end|date:'Y-m-d' }}">
+          <button type="submit" class="btn btn-secondary"><i class="fas fa-user-group"></i> Ota-ona Telegramini ulash</button>
+        </form>
+      </div>
+    </details>
+
+    <h3>Yuborish holati</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Qachon</th><th>Kimga</th><th>Hisobot</th><th>Telegram</th></tr></thead>
+        <tbody>
+          {% for delivery in deliveries %}
+          <tr>
+            <td>{{ delivery.created_at|date:'d.m.Y H:i' }}</td>
+            <td>{% if delivery.recipient|slice:':8' == 'guardian' %}Ota-ona/vasiy{% elif delivery.recipient|slice:':7' == 'student' %}O'quvchi{% else %}{{ delivery.chat_id }}{% endif %}</td>
+            <td>{% if delivery.report_job.status == 'ready' %}Tayyor{% elif delivery.report_job.status == 'failed' %}Xatolik{% elif delivery.report_job.status == 'running' %}Tayyorlanmoqda{% else %}Navbatda{% endif %}</td>
+            <td>{{ delivery.status_label }}{% if delivery.sent_at %} · {{ delivery.sent_at|date:'d.m.Y H:i' }}{% endif %}{% if delivery.error %}<br><span class="text-muted">{{ delivery.error }}</span>{% endif %}</td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="4">Hali yuborish so'rovi yo'q.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <p class="text-muted">Yuborish navbatga tushgach, bot ishlayotganida odatda bir necha soniyada jo'naydi. Worker ishlamasa navbat yuborilmay turadi.</p>
+  </div>
+</div>
+{% endif %}
+
+{% for preview in previews %}
+<div class="card">
+  <div class="card-header"><h2>{{ preview.title }}</h2></div>
+  <div class="table-wrapper">
+    <table>
+      <thead><tr>{% for header in preview.headers %}<th>{{ header }}</th>{% endfor %}</tr></thead>
+      <tbody>
+        {% for row in preview.rows %}
+        <tr>{% for cell in row %}<td>{{ cell|default_if_none:'—' }}</td>{% endfor %}</tr>
+        {% empty %}<tr><td colspan="{{ preview.headers|length }}">Bu davrda ma'lumot yo'q.</td></tr>{% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if preview.truncated %}<p>Dastlabki 100 satr ko'rsatilmoqda; faylga barcha yozuvlar kiradi.</p>{% endif %}
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}

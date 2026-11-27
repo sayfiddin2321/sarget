@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+{% block title %}Retsepshen oyligi hisoblash{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div><h1><i class="fas fa-calculator"></i> Retsepshen oyligi hisoblash</h1></div>
+  <a href="{% url 'receptionist_salary_list' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Orqaga</a>
+</div>
+
+<div class="card" style="max-width:520px">
+  <div class="card-header"><h3><i class="fas fa-hand-holding-dollar"></i> Oylik hisoblash</h3></div>
+  <div class="card-body">
+    <div style="background:var(--accent-dim);border:1px solid rgba(245,166,35,0.3);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:20px;font-size:0.85rem;color:var(--text-secondary)">
+      <i class="fas fa-circle-info" style="color:var(--accent);margin-right:8px"></i>
+      Komissiya oldindan to'lovda dars oyiga, kechikkan to'lovda pul tushgan oyga kiradi. Har bir to'lovdagi foiz saqlanadi.
+      Bu yerda oylik summani rasmiylashtirish uchun hisob yaratasiz.
+    </div>
+    <form method="post">{% csrf_token %}
+      <div class="form-group" style="margin-bottom:16px">
+        <label><i class="fas fa-calendar"></i> Oy *</label>
+        <input type="month" name="month" class="form-control"
+          value="{{ current_month|date:'Y-m' }}" required>
+      </div>
+      <div class="form-group" style="margin-bottom:20px">
+        <label><i class="fas fa-sack-dollar"></i> Asosiy maosh (so'm)</label>
+        <input type="number" name="base_salary" class="form-control" value="0" min="0" step="10000" placeholder="0">
+        <span class="form-text">Komissiyadan tashqari qo'shiluvchi asosiy maosh</span>
+      </div>
+      <div class="form-actions">
+        <a href="{% url 'receptionist_salary_list' %}" class="btn btn-secondary"><i class="fas fa-xmark"></i> Bekor</a>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-calculator"></i> Hisoblash</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

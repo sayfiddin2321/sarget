@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O'quvchi kartasi — {{ student.name }}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-dark: #3730a3;
+      --accent: #06b6d4;
+      --bg-page: #f1f5f9;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+    body {
+      background: var(--bg-page);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: clamp(12px, 4vw, 24px);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      max-width: 100%;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+    }
+    .btn-print { background: var(--primary); color: #fff; }
+    .btn-print:hover { background: var(--primary-dark); }
+    .btn-back { background: #fff; color: var(--text-main); border: 1px solid var(--border-color); }
+    .btn-back:hover { background: #f8fafc; }
+
+    /* Badge Layout */
+    .id-card-wrapper {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .id-card {
+      width: min(320px, 100%);
+      height: 480px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Card Front */
+    .card-top {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      padding: 24px 16px 40px;
+      text-align: center;
+      position: relative;
+    }
+    .card-org-name {
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 800;
+      opacity: 0.9;
+    }
+    .card-type-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-top: 4px;
+    }
+
+    .avatar-wrapper {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: #fff;
+      padding: 4px;
+      margin: -48px auto 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      position: relative;
+      z-index: 2;
+    }
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      font-size: 2.2rem;
+      font-weight: 800;
+    }
+    .avatar-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 0 20px 16px;
+      text-align: center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .student-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+    .student-id {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+    }
+
+    .info-list {
+      background: #f8fafc;
+      border-radius: 10px;
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 0.82rem;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border: 1px solid #edf2f7;
+    }
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .info-label {
+      color: var(--text-muted);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-value {
+      color: var(--text-main);
+      font-weight: 700;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      text-align: right;
+    }
+
+    .card-footer {
+      margin-top: auto;
+      padding-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px dashed var(--border-color);
+    }
+    .qr-box {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .qr-box svg {
+      width: 100%;
+      height: 100%;
+    }
+    .valid-text {
+      text-align: right;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+    .valid-date {
+      font-weight: 800;
+      color: var(--text-main);
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 380px) {
+      .toolbar { width: 100%; }
+      .toolbar .btn { flex: 1 1 100%; justify-content: center; }
+      .card-body { padding-right: 12px; padding-left: 12px; }
+      .info-list { padding: 10px; }
+      .info-item { align-items: flex-start; gap: 8px; }
+    }
+
+    /* Print styles */
+    @media print {
+      body {
+        background: #fff;
+        padding: 0;
+        min-height: auto;
+      }
+      .toolbar { display: none !important; }
+      .id-card-wrapper {
+        gap: 0;
+      }
+      .id-card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <button class="btn btn-print" onclick="window.print()">
+      <i class="fas fa-print"></i> Chop etish (Print)
+    </button>
+    <a href="{% url 'student_detail' student.pk %}" class="btn btn-back">
+      <i class="fas fa-arrow-left"></i> O'quvchi profiliga qaytish
+    </a>
+  </div>
+
+  <div class="id-card-wrapper">
+    <!-- Student ID Card -->
+    <div class="id-card">
+      <div class="card-top">
+        <div class="card-org-name">Sarget CRM Ta'lim Markazi</div>
+        <div class="card-type-title">O'QUVCHI KARTASI</div>
+      </div>
+
+      <div class="avatar-wrapper">
+        <div class="avatar-inner">
+          {% if student.photo %}
+          <img src="{{ student.photo.url }}" alt="{{ student.name }}">
+          {% else %}
+          {{ student.avatar_initial }}
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="student-name">{{ student.name }}</div>
+        <div class="student-id">ID: #{{ student.id|stringformat:"05d" }}</div>
+
+        <div class="info-list">
+          <div class="info-item">
+            <span class="info-label"><i class="fas fa-layer-group" style="color:var(--primary)"></i> Guruh:</span>
+            <span class="info-value">{{ student.group.name|default:"—" }}</span>
+          </div>
+          {% if student.teacher %}
+          <div class="info-item">
+            <span class="info-label"><i class="fas fa-chalkboard-user" style="color:var(--accent)"></i> Ustoz:</span>
+            <span class="info-value">{{ student.teacher.name }}</span>
+          </div>
+          {% endif %}
+          <div class="info-item">
+            <span class="info-label"><i class="fas fa-phone" style="color:#10b981"></i> Tel:</span>
+            <span class="info-value">{{ student.phone }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label"><i class="fas fa-calendar-check" style="color:#f59e0b"></i> Ro'yxat:</span>
+            <span class="info-value">{{ student.registration_date|date:"d.m.Y" }}</span>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <!-- Scalable SVG QR code placeholder -->
+          <div class="qr-box">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="5" y="5" width="30" height="30" rx="3" stroke="#0f172a" stroke-width="6"/>
+              <rect x="15" y="15" width="10" height="10" fill="#0f172a"/>
+              <rect x="65" y="5" width="30" height="30" rx="3" stroke="#0f172a" stroke-width="6"/>
+              <rect x="75" y="15" width="10" height="10" fill="#0f172a"/>
+              <rect x="5" y="65" width="30" height="30" rx="3" stroke="#0f172a" stroke-width="6"/>
+              <rect x="15" y="75" width="10" height="10" fill="#0f172a"/>
+              <rect x="45" y="10" width="8" height="20" fill="#0f172a"/>
+              <rect x="45" y="45" width="10" height="10" fill="#0f172a"/>
+              <rect x="65" y="45" width="25" height="8" fill="#0f172a"/>
+              <rect x="65" y="65" width="8" height="25" fill="#0f172a"/>
+              <rect x="85" y="75" width="10" height="15" fill="#0f172a"/>
+              <rect x="45" y="75" width="12" height="10" fill="#0f172a"/>
+            </svg>
+          </div>
+          <div class="valid-text">
+            Holati: <strong>{{ student.get_status_display }}</strong><br>
+            <span class="valid-date">Sarget CRM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+/* GetVoIP Grotesque by Sergiy S. Tkachenko / 4th february and GetVoIP.com.
+   Copyright 2014. CC BY-ND 3.0: https://creativecommons.org/licenses/by-nd/3.0/
+   Original, unmodified font files. See ../fonts/getvoip-grotesque/README.md. */
+@font-face {
+  font-family: 'GetVoIP Grotesque';
+  src: url('../fonts/getvoip-grotesque/GetVoIP%20Grotesque.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GetVoIP Grotesque';
+  src: url('../fonts/getvoip-grotesque/GetVoIP%20Grotesque%20Italic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+.receipt-container,
+.cert-sheet {
+  --font-body: 'GetVoIP Grotesque', Arial, sans-serif;
+  --font-display: var(--font-body);
+  --font-mono: var(--font-body);
+}
+
+.receipt-container,
+.cert-sheet {
+  font-family: var(--font-body);
+}

@@ -1,0 +1,6 @@
+<article class="lead-board-card" data-lead-id="{{ lead.pk }}">
+  <div class="lead-card-heading">{% if lead.archived_at %}<strong class="lead-name">{{ lead.name }}</strong>{% else %}<a href="{% url 'lead_edit' lead.pk %}" class="lead-name">{{ lead.name }}</a>{% endif %}<span>#{{ lead.pk }}</span></div>
+  <p class="lead-card-course">{{ lead.course }}</p>
+  {% if lead.phone %}<a class="lead-phone" href="tel:{{ lead.phone }}"><i class="fas fa-phone"></i> {{ lead.phone }}</a>{% endif %}
+  {% if lead.follow_up_at %}<p class="lead-card-callback"><i class="fas fa-clock" aria-hidden="true"></i> {{ lead.follow_up_at|date:'d.m.Y H:i' }}</p>{% endif %}
+</article>

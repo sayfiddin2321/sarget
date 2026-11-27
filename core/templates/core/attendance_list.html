@@ -1,0 +1,270 @@
+{% extends 'core/base.html' %}
+{% load custom_filters %}
+{% block title %}Davomat{% endblock %}
+
+{% block extra_css %}
+<style>
+.att-summary-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.att-summary-card {
+  flex: 1;
+  min-width: 130px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+}
+.att-summary-card.present { background: var(--green-dim); border-color: color-mix(in srgb, var(--green) 25%, transparent); }
+.att-summary-card.late    { background: var(--orange-dim); border-color: color-mix(in srgb, var(--orange) 25%, transparent); }
+.att-summary-card.absent  { background: var(--red-dim); border-color: color-mix(in srgb, var(--red) 25%, transparent); }
+.att-summary-card.total   { background: var(--bg-elevated); border-color: var(--border-strong); }
+
+.att-summary-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.present .att-summary-icon { color: var(--green); background: color-mix(in srgb, var(--green) 18%, transparent); }
+.late .att-summary-icon    { color: var(--orange); background: color-mix(in srgb, var(--orange) 18%, transparent); }
+.absent .att-summary-icon  { color: var(--red); background: color-mix(in srgb, var(--red) 18%, transparent); }
+.total .att-summary-icon   { color: var(--accent); background: var(--accent-dim); }
+
+.att-summary-num {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.present .att-summary-num { color: var(--green); }
+.late .att-summary-num    { color: var(--orange); }
+.absent .att-summary-num  { color: var(--red); }
+.total .att-summary-num   { color: var(--text-primary); }
+
+.att-summary-text {
+  font-size: 0.74rem;
+  font-weight: 700;
+  margin-top: 2px;
+  opacity: 0.75;
+}
+.present .att-summary-text { color: var(--green); }
+.late .att-summary-text    { color: var(--orange); }
+.absent .att-summary-text  { color: var(--red); }
+.total .att-summary-text   { color: var(--text-muted); }
+
+.att-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+.att-status-badge.present { color: var(--green); background: var(--green-dim); border-color: color-mix(in srgb, var(--green) 22%, transparent); }
+.att-status-badge.late    { color: var(--orange); background: var(--orange-dim); border-color: color-mix(in srgb, var(--orange) 22%, transparent); }
+.att-status-badge.absent  { color: var(--red); background: var(--red-dim); border-color: color-mix(in srgb, var(--red) 22%, transparent); }
+.att-status-badge.excused { color: var(--blue); background: var(--blue-dim); border-color: color-mix(in srgb, var(--blue) 22%, transparent); }
+
+.filter-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+.filter-group { flex: 1; min-width: 160px; display: flex; flex-direction: column; gap: 6px; }
+.filter-group label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-calendar-check"></i> Davomat</h1>
+    <p>O'quvchilarning keldi-ketdi holatini kuzating</p>
+  </div>
+  <div class="header-actions" style="display:flex;gap:8px">
+    {% if selected_group %}
+    {% if capabilities.attendance_write %}<a href="{% url 'take_attendance' selected_group %}" class="btn btn-primary">
+      <i class="fas fa-pen-to-square"></i> Davomat olish
+    </a>{% endif %}
+    {% if capabilities.attendance_write %}<a href="{% url 'take_attendance_select' %}" class="btn btn-secondary">
+      <i class="fas fa-layer-group"></i> Boshqa guruh tanlash
+    </a>{% endif %}
+    {% else %}
+    {% if capabilities.attendance_write %}<a href="{% url 'take_attendance_select' %}" class="btn btn-primary">
+      <i class="fas fa-pen-to-square"></i> Guruh tanlab davomat olish
+    </a>{% endif %}
+    {% endif %}
+    <a href="{% url 'attendance_list' %}" class="btn btn-secondary">
+      <i class="fas fa-rotate"></i> Yangilash
+    </a>
+  </div>
+</div>
+
+<!-- Summary cards -->
+<div class="att-summary-bar">
+  <div class="att-summary-card present">
+    <div class="att-summary-icon"><i class="fas fa-circle-check"></i></div>
+    <div>
+      <div class="att-summary-num">{{ present_count }}</div>
+      <div class="att-summary-text">Keldi</div>
+    </div>
+  </div>
+  <div class="att-summary-card late">
+    <div class="att-summary-icon"><i class="fas fa-clock"></i></div>
+    <div>
+      <div class="att-summary-num">{{ late_count }}</div>
+      <div class="att-summary-text">Kechikdi</div>
+    </div>
+  </div>
+  <div class="att-summary-card absent">
+    <div class="att-summary-icon"><i class="fas fa-circle-xmark"></i></div>
+    <div>
+      <div class="att-summary-num">{{ absent_count }}</div>
+      <div class="att-summary-text">Kelmadi</div>
+    </div>
+  </div>
+  <div class="att-summary-card total">
+    <div class="att-summary-icon"><i class="fas fa-users"></i></div>
+    <div>
+      <div class="att-summary-num">{{ attendances|length }}</div>
+      <div class="att-summary-text">Jami belgilangan</div>
+    </div>
+  </div>
+</div>
+
+<!-- Filters -->
+<div class="card" style="margin-bottom:18px">
+  <div class="card-header"><h3><i class="fas fa-sliders"></i> Filtrlar</h3></div>
+  <div class="card-body">
+    <form method="get">
+      <div class="filter-row">
+        <div class="filter-group">
+          <label><i class="fas fa-calendar-day"></i> Sana</label>
+          <input type="date" name="date" class="form-control js-auto-submit"
+                 value="{{ selected_date|date:'Y-m-d' }}">
+        </div>
+        <div class="filter-group">
+          <label><i class="fas fa-layer-group"></i> Guruh</label>
+          <select name="group" class="form-select select2 js-auto-submit" data-placeholder="Barcha guruhlar">
+            <option value="">Barcha guruhlar</option>
+            {% for group in groups %}
+            <option value="{{ group.id }}" {% if selected_group == group.id|stringformat:"s" %}selected{% endif %}>
+              {{ group.name }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="filter-group" style="flex:0;align-self:flex-end">
+          <button type="submit" class="btn btn-primary"><i class="fas fa-filter"></i> Filter</button>
+        </div>
+        {% if selected_group or selected_date %}
+        <div class="filter-group" style="flex:0;align-self:flex-end">
+          <a href="{% url 'attendance_list' %}" class="btn btn-secondary"><i class="fas fa-xmark"></i></a>
+        </div>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Table -->
+<div class="card">
+  <div class="card-header">
+    <h3><i class="fas fa-list-check"></i> {{ selected_date|date:"d F Y" }} — Davomat</h3>
+  </div>
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>O'quvchi</th>
+            <th>Guruh</th>
+            <th>Holat</th>
+            <th>Belgilagan</th>
+            <th>Vaqt</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for att in attendances %}
+          <tr>
+            <td style="color:var(--text-muted);font-size:0.8rem">{{ forloop.counter }}</td>
+            <td>
+              <div class="entity-cell">
+                <div class="entity-avatar">{% include 'core/includes/student_avatar.html' with student=att.student %}</div>
+                <div>
+                  <div class="entity-name">{{ att.student.name }}</div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span style="background:var(--purple-dim);color:var(--purple);padding:3px 9px;border-radius:6px;font-size:0.76rem;font-weight:700">
+                {{ att.group.name }}
+              </span>
+            </td>
+            <td>
+              <span class="att-status-badge {{ att.status }}">
+                <i class="fas {% if att.status == 'present' %}fa-circle-check{% elif att.status == 'late' %}fa-clock{% elif att.status == 'excused' %}fa-file-shield{% else %}fa-circle-xmark{% endif %}"></i>
+                {{ att.get_status_display }}
+              </span>
+            </td>
+            <td style="font-size:0.82rem;color:var(--text-muted)">
+              {% if att.marked_by %}{{ att.marked_by.get_full_name|default:att.marked_by.username }}{% else %}—{% endif %}
+            </td>
+            <td style="font-family:var(--font-mono);font-size:0.8rem;color:var(--text-muted)">
+              {{ att.marked_at|date:"H:i" }}
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="6" class="text-center">
+              <div class="empty-state" style="padding:36px 20px">
+                <i class="fas fa-calendar-xmark"></i>
+                <p>Bu sana uchun davomat mavjud emas</p>
+                {% if selected_group %}
+                {% if capabilities.attendance_write %}<a href="{% url 'take_attendance' selected_group %}" class="btn btn-sm btn-primary" style="margin-top:12px">
+                  <i class="fas fa-pen-to-square"></i> Davomat olish
+                </a>{% endif %}
+                {% elif groups %}
+                {% if capabilities.attendance_write %}<a href="{% url 'take_attendance_select' %}" class="btn btn-sm btn-primary" style="margin-top:12px">
+                  <i class="fas fa-layer-group"></i> Guruh tanlab davomat olish
+                </a>{% endif %}
+                {% endif %}
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Auto-submit on date/group change
+document.querySelectorAll('.js-auto-submit').forEach(el => {
+  el.addEventListener('change', () => el.closest('form').submit());
+});
+</script>
+{% endblock %}

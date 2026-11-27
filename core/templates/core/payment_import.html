@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+{% block title %}To'lovlarni import qilish{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1><i class="fas fa-file-import"></i> To'lovlarni import qilish</h1>
+    <p>Tarixiy to'lovlarni oy va aniq to'langan sana-vaqti bilan bazaga kiriting.</p>
+  </div>
+  <div class="page-header-actions">
+    <a href="{% url 'payment_import_template' %}" class="btn btn-secondary"><i class="fas fa-download"></i> CSV namuna</a>
+    <a href="{% url 'payment_list' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> To'lovlarga qaytish</a>
+  </div>
+</div>
+
+<div class="card" style="max-width:760px">
+  <div class="card-header"><h3><i class="fas fa-cloud-arrow-up"></i> CSV faylni yuklash</h3></div>
+  <div class="card-body">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="payment-csv">To'lovlar CSV fayli</label>
+        <input id="payment-csv" type="file" name="csv_file" class="form-control" accept=".csv,text/csv" required>
+        <div class="form-text">O'quvchi telefon yoki to'liq ism bilan topiladi. Yangi to'lov har biri alohida saqlanadi.</div>
+      </div>
+      <div class="alert" style="background:var(--blue-dim);color:var(--text-secondary)">
+        <strong>Kerakli ustun:</strong> Summa. Tavsiya etilgan ustunlar: Telefon, O'quvchi ismi, Summa, To'lov oyi (YYYY-MM), To'lov sanasi (YYYY-MM-DD HH:MM), To'lov turi, Izoh.
+        <br>Tarixiy ma'lumot uchun to'lov oyi va to'langan sana-vaqtni faylda ko'rsating.
+      </div>
+      <div class="form-actions">
+        <a href="{% url 'payment_list' %}" class="btn btn-secondary">Bekor qilish</a>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-upload"></i> Import qilish</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

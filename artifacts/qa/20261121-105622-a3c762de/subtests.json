@@ -1,0 +1,2408 @@
+[
+  {
+    "test": "core.test_attendance_grades.AttendanceGradingTests.test_invalid_score_preserves_inputs_and_blocks_all_writes",
+    "case": "test_invalid_score_preserves_inputs_and_blocks_all_writes (core.test_attendance_grades.AttendanceGradingTests.test_invalid_score_preserves_inputs_and_blocks_all_writes) (score='0')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_attendance_grades.AttendanceGradingTests.test_invalid_score_preserves_inputs_and_blocks_all_writes",
+    "case": "test_invalid_score_preserves_inputs_and_blocks_all_writes (core.test_attendance_grades.AttendanceGradingTests.test_invalid_score_preserves_inputs_and_blocks_all_writes) (score='101')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_attendance_grades.AttendanceGradingTests.test_invalid_score_preserves_inputs_and_blocks_all_writes",
+    "case": "test_invalid_score_preserves_inputs_and_blocks_all_writes (core.test_attendance_grades.AttendanceGradingTests.test_invalid_score_preserves_inputs_and_blocks_all_writes) (score='-1')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_attendance_grades.AttendanceGradingTests.test_invalid_score_preserves_inputs_and_blocks_all_writes",
+    "case": "test_invalid_score_preserves_inputs_and_blocks_all_writes (core.test_attendance_grades.AttendanceGradingTests.test_invalid_score_preserves_inputs_and_blocks_all_writes) (score='2.5')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_attendance_grades.AttendanceGradingTests.test_invalid_score_preserves_inputs_and_blocks_all_writes",
+    "case": "test_invalid_score_preserves_inputs_and_blocks_all_writes (core.test_attendance_grades.AttendanceGradingTests.test_invalid_score_preserves_inputs_and_blocks_all_writes) (score='abc')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_attendance_grades.AttendanceGradingTests.test_invalid_score_preserves_inputs_and_blocks_all_writes",
+    "case": "test_invalid_score_preserves_inputs_and_blocks_all_writes (core.test_attendance_grades.AttendanceGradingTests.test_invalid_score_preserves_inputs_and_blocks_all_writes) (score='999999999999999999999')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking",
+    "case": "test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) (width=320, theme='light')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking",
+    "case": "test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) (width=320, theme='dark')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking",
+    "case": "test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) (width=390, theme='light')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking",
+    "case": "test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) (width=390, theme='dark')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking",
+    "case": "test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) (width=768, theme='light')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking",
+    "case": "test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) (width=768, theme='dark')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking",
+    "case": "test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) (width=1360, theme='light')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking",
+    "case": "test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking (core.test_mobile_rosters.MobileRosterLayoutTests.test_long_names_remain_readable_and_boards_scroll_instead_of_shrinking) (width=1360, theme='dark')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='dashboard')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='student_list')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='student_create')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='teacher_list')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='teacher_create')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='receptionist_list')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='receptionist_create')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='course_list')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='course_create')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='group_list')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='group_create')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='schedule')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='payment_list')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='payment_create')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='salary_list')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='calculate_salaries')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='receptionist_salary_list')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='calculate_receptionist_salaries')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='attendance_list')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='take_attendance_select')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='grade_list')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='take_grades_select')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='assignment_history')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='expense_list')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='expense_create')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='reports')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='report_center')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='report_jobs')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='notification_list')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='global_search')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='academic_center')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='staff_center')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='learning_center')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='salary_center')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='period_payroll')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='financial_migration')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin",
+    "case": "test_main_pages_render_for_superadmin (core.test_page_smoke.AdminPageSmokeTests.test_main_pages_render_for_superadmin) (page='certificate_list')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_period_payroll.PeriodPayrollTests.test_invalid_verification_never_shows_success",
+    "case": "test_invalid_verification_never_shows_success (core.test_period_payroll.PeriodPayrollTests.test_invalid_verification_never_shows_success) (token='NzU:1xUe5e:DBR2roMUgK46mvhDej-QhZkcpIklhycKN9YHyCk3oBQbroken')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_period_payroll.PeriodPayrollTests.test_invalid_verification_never_shows_success",
+    "case": "test_invalid_verification_never_shows_success (core.test_period_payroll.PeriodPayrollTests.test_invalid_verification_never_shows_success) (token='OTk5OTk5OTk:1xUe5e:74ZJvVB_o_9UrRMF972Lm_PcCjSU1XlZEfpIPYxlI6k')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_period_payroll.PeriodPayrollTests.test_receipt_groups_amount_with_spaces",
+    "case": "test_receipt_groups_amount_with_spaces (core.test_period_payroll.PeriodPayrollTests.test_receipt_groups_amount_with_spaces) (amount=600000)",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_period_payroll.PeriodPayrollTests.test_receipt_groups_amount_with_spaces",
+    "case": "test_receipt_groups_amount_with_spaces (core.test_period_payroll.PeriodPayrollTests.test_receipt_groups_amount_with_spaces) (amount=1250000)",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_period_payroll.PeriodPayrollTests.test_receipt_groups_amount_with_spaces",
+    "case": "test_receipt_groups_amount_with_spaces (core.test_period_payroll.PeriodPayrollTests.test_receipt_groups_amount_with_spaces) (amount=Decimal('600000.49'))",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_period_payroll.PeriodPayrollTests.test_receipt_groups_amount_with_spaces",
+    "case": "test_receipt_groups_amount_with_spaces (core.test_period_payroll.PeriodPayrollTests.test_receipt_groups_amount_with_spaces) (amount=Decimal('600000.50'))",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_remove', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_remove', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='payment_qr', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='payment_qr', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='payment_verify', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='payment_verify', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='period_payroll', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='period_payroll', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='academic_center', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='academic_center', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='staff_center', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='staff_center', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='learning_center', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='learning_center', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='salary_center', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='salary_center', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='financial_migration', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='financial_migration', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='financial_migration_template', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='financial_migration_template', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='financial_migration_batch', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='financial_migration_batch', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='financial_migration_confirm', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='financial_migration_confirm', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='staff_permissions', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='staff_permissions', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='profile_edit', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='profile_edit', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='report_settings', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='report_settings', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='report_center', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='report_center', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='report_export', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='report_export', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='report_jobs', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='report_jobs', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='report_job_download', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='report_job_download', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='xlsx_import', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='xlsx_import', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='xlsx_import_template', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='xlsx_import_template', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='xlsx_import_preview', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='xlsx_import_preview', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='xlsx_import_confirm', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='xlsx_import_confirm', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_report', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_report', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_report_send', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_report_send', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_report_link', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_report_link', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_report_subscribe', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_report_subscribe', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_telegram_message', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_telegram_message', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_restore', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_restore', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='enrollment_create', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='enrollment_create', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='enrollment_edit', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='enrollment_edit', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='refund_create', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='refund_create', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='lead_message', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='lead_message', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='lead_restore', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='lead_restore', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='telegram_link', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='telegram_link', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='financial_history', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='financial_history', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='system_status', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='system_status', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_bot_create_lead', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_bot_create_lead', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_bot_auth_user', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_bot_auth_user', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_bot_student_info', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_bot_student_info', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_bot_staff_summary', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_bot_staff_summary', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_bot_courses_list', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_bot_courses_list', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_bot_account', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_bot_account', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_bot_lead_message', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_bot_lead_message', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_health_check', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_health_check', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='lead_list', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='lead_list', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='lead_create', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='lead_create', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='lead_edit', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='lead_edit', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='lead_claim', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='lead_claim', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='lead_status_update', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='lead_status_update', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='lead_enroll', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='lead_enroll', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='lead_delete', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='lead_delete', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='lead_export', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='lead_export', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='telegram_webhook', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='telegram_webhook', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='dashboard', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='dashboard', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='login', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='login', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='logout', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='logout', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_students_search', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_students_search', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_group_students', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_group_students', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='mark_notification_read', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='mark_notification_read', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='notification_poll', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='notification_poll', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_notification_clear_all', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_notification_clear_all', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_notification_read_all', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='api_notification_read_all', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='notification_list', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='notification_list', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='notification_clear_all', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='notification_clear_all', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='notification_read_all', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='notification_read_all', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='notification_open', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='notification_open', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='notification_delete', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='notification_delete', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='global_search', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='global_search', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_list', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_list', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_create', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_create', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_export', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_export', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_import', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_import', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_import_template', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_import_template', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_detail', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_detail', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_status_update', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_status_update', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_card_print', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_card_print', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_edit', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_edit', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_delete', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='student_delete', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='teacher_list', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='teacher_list', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='teacher_create', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='teacher_create', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='teacher_edit', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='teacher_edit', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='teacher_delete', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='teacher_delete', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='receptionist_list', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='receptionist_list', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='receptionist_create', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='receptionist_create', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='receptionist_edit', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='receptionist_edit', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='receptionist_delete', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='receptionist_delete', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='receptionist_commissions', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='receptionist_commissions', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='receptionist_salary_list', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='receptionist_salary_list', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='calculate_receptionist_salaries', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='calculate_receptionist_salaries', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='receptionist_salary_toggle', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='receptionist_salary_toggle', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='course_list', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='course_list', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='course_create', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='course_create', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='course_edit', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='course_edit', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='course_delete', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='course_delete', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='group_list', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='group_list', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='group_create', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='group_create', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='group_edit', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='group_edit', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='group_delete', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='group_delete', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='schedule', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='schedule', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='payment_list', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='payment_list', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='payment_create', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='payment_create', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='payment_export', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='payment_export', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='payment_import', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='payment_import', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='payment_import_template', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='payment_import_template', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='payment_receipt', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='payment_receipt', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='payment_edit', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='payment_edit', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='payment_delete', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='payment_delete', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='salary_list', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='salary_list', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='calculate_salaries', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='calculate_salaries', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='update_salary_status', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='update_salary_status', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='attendance_list', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='attendance_list', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='take_attendance_select', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='take_attendance_select', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='take_attendance', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='take_attendance', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='grade_list', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='grade_list', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='take_grades_select', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='take_grades_select', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='take_grades', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='take_grades', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='grade_delete', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='grade_delete', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='assignment_history', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='assignment_history', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='expense_list', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='expense_list', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='expense_create', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='expense_create', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='expense_delete', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='expense_delete', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='reports', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='reports', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='certificate_list', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='certificate_list', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='certificate_settings', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='certificate_settings', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='certificate_create', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='certificate_create', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='certificate_detail', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='certificate_detail', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='certificate_edit', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='certificate_edit', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='certificate_delete', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='certificate_delete', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='certificate_verify', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='certificate_verify', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='certificate_verify_short', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500",
+    "case": "test_all_named_routes_reject_anonymous_mutations_and_avoid_500 (core.test_project_qa.ProjectQATests.test_all_named_routes_reject_anonymous_mutations_and_avoid_500) (route='certificate_verify_short', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_create_lead', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_create_lead', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_create_lead', method='put')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_create_lead', method='patch')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_create_lead', method='delete')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_create_lead', body='{')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_create_lead', body='[]')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_create_lead', body='null')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_create_lead', body='42')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_create_lead', body='\"text\"')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_auth_user', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_auth_user', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_auth_user', method='put')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_auth_user', method='patch')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_auth_user', method='delete')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_auth_user', body='{')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_auth_user', body='[]')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_auth_user', body='null')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_auth_user', body='42')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_auth_user', body='\"text\"')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_lead_message', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_lead_message', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_lead_message', method='put')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_lead_message', method='patch')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_lead_message', method='delete')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_lead_message', body='{')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_lead_message', body='[]')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_lead_message', body='null')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_lead_message', body='42')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_lead_message', body='\"text\"')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_courses_list', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_courses_list', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_courses_list', method='put')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_courses_list', method='patch')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_courses_list', method='delete')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_student_info', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_student_info', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_student_info', method='put')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_student_info', method='patch')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_student_info', method='delete')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_staff_summary', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_staff_summary', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_staff_summary', method='put')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_staff_summary', method='patch')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_staff_summary', method='delete')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_account', method='get')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_account', method='post')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_account', method='put')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_account', method='patch')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix",
+    "case": "test_api_methods_authentication_and_invalid_json_matrix (core.test_project_qa.ProjectQATests.test_api_methods_authentication_and_invalid_json_matrix) (route='api_bot_account', method='delete')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow",
+    "case": "test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) (amount='NaN')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow",
+    "case": "test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) (amount='Infinity')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow",
+    "case": "test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) (amount='-Infinity')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow",
+    "case": "test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) (amount='10000000000')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow",
+    "case": "test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) (amount='0.001')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow",
+    "case": "test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) (amount='0')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow",
+    "case": "test_model_payment_amount_rejects_nonfinite_and_precision_overflow (core.test_project_qa.ProjectQATests.test_model_payment_amount_rejects_nonfinite_and_precision_overflow) (amount='-1')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_month_end_leap_day_and_year_change_use_one_charge_per_month",
+    "case": "test_month_end_leap_day_and_year_change_use_one_charge_per_month (core.test_project_qa.ProjectQATests.test_month_end_leap_day_and_year_change_use_one_charge_per_month) (day=datetime.date(2023, 12, 31))",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_month_end_leap_day_and_year_change_use_one_charge_per_month",
+    "case": "test_month_end_leap_day_and_year_change_use_one_charge_per_month (core.test_project_qa.ProjectQATests.test_month_end_leap_day_and_year_change_use_one_charge_per_month) (day=datetime.date(2024, 1, 30))",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_month_end_leap_day_and_year_change_use_one_charge_per_month",
+    "case": "test_month_end_leap_day_and_year_change_use_one_charge_per_month (core.test_project_qa.ProjectQATests.test_month_end_leap_day_and_year_change_use_one_charge_per_month) (day=datetime.date(2024, 1, 31))",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_month_end_leap_day_and_year_change_use_one_charge_per_month",
+    "case": "test_month_end_leap_day_and_year_change_use_one_charge_per_month (core.test_project_qa.ProjectQATests.test_month_end_leap_day_and_year_change_use_one_charge_per_month) (day=datetime.date(2024, 2, 28))",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_month_end_leap_day_and_year_change_use_one_charge_per_month",
+    "case": "test_month_end_leap_day_and_year_change_use_one_charge_per_month (core.test_project_qa.ProjectQATests.test_month_end_leap_day_and_year_change_use_one_charge_per_month) (day=datetime.date(2024, 2, 29))",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_month_end_leap_day_and_year_change_use_one_charge_per_month",
+    "case": "test_month_end_leap_day_and_year_change_use_one_charge_per_month (core.test_project_qa.ProjectQATests.test_month_end_leap_day_and_year_change_use_one_charge_per_month) (day=datetime.date(2024, 3, 30))",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_month_end_leap_day_and_year_change_use_one_charge_per_month",
+    "case": "test_month_end_leap_day_and_year_change_use_one_charge_per_month (core.test_project_qa.ProjectQATests.test_month_end_leap_day_and_year_change_use_one_charge_per_month) (day=datetime.date(2024, 3, 31))",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_month_end_leap_day_and_year_change_use_one_charge_per_month",
+    "case": "test_month_end_leap_day_and_year_change_use_one_charge_per_month (core.test_project_qa.ProjectQATests.test_month_end_leap_day_and_year_change_use_one_charge_per_month) (day=datetime.date(2024, 4, 29))",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_month_end_leap_day_and_year_change_use_one_charge_per_month",
+    "case": "test_month_end_leap_day_and_year_change_use_one_charge_per_month (core.test_project_qa.ProjectQATests.test_month_end_leap_day_and_year_change_use_one_charge_per_month) (day=datetime.date(2024, 4, 30))",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls",
+    "case": "test_percentage_rounding_matches_independent_controls (core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls) (amount='0.03', rate='50')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls",
+    "case": "test_percentage_rounding_matches_independent_controls (core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls) (amount='123.45', rate='12.5')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls",
+    "case": "test_percentage_rounding_matches_independent_controls (core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls) (amount='9999999.99', rate='40')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls",
+    "case": "test_percentage_rounding_matches_independent_controls (core.test_project_qa.ProjectQATests.test_percentage_rounding_matches_independent_controls) (amount='100', rate='0')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+    "case": "test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='10000000000')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+    "case": "test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='1e1000')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+    "case": "test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='0.001')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+    "case": "test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='-1')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+    "case": "test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='NaN')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected",
+    "case": "test_receptionist_salary_out_of_range_is_rejected (core.test_project_qa.ProjectQATests.test_receptionist_salary_out_of_range_is_rejected) (amount='Infinity')",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_receipt_print.ReceiptPrintTests.test_thermal_print_geometry_and_browser_controls",
+    "case": "test_thermal_print_geometry_and_browser_controls (core.test_receipt_print.ReceiptPrintTests.test_thermal_print_geometry_and_browser_controls) (scenario='normal', width=80)",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_receipt_print.ReceiptPrintTests.test_thermal_print_geometry_and_browser_controls",
+    "case": "test_thermal_print_geometry_and_browser_controls (core.test_receipt_print.ReceiptPrintTests.test_thermal_print_geometry_and_browser_controls) (scenario='normal', width=58)",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_receipt_print.ReceiptPrintTests.test_thermal_print_geometry_and_browser_controls",
+    "case": "test_thermal_print_geometry_and_browser_controls (core.test_receipt_print.ReceiptPrintTests.test_thermal_print_geometry_and_browser_controls) (scenario='long', width=80)",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_receipt_print.ReceiptPrintTests.test_thermal_print_geometry_and_browser_controls",
+    "case": "test_thermal_print_geometry_and_browser_controls (core.test_receipt_print.ReceiptPrintTests.test_thermal_print_geometry_and_browser_controls) (scenario='long', width=58)",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_receipt_print.ReceiptPrintTests.test_thermal_print_geometry_and_browser_controls",
+    "case": "test_thermal_print_geometry_and_browser_controls (core.test_receipt_print.ReceiptPrintTests.test_thermal_print_geometry_and_browser_controls) (scenario='void', width=80)",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "test": "core.test_receipt_print.ReceiptPrintTests.test_thermal_print_geometry_and_browser_controls",
+    "case": "test_thermal_print_geometry_and_browser_controls (core.test_receipt_print.ReceiptPrintTests.test_thermal_print_geometry_and_browser_controls) (scenario='void', width=58)",
+    "status": "PASS",
+    "detail": ""
+  }
+]
